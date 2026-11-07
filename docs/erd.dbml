@@ -1,0 +1,307 @@
+// Milcow — B2B dairy trading platform
+// ER model (PostgreSQL + Prisma)
+
+Project Milcow {
+  database_type: 'PostgreSQL'
+  Note: 'B2B platform: bulk dairy purchase, supply contracts, warehouse pickup, Kakao Map, Toss Payments, AI (RAG + contract assistant)'
+}
+
+// ───────────── Enums ─────────────
+Enum MemberType {
+  BUYER
+  STAFF
+  ADMIN
+}
+Enum MemberStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}
+Enum Lang {
+  KO
+  EN
+  UZ
+}
+Enum FarmCertification {
+  HACCP
+  ORGANIC
+  ANIMAL_WELFARE
+}
+Enum ProductType {
+  RAW_MILK
+  CREAM
+  BUTTER
+  CHEESE
+  YOGURT
+  MILK_POWDER
+}
+Enum ProductGrade {
+  PREMIUM
+  GRADE_1
+  GRADE_2
+}
+Enum ProductStatus {
+  ACTIVE
+  PAUSED
+}
+Enum OrderStatus {
+  PENDING
+  PAID
+  PREPARING
+  SHIPPING
+  READY_FOR_PICKUP
+  COMPLETED
+  CANCELLED
+}
+Enum DeliveryType {
+  DELIVERY
+  PICKUP
+}
+Enum ContractStatus {
+  DRAFT
+  REVIEW
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+Enum ServiceType {
+  COLD_CHAIN
+  QUALITY_TEST
+  PRICE_LOCK
+  PRIORITY_SUPPLY
+  FREE_PICKUP
+}
+Enum ServiceStatus {
+  ACTIVE
+  PAUSED
+}
+Enum PickupStatus {
+  SCHEDULED
+  LOADING
+  READY
+  PICKED_UP
+}
+Enum PaymentStatus {
+  READY
+  DONE
+  CANCELED
+  FAILED
+}
+Enum InquiryStatus {
+  NEW
+  ANSWERED
+}
+Enum AiLogType {
+  CHAT
+  CONTRACT
+}
+
+// ───────────── Members ─────────────
+Table Member {
+  id uuid [pk]
+  memberType MemberType [not null, default: 'BUYER']
+  memberStatus MemberStatus [not null, default: 'ACTIVE']
+  memberEmail varchar [unique, not null]
+  memberPassword varchar [note: 'null for Kakao-only accounts']
+  memberKakaoId varchar [unique]
+  memberNick varchar [not null]
+  memberPhone varchar
+  memberCompanyName varchar
+  memberBizNo varchar [note: '사업자등록번호']
+  memberLang Lang [not null, default: 'KO']
+  warehouseId uuid [ref: > Warehouse.id, note: 'STAFF only']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+// ───────────── Farms & Warehouses ─────────────
+Table Farm {
+  id uuid [pk]
+  farmName jsonb [not null, note: '{ ko, en, uz }']
+  farmDesc jsonb [note: '{ ko, en, uz }']
+  farmAddress varchar [not null]
+  farmLat decimal(9,6) [not null]
+  farmLng decimal(9,6) [not null]
+  farmCowCount int
+  farmDailyCapacityTon decimal(10,2)
+  farmCertifications FarmCertification[]
+  farmImages varchar[]
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+Table Warehouse {
+  id uuid [pk]
+  warehouseName jsonb [not null, note: '{ ko, en, uz }']
+  warehouseAddress varchar [not null]
+  warehouseLat decimal(9,6) [not null]
+  warehouseLng decimal(9,6) [not null]
+  warehouseCapacityTon decimal(10,2) [not null]
+  warehouseTempC decimal(4,1)
+  warehouseOpenTime varchar [note: 'HH:mm']
+  warehouseCloseTime varchar [note: 'HH:mm']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+// ───────────── Products & Stock ─────────────
+Table Product {
+  id uuid [pk]
+  productType ProductType [not null]
+  productName jsonb [not null, note: '{ ko, en, uz }']
+  productDesc jsonb [note: '{ ko, en, uz }']
+  productGrade ProductGrade [not null]
+  productFatPct decimal(4,2)
+  productProteinPct decimal(4,2)
+  productPricePerTon int [not null, note: 'KRW']
+  productMinOrderTon decimal(10,2) [not null]
+  productStatus ProductStatus [not null, default: 'ACTIVE']
+  productImages varchar[]
+  farmId uuid [ref: > Farm.id, note: 'origin farm (optional)']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+Table Inventory {
+  id uuid [pk]
+  productId uuid [not null, ref: > Product.id]
+  warehouseId uuid [not null, ref: > Warehouse.id]
+  inventoryTon decimal(10,2) [not null, default: 0]
+  updatedAt timestamp [not null]
+  indexes {
+    (productId, warehouseId) [unique]
+  }
+}
+
+// ───────────── Orders ─────────────
+Table Order {
+  id uuid [pk]
+  memberId uuid [not null, ref: > Member.id]
+  contractId uuid [ref: > Contract.id, note: 'set when generated monthly by a contract']
+  warehouseId uuid [not null, ref: > Warehouse.id]
+  orderStatus OrderStatus [not null, default: 'PENDING']
+  orderDeliveryType DeliveryType [not null]
+  orderAddress varchar [note: 'DELIVERY only']
+  orderScheduledDate date
+  orderTotal int [not null, note: 'KRW']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+  indexes {
+    (memberId, orderStatus)
+  }
+}
+
+Table OrderItem {
+  id uuid [pk]
+  orderId uuid [not null, ref: > Order.id]
+  productId uuid [not null, ref: > Product.id]
+  itemTon decimal(10,2) [not null]
+  itemPricePerTon int [not null, note: 'price at order time']
+}
+
+// ───────────── Contracts & Services ─────────────
+Table Contract {
+  id uuid [pk]
+  memberId uuid [not null, ref: > Member.id]
+  productId uuid [not null, ref: > Product.id]
+  contractStatus ContractStatus [not null, default: 'DRAFT']
+  contractStart date [not null]
+  contractEnd date [not null]
+  contractMonthlyTon decimal(10,2) [not null]
+  contractPricePerTon int [not null]
+  contractDeliveryType DeliveryType [not null]
+  contractAddress varchar
+  contractTerms jsonb [note: 'AI-generated draft (structured output)']
+  contractPdfUrl varchar
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+Table ServicePlan {
+  id uuid [pk]
+  serviceType ServiceType [unique, not null]
+  serviceName jsonb [not null, note: '{ ko, en, uz }']
+  serviceDesc jsonb [note: '{ ko, en, uz }']
+  servicePrice int [not null, note: 'KRW per month']
+  serviceStatus ServiceStatus [not null, default: 'ACTIVE']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+Table ContractService {
+  contractId uuid [ref: > Contract.id]
+  servicePlanId uuid [ref: > ServicePlan.id]
+  indexes {
+    (contractId, servicePlanId) [pk]
+  }
+}
+
+// ───────────── Pickup ─────────────
+Table PickupSlot {
+  id uuid [pk]
+  warehouseId uuid [not null, ref: > Warehouse.id]
+  slotStart timestamp [not null]
+  slotEnd timestamp [not null]
+  slotCapacity int [not null, note: 'trucks per slot']
+  slotBooked int [not null, default: 0]
+  indexes {
+    (warehouseId, slotStart) [unique]
+  }
+}
+
+Table Pickup {
+  id uuid [pk]
+  orderId uuid [unique, not null, ref: - Order.id]
+  pickupSlotId uuid [not null, ref: > PickupSlot.id]
+  pickupStatus PickupStatus [not null, default: 'SCHEDULED']
+  pickupVehicleNo varchar
+  pickupCode varchar [unique, not null]
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+// ───────────── Payments ─────────────
+Table Payment {
+  id uuid [pk]
+  orderId uuid [not null, ref: > Order.id]
+  paymentTossOrderId varchar [unique, not null]
+  paymentKey varchar [unique]
+  paymentStatus PaymentStatus [not null, default: 'READY']
+  paymentMethod varchar
+  paymentAmount int [not null]
+  paymentApprovedAt timestamp
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+// ───────────── Contact ─────────────
+Table Inquiry {
+  id uuid [pk]
+  inquiryName varchar [not null]
+  inquiryEmail varchar [not null]
+  inquiryCompany varchar
+  inquiryMessage text [not null]
+  inquiryStatus InquiryStatus [not null, default: 'NEW']
+  createdAt timestamp [not null, default: `now()`]
+  updatedAt timestamp [not null]
+}
+
+// ───────────── AI ─────────────
+Table KnowledgeChunk {
+  id uuid [pk]
+  chunkSource varchar [not null]
+  chunkLang Lang [not null]
+  chunkText text [not null]
+  chunkEmbedding vector [note: 'pgvector']
+  createdAt timestamp [not null, default: `now()`]
+}
+
+Table AiLog {
+  id uuid [pk]
+  memberId uuid [ref: > Member.id]
+  logType AiLogType [not null]
+  logInput text [not null]
+  logOutput text
+  logLatencyMs int
+  createdAt timestamp [not null, default: `now()`]
+}

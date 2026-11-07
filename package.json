@@ -1,0 +1,19 @@
+{
+  "name": "milcow",
+  "private": true,
+  "description": "B2B dairy trading platform — bulk purchase, supply contracts, warehouse pickup, AI assistant",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "type-check": "turbo run type-check"
+  },
+  "devDependencies": {
+    "turbo": "^2.11.10"
+  }
+}
