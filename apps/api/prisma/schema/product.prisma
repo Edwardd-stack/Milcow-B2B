@@ -42,6 +42,8 @@ model Product {
   farm   Farm?   @relation(fields: [farmId], references: [id], onDelete: SetNull)
 
   inventories Inventory[]
+  orderItems  OrderItem[]
+  contracts   Contract[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)

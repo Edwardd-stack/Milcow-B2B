@@ -1,0 +1,63 @@
+enum OrderStatus {
+  PENDING // created, waiting for payment
+  PAID
+  PREPARING
+  SHIPPING // DELIVERY only
+  READY_FOR_PICKUP // PICKUP only
+  COMPLETED
+  CANCELLED
+
+  @@map("order_status")
+}
+
+enum DeliveryType {
+  DELIVERY // Milcow delivers to the buyer's address
+  PICKUP // buyer picks up at a warehouse
+
+  @@map("delivery_type")
+}
+
+model Order {
+  id                 String       @id @default(uuid(7)) @db.Uuid
+  orderStatus        OrderStatus  @default(PENDING) @map("order_status")
+  orderDeliveryType  DeliveryType @map("order_delivery_type")
+  orderAddress       String?      @map("order_address") // DELIVERY only
+  orderScheduledDate DateTime?    @map("order_scheduled_date") @db.Date
+  orderTotal         Decimal      @map("order_total") @db.Decimal(15, 0) // KRW
+
+  memberId    String    @map("member_id") @db.Uuid
+  member      Member    @relation(fields: [memberId], references: [id], onDelete: Restrict)
+  warehouseId String    @map("warehouse_id") @db.Uuid // ships from / pickup at
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Restrict)
+
+  // Set when the order was generated monthly by a contract
+  contractId String?   @map("contract_id") @db.Uuid
+  contract   Contract? @relation(fields: [contractId], references: [id], onDelete: SetNull)
+
+  items    OrderItem[]
+  pickup   Pickup?
+  payments Payment[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@unique([contractId, orderScheduledDate]) // a contract creates at most one order per date (safe cron re-runs)
+  @@index([memberId, orderStatus])
+  @@index([warehouseId])
+  @@map("orders")
+}
+
+model OrderItem {
+  id              String  @id @default(uuid(7)) @db.Uuid
+  itemTon         Decimal @map("item_ton") @db.Decimal(10, 2)
+  itemPricePerTon Int     @map("item_price_per_ton") // price at order time (snapshot)
+
+  orderId   String  @map("order_id") @db.Uuid
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String  @map("product_id") @db.Uuid
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@unique([orderId, productId]) // one line per product in an order
+  @@index([productId])
+  @@map("order_items")
+}
