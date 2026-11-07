@@ -26,6 +26,6 @@ export interface Paginated<T> {
 /** Shape of every error response from the api. */
 export interface ApiError {
   statusCode: number;
-  message: string;
+  message: string | string[]; // NestJS validation errors come as an array
   error?: string;
 }

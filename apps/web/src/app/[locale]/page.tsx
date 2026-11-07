@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { ApiStatus } from '@/components/home/ApiStatus';
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
       <LocaleSwitcher />
       <h1 className="text-4xl font-semibold tracking-tight">{t('title')}</h1>
       <p className="max-w-xl text-lg text-zinc-500">{t('subtitle')}</p>
+      <ApiStatus />
     </main>
   );
 }

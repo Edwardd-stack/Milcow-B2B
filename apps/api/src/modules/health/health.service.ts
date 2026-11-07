@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { LOCALES } from '@milcow/shared';
+import { LOCALES, type HealthResponse } from '@milcow/shared';
 
 @Injectable()
 export class HealthService {
-  check() {
+  check(): HealthResponse {
     return {
       status: 'ok',
       service: 'milcow-api',

@@ -9,5 +9,12 @@
   },
   "LocaleSwitcher": {
     "label": "Tilni tanlash"
+  },
+  "ApiStatus": {
+    "title": "API holati",
+    "loading": "tekshirilmoqda…",
+    "online": "ishlayapti",
+    "offline": "ulanib bo'lmadi",
+    "uptime": "ish vaqti {seconds} s"
   }
 }

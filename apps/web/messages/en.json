@@ -9,5 +9,12 @@
   },
   "LocaleSwitcher": {
     "label": "Choose language"
+  },
+  "ApiStatus": {
+    "title": "API status",
+    "loading": "checking…",
+    "online": "online",
+    "offline": "offline",
+    "uptime": "uptime {seconds}s"
   }
 }
