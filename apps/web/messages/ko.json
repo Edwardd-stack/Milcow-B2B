@@ -1,0 +1,13 @@
+{
+  "Metadata": {
+    "title": "Milcow — 유제품 B2B 거래 플랫폼",
+    "description": "원유와 유제품을 톤 단위로 구매하고, 장기 공급 계약을 맺고, 창고에서 직접 픽업하세요."
+  },
+  "HomePage": {
+    "title": "신선한 원유, 톤 단위로",
+    "subtitle": "Milcow는 기업을 위한 유제품 B2B 플랫폼입니다. 대량 구매, 공급 계약, 창고 픽업을 한 곳에서."
+  },
+  "LocaleSwitcher": {
+    "label": "언어 선택"
+  }
+}

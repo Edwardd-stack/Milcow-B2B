@@ -10,6 +10,8 @@ catalog:
 # Which dependencies may run install scripts (postinstall).
 # Deny by default; allow only what the project really needs.
 allowBuilds:
+  '@parcel/watcher': false # file watcher used by next-intl tooling — prebuilt binary is used
   '@scarf/scarf': false # Swagger UI telemetry — not needed
+  '@swc/core': false # fast TS/JS compiler used by next-intl tooling — prebuilt binary is used
   sharp: false # Next.js image optimizer — prebuilt binaries are used, no script needed
   unrs-resolver: false # ESLint import resolver — prebuilt binaries are used

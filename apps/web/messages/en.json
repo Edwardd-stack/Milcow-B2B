@@ -1,0 +1,13 @@
+{
+  "Metadata": {
+    "title": "Milcow — B2B Dairy Trading Platform",
+    "description": "Buy raw milk and dairy products by the ton, sign long-term supply contracts and pick up directly from our warehouses."
+  },
+  "HomePage": {
+    "title": "Fresh milk, by the ton",
+    "subtitle": "Milcow is a B2B dairy platform for businesses: bulk orders, supply contracts and warehouse pickup in one place."
+  },
+  "LocaleSwitcher": {
+    "label": "Choose language"
+  }
+}
