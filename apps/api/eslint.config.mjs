@@ -5,7 +5,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['dist/**', 'eslint.config.mjs']),
+  globalIgnores(['dist/**', 'src/generated/**', 'eslint.config.mjs', 'prisma.config.ts']),
 
   js.configs.recommended,
 

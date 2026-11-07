@@ -1,0 +1,28 @@
+enum FarmCertification {
+  HACCP
+  ORGANIC
+  ANIMAL_WELFARE // 동물복지
+
+  @@map("farm_certification")
+}
+
+// 목장 — shown on Kakao Map. Farms supply milk to Milcow; they have no accounts.
+model Farm {
+  id                   String              @id @default(uuid(7)) @db.Uuid
+  farmName             Json                @map("farm_name") // { ko, en, uz }
+  farmDesc             Json?               @map("farm_desc") // { ko, en, uz }
+  farmAddress          String              @map("farm_address")
+  farmLat              Float               @map("farm_lat")
+  farmLng              Float               @map("farm_lng")
+  farmCowCount         Int?                @map("farm_cow_count")
+  farmDailyCapacityTon Decimal?            @map("farm_daily_capacity_ton") @db.Decimal(10, 2)
+  farmCertifications   FarmCertification[] @default([]) @map("farm_certifications")
+  farmImages           String[]            @default([]) @map("farm_images")
+
+  products Product[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("farms")
+}

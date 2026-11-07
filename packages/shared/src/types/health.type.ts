@@ -4,6 +4,7 @@ import type { Locale } from './common.type';
 export interface HealthResponse {
   status: 'ok';
   service: string;
+  database: 'up' | 'down';
   uptimeSec: number;
   timestamp: string; // ISO date
   locales: readonly Locale[];

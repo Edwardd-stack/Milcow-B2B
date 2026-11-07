@@ -4,11 +4,14 @@
   "private": true,
   "description": "Milcow REST API (NestJS)",
   "scripts": {
-    "build": "nest build",
-    "dev": "nest start --watch",
+    "build": "prisma generate && nest build",
+    "dev": "prisma generate && nest start --watch",
     "start": "node dist/main",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit -p tsconfig.json",
-    "lint": "eslint ."
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@milcow/shared": "workspace:*",
@@ -17,8 +20,11 @@
     "@nestjs/core": "^12.3.3",
     "@nestjs/platform-express": "^12.3.3",
     "@nestjs/swagger": "^12.1.0",
+    "@prisma/adapter-pg": "catalog:",
+    "@prisma/client": "catalog:",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2"
   },
@@ -28,9 +34,12 @@
     "@nestjs/schematics": "^12.0.12",
     "@types/express": "^5.0.6",
     "@types/node": "^22",
+    "@types/pg": "^8.23.1",
+    "dotenv": "^18.0.9",
     "eslint": "catalog:",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.14.0",
+    "prisma": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "^8.72.1"
   }

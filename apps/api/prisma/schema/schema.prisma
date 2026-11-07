@@ -1,0 +1,12 @@
+// Generator + datasource only. Models live in their own files:
+// member.prisma, farm.prisma, warehouse.prisma, product.prisma, inventory.prisma
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../../src/generated/prisma" // apps/api/src/generated/prisma (git-ignored)
+  moduleFormat = "cjs" // NestJS runs as CommonJS
+}
+
+datasource db {
+  provider = "postgresql" // connection URL comes from prisma.config.ts
+}

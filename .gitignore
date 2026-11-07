@@ -27,3 +27,6 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 *.tsbuildinfo
+
+# Prisma generated client (re-created by `prisma generate`)
+apps/api/src/generated/
