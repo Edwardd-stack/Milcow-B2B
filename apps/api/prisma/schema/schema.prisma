@@ -1,5 +1,5 @@
 // Generator + datasource only. Models live in their own files:
-// member, farm, warehouse, product, inventory, order, contract, pickup, payment, inquiry (*.prisma)
+// member, farm, warehouse, product, inventory, order, contract, pickup, payment, inquiry, ai (*.prisma)
 
 generator client {
   provider     = "prisma-client"

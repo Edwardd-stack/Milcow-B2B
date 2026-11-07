@@ -291,8 +291,9 @@ Table KnowledgeChunk {
   id uuid [pk]
   chunkSource varchar [not null]
   chunkLang Lang [not null]
+  chunkIndex int [not null]
   chunkText text [not null]
-  chunkEmbedding vector [note: 'pgvector']
+  chunkEmbedding vector [note: 'pgvector, vector(768) — gemini-embedding-2']
   createdAt timestamp [not null, default: `now()`]
 }
 
@@ -300,8 +301,10 @@ Table AiLog {
   id uuid [pk]
   memberId uuid [ref: > Member.id]
   logType AiLogType [not null]
+  logModel varchar
   logInput text [not null]
   logOutput text
+  logError text
   logLatencyMs int
   createdAt timestamp [not null, default: `now()`]
 }
