@@ -4,13 +4,13 @@ B2B dairy trading platform: bulk milk purchase by the ton, long-term supply cont
 
 ## Monorepo
 
-| Path | Description |
-| --- | --- |
-| `apps/web` | Next.js — customer website (ko / en / uz) |
-| `apps/admin` | Next.js — back office |
-| `apps/api` | NestJS — REST API |
-| `packages/shared` | Shared types and enums |
-| `docs/` | ER model (`erd.dbml`) |
+| Path              | Description                               |
+| ----------------- | ----------------------------------------- |
+| `apps/web`        | Next.js — customer website (ko / en / uz) |
+| `apps/admin`      | Next.js — back office                     |
+| `apps/api`        | NestJS — REST API                         |
+| `packages/shared` | Shared types and enums                    |
+| `docs/`           | ER model (`erd.dbml`)                     |
 
 ## Requirements
 

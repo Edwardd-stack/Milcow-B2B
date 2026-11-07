@@ -39,7 +39,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   }
 
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         {/* Translations + server-state cache for Client Components */}
         <NextIntlClientProvider>

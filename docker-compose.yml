@@ -14,12 +14,12 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-milcow}
       POSTGRES_DB: ${POSTGRES_DB:-milcow}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432" # host:container
+      - '${POSTGRES_PORT:-5432}:5432' # host:container
     volumes:
       - milcow-pgdata:/var/lib/postgresql/data # data survives container restarts
       - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro # runs once, on first start
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-milcow} -d ${POSTGRES_DB:-milcow}"]
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-milcow} -d ${POSTGRES_DB:-milcow}']
       interval: 5s
       timeout: 5s
       retries: 10

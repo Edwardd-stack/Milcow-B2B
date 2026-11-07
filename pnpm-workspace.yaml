@@ -1,6 +1,6 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 
 # One place for shared dependency versions.
 # Packages reference them with "catalog:" instead of a version number.
