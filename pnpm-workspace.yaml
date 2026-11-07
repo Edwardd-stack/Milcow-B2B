@@ -6,3 +6,8 @@ packages:
 # Packages reference them with "catalog:" instead of a version number.
 catalog:
   typescript: ^6.0.2
+
+# Which dependencies may run install scripts (postinstall).
+# Deny by default; allow only what the project really needs.
+allowBuilds:
+  '@scarf/scarf': false # Swagger UI telemetry — not needed
