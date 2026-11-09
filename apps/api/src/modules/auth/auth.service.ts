@@ -37,7 +37,8 @@ export class AuthService {
 
     // Same message for "no such email" and "wrong password" — don't reveal which emails exist
     if (!member || !isValid) throw new UnauthorizedException('Invalid email or password');
-    if (member.memberStatus !== 'ACTIVE') throw new ForbiddenException('This account is not active');
+    if (member.memberStatus !== 'ACTIVE')
+      throw new ForbiddenException('This account is not active');
 
     return this.buildAuthResponse(member);
   }

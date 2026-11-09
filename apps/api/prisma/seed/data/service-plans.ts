@@ -14,7 +14,7 @@ export const SERVICE_PLANS: ServicePlanSeed[] = [
     desc: {
       ko: '0–4°C 냉장 차량으로 문 앞까지 배송합니다.',
       en: 'Delivered to your door in 0–4 °C refrigerated trucks.',
-      uz: "0–4 °C sovutgichli mashinalarda eshigingizgacha yetkazamiz.",
+      uz: '0–4 °C sovutgichli mashinalarda eshigingizgacha yetkazamiz.',
     },
     pricePerMonth: 300_000,
   },
@@ -44,7 +44,7 @@ export const SERVICE_PLANS: ServicePlanSeed[] = [
     desc: {
       ko: '공급 부족 시 계약 고객에게 우선 배정합니다.',
       en: 'During shortages, your volume is reserved first.',
-      uz: "Taqchillik paytida sizning hajmingiz birinchi navbatda ajratiladi.",
+      uz: 'Taqchillik paytida sizning hajmingiz birinchi navbatda ajratiladi.',
     },
     pricePerMonth: 250_000,
   },
@@ -54,7 +54,7 @@ export const SERVICE_PLANS: ServicePlanSeed[] = [
     desc: {
       ko: '창고 픽업 슬롯을 우선 예약하고 상하차 비용이 무료입니다.',
       en: 'Priority pickup slots and free loading at our warehouses.',
-      uz: "Omborlarda ustuvor olib ketish vaqtlari va bepul yuklash.",
+      uz: 'Omborlarda ustuvor olib ketish vaqtlari va bepul yuklash.',
     },
     pricePerMonth: 0,
   },

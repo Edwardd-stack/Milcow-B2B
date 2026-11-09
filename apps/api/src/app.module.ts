@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { MemberModule } from './modules/member/member.module';
+import { OrderModule } from './modules/order/order.module';
 import { ProductModule } from './modules/product/product.module';
 import { WarehouseModule } from './modules/warehouse/warehouse.module';
 
@@ -26,6 +27,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     FarmModule,
     HealthModule,
     MemberModule,
+    OrderModule,
     ProductModule,
     WarehouseModule,
   ],

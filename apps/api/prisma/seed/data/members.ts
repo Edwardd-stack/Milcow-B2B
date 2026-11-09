@@ -33,7 +33,13 @@ export const MEMBERS: MemberSeed[] = [
     phone: '010-0000-0002',
     lang: 'UZ',
   },
-  { type: 'STAFF', email: 'staff.icheon@milcow.test', nick: '이천 센터 직원', lang: 'KO', warehouseKey: 'icheon' },
+  {
+    type: 'STAFF',
+    email: 'staff.icheon@milcow.test',
+    nick: '이천 센터 직원',
+    lang: 'KO',
+    warehouseKey: 'icheon',
+  },
   {
     type: 'STAFF',
     email: 'staff.pyeongtaek@milcow.test',
@@ -41,5 +47,11 @@ export const MEMBERS: MemberSeed[] = [
     lang: 'KO',
     warehouseKey: 'pyeongtaek',
   },
-  { type: 'STAFF', email: 'staff.gimhae@milcow.test', nick: '김해 센터 직원', lang: 'KO', warehouseKey: 'gimhae' },
+  {
+    type: 'STAFF',
+    email: 'staff.gimhae@milcow.test',
+    nick: '김해 센터 직원',
+    lang: 'KO',
+    warehouseKey: 'gimhae',
+  },
 ];

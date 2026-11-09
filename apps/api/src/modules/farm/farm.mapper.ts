@@ -1,6 +1,10 @@
 import type { FarmInfo, FarmSummary } from '@milcow/shared';
 import type { Farm } from '../../generated/prisma/client';
-import { toLocalizedText, toLocalizedTextOrNull, toNumberOrNull } from '../../libs/utils/convert.util';
+import {
+  toLocalizedText,
+  toLocalizedTextOrNull,
+  toNumberOrNull,
+} from '../../libs/utils/convert.util';
 
 export function toFarmInfo(farm: Farm): FarmInfo {
   return {

@@ -20,7 +20,11 @@ export const PRODUCTS: ProductSeed[] = [
     key: 'raw-milk-premium',
     type: 'RAW_MILK',
     grade: 'PREMIUM',
-    name: { ko: '프리미엄 원유 (1A등급)', en: 'Premium Raw Milk (Grade 1A)', uz: 'Premium xom sut (1A daraja)' },
+    name: {
+      ko: '프리미엄 원유 (1A등급)',
+      en: 'Premium Raw Milk (Grade 1A)',
+      uz: 'Premium xom sut (1A daraja)',
+    },
     desc: {
       ko: '고원 방목 젖소의 원유. 체세포수 최상위 등급.',
       en: 'Raw milk from highland pasture-raised cows. Top somatic cell grade.',
