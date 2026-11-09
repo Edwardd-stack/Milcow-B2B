@@ -5,6 +5,7 @@ import { toLocalizedText, toNumber } from '../../libs/utils/convert.util';
 export const orderInclude = {
   warehouse: true,
   items: { include: { product: true }, orderBy: { id: 'asc' } },
+  pickup: { include: { pickupSlot: true } },
 } satisfies Prisma.OrderInclude;
 
 type OrderRow = Prisma.OrderGetPayload<{ include: typeof orderInclude }>;
@@ -34,6 +35,14 @@ export function toOrderInfo(order: OrderRow): OrderInfo {
         itemTotal: Math.round(itemTon * item.itemPricePerTon),
       };
     }),
+    pickup: order.pickup
+      ? {
+          id: order.pickup.id,
+          pickupStatus: order.pickup.pickupStatus,
+          pickupCode: order.pickup.pickupCode,
+          slotStart: order.pickup.pickupSlot.slotStart.toISOString(),
+        }
+      : null,
     createdAt: order.createdAt.toISOString(),
   };
 }

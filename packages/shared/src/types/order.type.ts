@@ -1,4 +1,4 @@
-import type { DeliveryType, OrderStatus } from '../enums';
+import type { DeliveryType, OrderStatus, PickupStatus } from '../enums';
 import type { LocalizedText } from './common.type';
 
 export interface OrderItemInfo {
@@ -22,5 +22,11 @@ export interface OrderInfo {
   contractId: string | null;
   warehouse: { id: string; warehouseName: LocalizedText };
   items: OrderItemInfo[];
+  pickup: {
+    id: string;
+    pickupStatus: PickupStatus;
+    pickupCode: string;
+    slotStart: string;
+  } | null; // PICKUP orders, after a time slot is booked
   createdAt: string;
 }

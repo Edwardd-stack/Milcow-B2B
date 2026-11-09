@@ -151,7 +151,7 @@ export class OrderService {
     const order = await this.prisma.$transaction(async (tx) => {
       const current = await tx.order.findFirst({
         where: { id, ...this.visibilityFilter(member) },
-        include: { items: true },
+        include: { items: true, pickup: true },
       });
       if (!current) throw new NotFoundException('Order not found');
 
@@ -167,6 +167,14 @@ export class OrderService {
       }
 
       if (next === 'CANCELLED') {
+        // Free the booked pickup slot
+        if (current.pickup) {
+          await tx.pickupSlot.update({
+            where: { id: current.pickup.pickupSlotId },
+            data: { slotBooked: { decrement: 1 } },
+          });
+          await tx.pickup.delete({ where: { id: current.pickup.id } });
+        }
         // Give the reserved stock back to the warehouse
         for (const item of current.items) {
           await tx.inventory.updateMany({
