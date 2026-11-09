@@ -1,0 +1,9 @@
+{
+  // Type-checks the seed scripts (they live outside src/, so the main tsconfig skips them)
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "..",
+    "noEmit": true
+  },
+  "include": ["seed"]
+}

@@ -17,7 +17,8 @@
     "db:logs": "docker compose logs -f postgres",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:migrate": "pnpm --filter @milcow/api db:migrate"
+    "db:migrate": "pnpm --filter @milcow/api db:migrate",
+    "db:seed": "pnpm --filter @milcow/api db:seed"
   },
   "devDependencies": {
     "prettier": "^3.9.10",
