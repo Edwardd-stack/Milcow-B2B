@@ -1,7 +1,7 @@
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GoogleGenAI, ThinkingLevel, type Schema } from '@google/genai';
-import { EMBEDDING_BATCH_SIZE, EMBEDDING_DIMENSIONS, GEMINI_TIMEOUT_MS } from './ai.constants';
+import { EMBEDDING_CONCURRENCY, EMBEDDING_DIMENSIONS, GEMINI_TIMEOUT_MS } from './ai.constants';
 
 export interface GenerateOptions {
   systemInstruction?: string;
@@ -80,34 +80,35 @@ export class GeminiService {
 
   /** Embedding for a user question (RAG "retrieval" step) */
   async embedQuery(question: string): Promise<number[]> {
-    const [vector] = await this.embed([`task: search result | query: ${question}`]);
-    if (!vector) throw new ServiceUnavailableException('AI embedding failed');
-    return vector;
+    return this.embed(`task: search result | query: ${question}`);
   }
 
-  /** Embeddings for knowledge-base chunks (RAG "ingest" step), batched */
+  /** Embeddings for knowledge-base chunks (RAG "ingest" step) */
   async embedDocuments(documents: DocumentToEmbed[]): Promise<number[][]> {
+    const texts = documents.map((d) => `title: ${d.title} | text: ${d.text}`);
     const vectors: number[][] = [];
-    for (let i = 0; i < documents.length; i += EMBEDDING_BATCH_SIZE) {
-      const batch = documents.slice(i, i + EMBEDDING_BATCH_SIZE);
-      vectors.push(...(await this.embed(batch.map((d) => `title: ${d.title} | text: ${d.text}`))));
+    // gemini-embedding-2 merges several inputs into ONE vector, so every text is its own request.
+    // Send them in small parallel groups: fast, but without hitting the free-tier rate limit.
+    for (let i = 0; i < texts.length; i += EMBEDDING_CONCURRENCY) {
+      const group = texts.slice(i, i + EMBEDDING_CONCURRENCY);
+      vectors.push(...(await Promise.all(group.map((text) => this.embed(text)))));
     }
     return vectors;
   }
 
-  private async embed(texts: string[]): Promise<number[][]> {
+  private async embed(text: string): Promise<number[]> {
     const response = await this.call('embed', () =>
       this.ai.models.embedContent({
         model: this.embeddingModel,
-        contents: texts,
+        contents: text,
         config: { outputDimensionality: EMBEDDING_DIMENSIONS },
       }),
     );
-    const vectors = (response.embeddings ?? []).map((e) => e.values ?? []);
-    if (vectors.length !== texts.length || vectors.some((v) => v.length !== EMBEDDING_DIMENSIONS)) {
+    const vector = response.embeddings?.[0]?.values ?? [];
+    if (vector.length !== EMBEDDING_DIMENSIONS) {
       throw new ServiceUnavailableException('AI embedding returned an unexpected shape');
     }
-    return vectors;
+    return vector;
   }
 
   /** Turns any SDK/network error into a clean 503 and logs the real reason */
