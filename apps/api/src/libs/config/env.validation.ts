@@ -46,6 +46,19 @@ class EnvironmentVariables {
     message: 'TOSS_SECRET_KEY must start with test_sk_ or live_sk_',
   })
   TOSS_SECRET_KEY: string;
+
+  /** Google Gemini API key (aistudio.google.com) */
+  @IsString()
+  @MinLength(20)
+  GEMINI_API_KEY: string;
+
+  /** Text model for the chatbot and the contract assistant */
+  @IsString()
+  GEMINI_CHAT_MODEL: string = 'gemini-3.5-flash-lite';
+
+  /** Embedding model — must stay the same for documents and questions (see EMBEDDING_DIMENSIONS) */
+  @IsString()
+  GEMINI_EMBEDDING_MODEL: string = 'gemini-embedding-2';
 }
 
 export function validateEnv(config: Record<string, unknown>) {
