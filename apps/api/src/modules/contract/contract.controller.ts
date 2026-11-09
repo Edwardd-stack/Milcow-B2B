@@ -9,13 +9,16 @@ import {
   Patch,
   Post,
   Query,
+  StreamableFile,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagger';
 import { CurrentMember } from '../../common/decorators/current-member.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { ContractService } from './contract.service';
+import { ContractPdfService } from './pdf/contract-pdf.service';
 import { ContractListQueryDto } from './dto/contract-list-query.dto';
+import { ContractPdfQueryDto } from './dto/contract-pdf-query.dto';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { RunMonthlyOrdersDto } from './dto/run-monthly-orders.dto';
 import { UpdateContractStatusDto } from './dto/update-contract-status.dto';
@@ -25,7 +28,10 @@ import { UpdateContractStatusDto } from './dto/update-contract-status.dto';
 @Roles('BUYER', 'ADMIN')
 @Controller('contracts')
 export class ContractController {
-  constructor(private readonly contractService: ContractService) {}
+  constructor(
+    private readonly contractService: ContractService,
+    private readonly contractPdf: ContractPdfService,
+  ) {}
 
   @Post()
   @Roles('BUYER')
@@ -44,6 +50,22 @@ export class ContractController {
   @ApiOperation({ summary: 'One contract with totals and delivery dates' })
   findOne(@CurrentMember() member: AuthMember, @Param('id', ParseUUIDPipe) id: string) {
     return this.contractService.findOne(member, id);
+  }
+
+  @Get(':id/pdf')
+  @ApiProduces('application/pdf')
+  @ApiOperation({ summary: 'Contract as a PDF document (ko / en / uz)' })
+  async pdf(
+    @CurrentMember() member: AuthMember,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() query: ContractPdfQueryDto,
+  ): Promise<StreamableFile> {
+    const contract = await this.contractService.findOne(member, id); // same visibility rules
+    const file = await this.contractPdf.render(contract, query.locale);
+    return new StreamableFile(file, {
+      type: 'application/pdf',
+      disposition: `inline; filename="milcow-contract-${id.slice(-12)}.pdf"`,
+    });
   }
 
   @Patch(':id/submit')
