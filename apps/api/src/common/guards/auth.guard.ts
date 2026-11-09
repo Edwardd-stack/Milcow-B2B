@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import type { AuthRequest, JwtPayload } from '../../libs/types/auth.type';
+import type { AuthMember, AuthRequest, JwtPayload } from '../../libs/types/auth.type';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
 /**
@@ -25,24 +25,28 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) return true;
-
     const request = context.switchToHttp().getRequest<AuthRequest>();
     const [scheme, token] = request.headers.authorization?.split(' ') ?? [];
-    if (scheme !== 'Bearer' || !token) {
-      throw new UnauthorizedException('Missing access token');
+    const hasToken = scheme === 'Bearer' && !!token;
+
+    // Public route: a logged-in visitor is still recognised (e.g. the chatbot logs who asked),
+    // but a missing or bad token never blocks the request.
+    if (isPublic) {
+      if (hasToken) request.member = await this.verify(token).catch(() => undefined);
+      return true;
     }
 
+    if (!hasToken) throw new UnauthorizedException('Missing access token');
     try {
-      const payload = await this.jwt.verifyAsync<JwtPayload>(token);
-      request.member = {
-        id: payload.sub,
-        memberType: payload.memberType,
-        warehouseId: payload.warehouseId,
-      };
+      request.member = await this.verify(token);
     } catch {
       throw new UnauthorizedException('Invalid or expired access token');
     }
     return true;
+  }
+
+  private async verify(token: string): Promise<AuthMember> {
+    const payload = await this.jwt.verifyAsync<JwtPayload>(token);
+    return { id: payload.sub, memberType: payload.memberType, warehouseId: payload.warehouseId };
   }
 }

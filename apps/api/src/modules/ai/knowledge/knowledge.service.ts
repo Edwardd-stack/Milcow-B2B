@@ -14,6 +14,14 @@ import { chunkMarkdown } from './chunker.util';
 import { CatalogSource, KNOWLEDGE_DIR, LOCALE_TO_LANG } from './knowledge.constants';
 
 /** One document ready to be embedded: where it came from + its chunks */
+/** A chunk found by similarity search */
+export interface RetrievedChunk {
+  source: string;
+  chunkIndex: number;
+  text: string;
+  similarity: number;
+}
+
 interface KnowledgeDocument {
   source: string;
   locale: Locale;
@@ -87,6 +95,32 @@ export class KnowledgeService {
     const result = { sources, totalChunks: flat.length, latencyMs: Date.now() - startedAt };
     this.logger.log(`Knowledge ingested: ${result.totalChunks} chunks in ${result.latencyMs}ms`);
     return result;
+  }
+
+  /**
+   * RAG "retrieval" step: the chunks closest in meaning to the question.
+   * `<=>` is pgvector's cosine distance (0 = same direction); similarity = 1 − distance.
+   */
+  async search(question: string, locale: Locale, limit: number): Promise<RetrievedChunk[]> {
+    const vector = JSON.stringify(await this.gemini.embedQuery(question));
+    const lang = LOCALE_TO_LANG[locale];
+    const rows = await this.prisma.$queryRaw<
+      { source: string; chunk_index: number; text: string; similarity: number }[]
+    >`
+      SELECT chunk_source AS source,
+             chunk_index,
+             chunk_text AS text,
+             1 - (chunk_embedding <=> ${vector}::vector) AS similarity
+      FROM knowledge_chunks
+      WHERE chunk_lang = ${lang}::lang AND chunk_embedding IS NOT NULL
+      ORDER BY chunk_embedding <=> ${vector}::vector
+      LIMIT ${limit}`;
+    return rows.map((r) => ({
+      source: r.source,
+      chunkIndex: r.chunk_index,
+      text: r.text,
+      similarity: Number(r.similarity),
+    }));
   }
 
   /** apps/api/knowledge/<locale>/<name>.md → source "<name>" */

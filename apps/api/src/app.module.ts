@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { validateEnv } from './libs/config/env.validation';
 import { PrismaModule } from './libs/prisma/prisma.module';
 import { AiModule } from './modules/ai/ai.module';
@@ -31,6 +32,8 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
 
     // Background jobs (@Cron)
     ScheduleModule.forRoot(),
+    // Rate limiting storage; applied only where @UseGuards(ThrottlerGuard) is used (AI chat)
+    ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 60 }]),
 
     // WebSocket push (global)
     RealtimeModule,

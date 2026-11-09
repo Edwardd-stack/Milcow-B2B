@@ -21,6 +21,7 @@ allowBuilds:
   '@swc/core': false # fast TS/JS compiler used by next-intl tooling — prebuilt binary is used
   esbuild: false # bundler binary — prebuilt binary is used
   prisma: true # Prisma CLI setup (official requirement)
+  protobufjs: false # @google/genai dependency — its postinstall only prints a version notice
   sharp: false # Next.js image optimizer — prebuilt binaries are used, no script needed
   unrs-resolver: false # ESLint import resolver — prebuilt binaries are used
   workerd: false # runtime for the local "prisma dev" server — not used (we run PostgreSQL in Docker)
