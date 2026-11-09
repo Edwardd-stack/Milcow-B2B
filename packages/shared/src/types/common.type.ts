@@ -28,4 +28,6 @@ export interface ApiError {
   statusCode: number;
   message: string | string[]; // NestJS validation errors come as an array
   error?: string;
+  path?: string;
+  timestamp?: string;
 }
