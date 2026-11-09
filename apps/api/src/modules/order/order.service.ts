@@ -5,91 +5,117 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import type { OrderInfo, OrderStatus, Paginated } from '@milcow/shared';
+import type { DeliveryType, OrderInfo, OrderStatus, Paginated } from '@milcow/shared';
 import { Prisma } from '../../generated/prisma/client';
 import { PrismaService } from '../../libs/prisma/prisma.service';
 import type { AuthMember } from '../../libs/types/auth.type';
+import { fromDateString } from '../../libs/utils/date.util';
 import { toPaginated, toSkipTake } from '../../libs/utils/pagination.util';
 import type { CreateOrderDto } from './dto/create-order.dto';
 import type { OrderListQueryDto } from './dto/order-list-query.dto';
 import { ORDER_STATUS_FLOW, STATUS_DELIVERY_TYPE } from './order.constants';
 import { orderInclude, toOrderInfo } from './order.mapper';
 
+export interface PlaceOrderParams {
+  memberId: string;
+  warehouseId: string;
+  deliveryType: DeliveryType;
+  address: string | null;
+  scheduledDate: string | null; // YYYY-MM-DD
+  contractId?: string;
+  items: { productId: string; itemTon: number; pricePerTon?: number }[];
+}
+
 @Injectable()
 export class OrderService {
   constructor(private readonly prisma: PrismaService) {}
 
+  /** POST /orders — a buyer places an order at today's prices. */
+  async create(member: AuthMember, input: CreateOrderDto): Promise<OrderInfo> {
+    const order = await this.prisma.$transaction((tx) =>
+      this.placeOrder(tx, {
+        memberId: member.id,
+        warehouseId: input.warehouseId,
+        deliveryType: input.orderDeliveryType,
+        address: input.orderAddress ?? null,
+        scheduledDate: input.orderScheduledDate ?? null,
+        items: input.items,
+      }),
+    );
+    return toOrderInfo(order);
+  }
+
   /**
-   * Creates an order in ONE transaction:
+   * Creates an order inside the caller's transaction (also used by contracts):
    *   1. validate products and minimum order amounts
    *   2. reserve stock (atomic: fails if another order took it first)
    *   3. save the order with price snapshots
-   * If any step fails, everything is rolled back — no half-created orders, no lost stock.
+   * If any step throws, the whole transaction is rolled back — no half-created orders, no lost stock.
    */
-  async create(member: AuthMember, input: CreateOrderDto): Promise<OrderInfo> {
-    const productIds = input.items.map((item) => item.productId);
+  async placeOrder(tx: Prisma.TransactionClient, params: PlaceOrderParams) {
+    const productIds = params.items.map((item) => item.productId);
     if (new Set(productIds).size !== productIds.length) {
       throw new BadRequestException('Each product can appear only once in an order');
     }
 
-    const order = await this.prisma.$transaction(async (tx) => {
-      const products = await tx.product.findMany({
-        where: { id: { in: productIds }, productStatus: 'ACTIVE' },
-      });
-      const productById = new Map(products.map((p) => [p.id, p]));
+    const products = await tx.product.findMany({
+      where: { id: { in: productIds }, productStatus: 'ACTIVE' },
+    });
+    const productById = new Map(products.map((p) => [p.id, p]));
 
-      let orderTotal = new Prisma.Decimal(0);
-      const itemsData: Prisma.OrderItemCreateWithoutOrderInput[] = [];
+    let orderTotal = new Prisma.Decimal(0);
+    const itemsData: Prisma.OrderItemCreateWithoutOrderInput[] = [];
 
-      for (const item of input.items) {
-        const product = productById.get(item.productId);
-        if (!product) throw new NotFoundException(`Product ${item.productId} not found`);
+    for (const item of params.items) {
+      const product = productById.get(item.productId);
+      if (!product) throw new NotFoundException(`Product ${item.productId} not found`);
 
-        if (product.productMinOrderTon.greaterThan(item.itemTon)) {
-          throw new BadRequestException(
-            `Minimum order for this product is ${product.productMinOrderTon.toString()} t`,
-          );
-        }
-
-        // Atomic stock reservation: "decrease only if enough is left".
-        // Two buyers ordering the last tons at the same time → only one succeeds.
-        const reserved = await tx.inventory.updateMany({
-          where: {
-            productId: product.id,
-            warehouseId: input.warehouseId,
-            inventoryTon: { gte: item.itemTon },
-          },
-          data: { inventoryTon: { decrement: item.itemTon } },
-        });
-        if (reserved.count === 0) {
-          throw new ConflictException('Not enough stock in this warehouse for one of the products');
-        }
-
-        orderTotal = orderTotal.add(
-          new Prisma.Decimal(product.productPricePerTon).mul(item.itemTon).toDecimalPlaces(0),
+      // Contract orders were already checked when the contract was signed
+      if (!params.contractId && product.productMinOrderTon.greaterThan(item.itemTon)) {
+        throw new BadRequestException(
+          `Minimum order for this product is ${product.productMinOrderTon.toString()} t`,
         );
-        itemsData.push({
-          product: { connect: { id: product.id } },
-          itemTon: item.itemTon,
-          itemPricePerTon: product.productPricePerTon, // snapshot
-        });
       }
 
-      return tx.order.create({
-        data: {
-          member: { connect: { id: member.id } },
-          warehouse: { connect: { id: input.warehouseId } },
-          orderDeliveryType: input.orderDeliveryType,
-          orderAddress: input.orderDeliveryType === 'DELIVERY' ? input.orderAddress : null,
-          orderScheduledDate: input.orderScheduledDate ? new Date(input.orderScheduledDate) : null,
-          orderTotal,
-          items: { create: itemsData },
+      // Atomic stock reservation: "decrease only if enough is left".
+      // Two buyers ordering the last tons at the same time → only one succeeds.
+      const reserved = await tx.inventory.updateMany({
+        where: {
+          productId: product.id,
+          warehouseId: params.warehouseId,
+          inventoryTon: { gte: item.itemTon },
         },
-        include: orderInclude,
+        data: { inventoryTon: { decrement: item.itemTon } },
       });
-    });
+      if (reserved.count === 0) {
+        throw new ConflictException('Not enough stock in this warehouse for one of the products');
+      }
 
-    return toOrderInfo(order);
+      // Contracts keep their signed price; normal orders use today's price
+      const pricePerTon = item.pricePerTon ?? product.productPricePerTon;
+      orderTotal = orderTotal.add(
+        new Prisma.Decimal(pricePerTon).mul(item.itemTon).toDecimalPlaces(0),
+      );
+      itemsData.push({
+        product: { connect: { id: product.id } },
+        itemTon: item.itemTon,
+        itemPricePerTon: pricePerTon, // snapshot
+      });
+    }
+
+    return tx.order.create({
+      data: {
+        member: { connect: { id: params.memberId } },
+        warehouse: { connect: { id: params.warehouseId } },
+        ...(params.contractId && { contract: { connect: { id: params.contractId } } }),
+        orderDeliveryType: params.deliveryType,
+        orderAddress: params.deliveryType === 'DELIVERY' ? params.address : null,
+        orderScheduledDate: params.scheduledDate ? fromDateString(params.scheduledDate) : null,
+        orderTotal,
+        items: { create: itemsData },
+      },
+      include: orderInclude,
+    });
   }
 
   /** BUYER → own orders, STAFF → own warehouse, ADMIN → all */

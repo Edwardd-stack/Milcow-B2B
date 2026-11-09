@@ -204,6 +204,7 @@ Table Contract {
   id uuid [pk]
   memberId uuid [not null, ref: > Member.id]
   productId uuid [not null, ref: > Product.id]
+  warehouseId uuid [not null, ref: > Warehouse.id]
   contractStatus ContractStatus [not null, default: 'DRAFT']
   contractStart date [not null]
   contractEnd date [not null]

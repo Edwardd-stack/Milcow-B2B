@@ -1,4 +1,5 @@
 export * from './common.type';
+export * from './contract.type';
 export * from './farm.type';
 export * from './health.type';
 export * from './member.type';

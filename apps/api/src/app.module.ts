@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { validateEnv } from './libs/config/env.validation';
 import { PrismaModule } from './libs/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ContractModule } from './modules/contract/contract.module';
 import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { MemberModule } from './modules/member/member.module';
 import { OrderModule } from './modules/order/order.module';
 import { ProductModule } from './modules/product/product.module';
+import { ServicePlanModule } from './modules/service-plan/service-plan.module';
 import { WarehouseModule } from './modules/warehouse/warehouse.module';
 
 @Module({
@@ -22,13 +25,18 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     // Database connection (global)
     PrismaModule,
 
+    // Background jobs (@Cron)
+    ScheduleModule.forRoot(),
+
     // ── Feature modules ──
     AuthModule,
+    ContractModule,
     FarmModule,
     HealthModule,
     MemberModule,
     OrderModule,
     ProductModule,
+    ServicePlanModule,
     WarehouseModule,
   ],
 })

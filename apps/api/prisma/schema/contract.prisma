@@ -40,8 +40,11 @@ model Contract {
 
   memberId  String  @map("member_id") @db.Uuid
   member    Member  @relation(fields: [memberId], references: [id], onDelete: Restrict)
-  productId String  @map("product_id") @db.Uuid
-  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId   String    @map("product_id") @db.Uuid
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Restrict)
+  // Monthly orders ship from / are picked up at this warehouse
+  warehouseId String    @map("warehouse_id") @db.Uuid
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Restrict)
 
   orders   Order[]
   services ContractService[]
@@ -51,6 +54,7 @@ model Contract {
 
   @@index([memberId, contractStatus])
   @@index([productId])
+  @@index([warehouseId])
   @@map("contracts")
 }
 
