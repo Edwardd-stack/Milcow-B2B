@@ -20,3 +20,11 @@ export const ProductStatus = {
   PAUSED: 'PAUSED',
 } as const;
 export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus];
+
+/** Sort options for GET /products */
+export const ProductSort = {
+  NEWEST: 'NEWEST',
+  PRICE_ASC: 'PRICE_ASC',
+  PRICE_DESC: 'PRICE_DESC',
+} as const;
+export type ProductSort = (typeof ProductSort)[keyof typeof ProductSort];
