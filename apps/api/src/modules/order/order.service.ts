@@ -24,6 +24,7 @@ export interface PlaceOrderParams {
   address: string | null;
   scheduledDate: string | null; // YYYY-MM-DD
   contractId?: string;
+  serviceFee?: number; // KRW, contract add-on services for this delivery
   items: { productId: string; itemTon: number; pricePerTon?: number }[];
 }
 
@@ -107,6 +108,8 @@ export class OrderService {
       });
     }
 
+    const serviceFee = new Prisma.Decimal(params.serviceFee ?? 0);
+
     return tx.order.create({
       data: {
         member: { connect: { id: params.memberId } },
@@ -115,7 +118,8 @@ export class OrderService {
         orderDeliveryType: params.deliveryType,
         orderAddress: params.deliveryType === 'DELIVERY' ? params.address : null,
         orderScheduledDate: params.scheduledDate ? fromDateString(params.scheduledDate) : null,
-        orderTotal,
+        orderServiceFee: serviceFee,
+        orderTotal: orderTotal.add(serviceFee),
         items: { create: itemsData },
       },
       include: orderInclude,

@@ -9,6 +9,7 @@ import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { MemberModule } from './modules/member/member.module';
 import { OrderModule } from './modules/order/order.module';
+import { PaymentModule } from './modules/payment/payment.module';
 import { PickupModule } from './modules/pickup/pickup.module';
 import { ProductModule } from './modules/product/product.module';
 import { RealtimeModule } from './modules/realtime/realtime.module';
@@ -40,6 +41,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     HealthModule,
     MemberModule,
     OrderModule,
+    PaymentModule,
     PickupModule,
     ProductModule,
     ServicePlanModule,

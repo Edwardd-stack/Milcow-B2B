@@ -4,6 +4,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
+  Matches,
   Max,
   Min,
   MinLength,
@@ -39,6 +40,12 @@ class EnvironmentVariables {
   @IsInt()
   @Min(60)
   JWT_EXPIRES_IN_SEC: number = 60 * 60 * 24 * 7; // 7 days
+
+  /** Toss Payments secret key (test_sk_... in development) — never sent to the browser */
+  @Matches(/^(test|live)_(g?sk)_/, {
+    message: 'TOSS_SECRET_KEY must start with test_sk_ or live_sk_',
+  })
+  TOSS_SECRET_KEY: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {

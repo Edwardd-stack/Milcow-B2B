@@ -152,6 +152,7 @@ export class ContractService {
     const day = fromDateString(date);
     const contracts = await this.prisma.contract.findMany({
       where: { contractStatus: 'ACTIVE', contractStart: { lte: day }, contractEnd: { gte: day } },
+      include: { services: true },
     });
     const result: MonthlyOrderRunResult = { date, created: [], skipped: [] };
 
@@ -171,6 +172,7 @@ export class ContractService {
             address: contract.contractAddress,
             scheduledDate: date,
             contractId: contract.id,
+            serviceFee: contract.services.reduce((sum, s) => sum + s.servicePrice, 0),
             items: [
               {
                 productId: contract.productId,

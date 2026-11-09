@@ -17,7 +17,8 @@ export interface OrderInfo {
   orderDeliveryType: DeliveryType;
   orderAddress: string | null;
   orderScheduledDate: string | null; // YYYY-MM-DD
-  orderTotal: number; // KRW
+  orderServiceFee: number; // KRW, contract add-on services (0 for normal orders)
+  orderTotal: number; // KRW, products + service fee
   memberId: string;
   contractId: string | null;
   warehouse: { id: string; warehouseName: LocalizedText };

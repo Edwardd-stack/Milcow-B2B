@@ -23,7 +23,8 @@ model Order {
   orderDeliveryType  DeliveryType @map("order_delivery_type")
   orderAddress       String?      @map("order_address") // DELIVERY only
   orderScheduledDate DateTime?    @map("order_scheduled_date") @db.Date
-  orderTotal         Decimal      @map("order_total") @db.Decimal(15, 0) // KRW
+  orderServiceFee    Decimal      @default(0) @map("order_service_fee") @db.Decimal(15, 0) // KRW, contract add-on services
+  orderTotal         Decimal      @map("order_total") @db.Decimal(15, 0) // KRW, products + service fee
 
   memberId    String    @map("member_id") @db.Uuid
   member      Member    @relation(fields: [memberId], references: [id], onDelete: Restrict)

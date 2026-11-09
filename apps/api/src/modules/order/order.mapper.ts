@@ -17,6 +17,7 @@ export function toOrderInfo(order: OrderRow): OrderInfo {
     orderDeliveryType: order.orderDeliveryType,
     orderAddress: order.orderAddress,
     orderScheduledDate: order.orderScheduledDate?.toISOString().slice(0, 10) ?? null,
+    orderServiceFee: toNumber(order.orderServiceFee),
     orderTotal: toNumber(order.orderTotal),
     memberId: order.memberId,
     contractId: order.contractId,
