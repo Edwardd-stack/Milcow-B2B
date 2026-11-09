@@ -1,5 +1,14 @@
 import { plainToInstance } from 'class-transformer';
-import { IsIn, IsInt, IsNotEmpty, IsString, Max, Min, validateSync } from 'class-validator';
+import {
+  IsIn,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Max,
+  Min,
+  MinLength,
+  validateSync,
+} from 'class-validator';
 
 /**
  * Describes every environment variable the API needs.
@@ -22,6 +31,14 @@ class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   CORS_ORIGINS: string;
+
+  @IsString()
+  @MinLength(32)
+  JWT_SECRET: string;
+
+  @IsInt()
+  @Min(60)
+  JWT_EXPIRES_IN_SEC: number = 60 * 60 * 24 * 7; // 7 days
 }
 
 export function validateEnv(config: Record<string, unknown>) {

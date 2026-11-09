@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { validateEnv } from './libs/config/env.validation';
 import { PrismaModule } from './libs/prisma/prisma.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
+import { MemberModule } from './modules/member/member.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { HealthModule } from './modules/health/health.module';
     PrismaModule,
 
     // ── Feature modules ──
+    AuthModule,
     HealthModule,
+    MemberModule,
   ],
 })
 export class AppModule {}

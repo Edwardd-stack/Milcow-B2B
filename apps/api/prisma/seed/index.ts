@@ -8,6 +8,7 @@
 import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../../src/generated/prisma/client';
+import { hashPassword } from '../../src/libs/utils/password.util';
 import { FARMS } from './data/farms';
 import { MEMBERS } from './data/members';
 import { PRODUCTS } from './data/products';
@@ -32,6 +33,9 @@ const TABLES_TO_RESET = [
   'inquiries',
   'ai_logs',
 ];
+
+// Every test account logs in with this password (development only)
+const SEED_PASSWORD = 'Milcow1234!';
 
 const PICKUP_DAYS_AHEAD = 14;
 const PICKUP_HOURS = [9, 10, 11, 13, 14, 15, 16]; // 12:00–13:00 is lunch
@@ -157,8 +161,10 @@ async function seedServicePlans(prisma: PrismaClient) {
 }
 
 async function seedMembers(prisma: PrismaClient, warehouseIds: Map<string, string>) {
+  const passwordHash = await hashPassword(SEED_PASSWORD);
   await prisma.member.createMany({
     data: MEMBERS.map((m) => ({
+      memberPassword: passwordHash,
       memberType: m.type,
       memberEmail: m.email,
       memberNick: m.nick,
@@ -169,7 +175,7 @@ async function seedMembers(prisma: PrismaClient, warehouseIds: Map<string, strin
       warehouseId: m.warehouseKey ? requireId(warehouseIds, m.warehouseKey) : null,
     })),
   });
-  console.log(`👤 Members: ${MEMBERS.length}`);
+  console.log(`👤 Members: ${MEMBERS.length} (password: ${SEED_PASSWORD})`);
 }
 
 /** Pickup windows for the next 2 weeks, weekdays only, in Korea time (UTC+9). */

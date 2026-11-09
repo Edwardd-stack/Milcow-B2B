@@ -12,7 +12,7 @@ export interface MemberSeed {
 }
 
 // `.test` is a reserved domain — these addresses can never belong to a real person.
-// Passwords are added in the auth task (16).
+// All of them log in with SEED_PASSWORD (see ../index.ts).
 export const MEMBERS: MemberSeed[] = [
   { type: 'ADMIN', email: 'admin@milcow.test', nick: 'Milcow Admin', lang: 'KO' },
   {
