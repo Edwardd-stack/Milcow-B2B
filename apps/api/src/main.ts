@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { SocketIoAdapter } from './libs/adapters/socket-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,11 +14,10 @@ async function bootstrap() {
   // Every route starts with /api/v1  →  GET /api/v1/health
   app.setGlobalPrefix('api/v1');
 
-  // Only our own frontends may call the API from a browser
-  app.enableCors({
-    origin: config.getOrThrow<string>('CORS_ORIGINS').split(','),
-    credentials: true,
-  });
+  // Only our own frontends may call the API (REST and WebSocket) from a browser
+  const corsOrigins = config.getOrThrow<string>('CORS_ORIGINS').split(',');
+  app.enableCors({ origin: corsOrigins, credentials: true });
+  app.useWebSocketAdapter(new SocketIoAdapter(app, corsOrigins));
 
   // Validates every request body/query against its DTO class
   app.useGlobalPipes(

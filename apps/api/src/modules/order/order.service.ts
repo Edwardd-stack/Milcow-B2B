@@ -8,6 +8,7 @@ import {
 import type { DeliveryType, OrderInfo, OrderStatus, Paginated } from '@milcow/shared';
 import { Prisma } from '../../generated/prisma/client';
 import { PrismaService } from '../../libs/prisma/prisma.service';
+import { RealtimeService } from '../realtime/realtime.service';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { fromDateString } from '../../libs/utils/date.util';
 import { toPaginated, toSkipTake } from '../../libs/utils/pagination.util';
@@ -28,7 +29,10 @@ export interface PlaceOrderParams {
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly realtime: RealtimeService,
+  ) {}
 
   /** POST /orders — a buyer places an order at today's prices. */
   async create(member: AuthMember, input: CreateOrderDto): Promise<OrderInfo> {
@@ -191,6 +195,15 @@ export class OrderService {
       });
     });
 
+    this.realtime.orderUpdated(
+      {
+        orderId: order.id,
+        orderStatus: order.orderStatus,
+        updatedAt: order.updatedAt.toISOString(),
+      },
+      order.memberId,
+      order.warehouseId,
+    );
     return toOrderInfo(order);
   }
 

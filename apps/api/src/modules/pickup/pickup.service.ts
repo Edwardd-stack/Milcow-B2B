@@ -8,6 +8,7 @@ import type { Paginated, PickupInfo, PickupSlotInfo, PickupStatus } from '@milco
 import { randomInt } from 'node:crypto';
 import type { Prisma } from '../../generated/prisma/client';
 import { PrismaService } from '../../libs/prisma/prisma.service';
+import { RealtimeService } from '../realtime/realtime.service';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { koreaDayRange } from '../../libs/utils/date.util';
 import { toPaginated, toSkipTake } from '../../libs/utils/pagination.util';
@@ -22,7 +23,10 @@ const CODE_ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
 @Injectable()
 export class PickupService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly realtime: RealtimeService,
+  ) {}
 
   /** Future slots of one warehouse on one Korean calendar day */
   async findSlots(query: PickupSlotQueryDto): Promise<PickupSlotInfo[]> {
@@ -111,7 +115,7 @@ export class PickupService {
 
   /** Staff moves the pickup forward; the order status follows (see PICKUP_ORDER_SYNC). */
   async updateStatus(member: AuthMember, id: string, next: PickupStatus): Promise<PickupInfo> {
-    const pickup = await this.prisma.$transaction(async (tx) => {
+    const { pickup, order } = await this.prisma.$transaction(async (tx) => {
       const current = await tx.pickup.findFirst({
         where: { id, ...this.visibilityFilter(member) },
         include: { order: true },
@@ -127,15 +131,31 @@ export class PickupService {
           `Order is ${current.order.orderStatus}; ${next} needs ${sync.requires.join(' or ')}`,
         );
       }
-      await tx.order.update({ where: { id: current.orderId }, data: { orderStatus: sync.next } });
-
-      return tx.pickup.update({
+      const updatedOrder = await tx.order.update({
+        where: { id: current.orderId },
+        data: { orderStatus: sync.next },
+      });
+      const updatedPickup = await tx.pickup.update({
         where: { id },
         data: { pickupStatus: next },
         include: pickupInclude,
       });
+      return { pickup: updatedPickup, order: updatedOrder };
     });
-    return toPickupInfo(pickup);
+
+    // Push only after the transaction is committed — never announce a change that was rolled back
+    const info = toPickupInfo(pickup);
+    this.realtime.pickupUpdated(info, order.memberId);
+    this.realtime.orderUpdated(
+      {
+        orderId: order.id,
+        orderStatus: order.orderStatus,
+        updatedAt: order.updatedAt.toISOString(),
+      },
+      order.memberId,
+      order.warehouseId,
+    );
+    return info;
   }
 
   /** The buyer cancels a booking that has not started loading yet. */

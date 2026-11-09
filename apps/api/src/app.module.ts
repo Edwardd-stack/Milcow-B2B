@@ -11,6 +11,7 @@ import { MemberModule } from './modules/member/member.module';
 import { OrderModule } from './modules/order/order.module';
 import { PickupModule } from './modules/pickup/pickup.module';
 import { ProductModule } from './modules/product/product.module';
+import { RealtimeModule } from './modules/realtime/realtime.module';
 import { ServicePlanModule } from './modules/service-plan/service-plan.module';
 import { WarehouseModule } from './modules/warehouse/warehouse.module';
 
@@ -28,6 +29,9 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
 
     // Background jobs (@Cron)
     ScheduleModule.forRoot(),
+
+    // WebSocket push (global)
+    RealtimeModule,
 
     // ── Feature modules ──
     AuthModule,

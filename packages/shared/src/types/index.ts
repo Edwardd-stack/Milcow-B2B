@@ -6,4 +6,5 @@ export * from './member.type';
 export * from './order.type';
 export * from './pickup.type';
 export * from './product.type';
+export * from './realtime.type';
 export * from './warehouse.type';
