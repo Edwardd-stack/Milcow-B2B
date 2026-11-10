@@ -18,7 +18,7 @@
     "uptime": "가동 시간 {seconds}초"
   },
   "Nav": {
-    "home": "홈",
+    "home": "홈페이지",
     "products": "제품",
     "map": "목장·창고 지도",
     "contracts": "공급 계약",
@@ -293,6 +293,50 @@
         "kakao": "카카오 계정이 연결되었습니다",
         "google": "Google 계정이 연결되었습니다"
       }
+    }
+  },
+  "Catalog": {
+    "title": "제품",
+    "description": "협력 목장의 원유, 크림, 버터, 치즈, 요거트, 분유를 톤 단위 도매가로.",
+    "filters": "필터",
+    "search": "제품 검색",
+    "category": "카테고리",
+    "all": "전체",
+    "grade": "등급",
+    "price": "톤당 가격",
+    "priceMin": "최저 가격",
+    "priceMax": "최고 가격",
+    "warehouse": "재고 보유 창고",
+    "inStockOnly": "재고 있는 제품만",
+    "reset": "필터 초기화",
+    "sort": {
+      "title": "정렬",
+      "RECOMMENDED": "추천순",
+      "NEWEST": "최신순",
+      "PRICE_ASC": "가격 낮은순",
+      "PRICE_DESC": "가격 높은순"
+    },
+    "count": "총 <b>{total}</b>개 중 {from}–{to}",
+    "error": "제품을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+    "empty": {
+      "title": "조건에 맞는 제품이 없습니다",
+      "text": "필터를 줄이거나 다른 검색어를 입력해 보세요."
+    },
+    "view": {
+      "label": "보기 방식",
+      "card": "카드",
+      "table": "표"
+    },
+    "table": {
+      "product": "제품",
+      "grade": "등급",
+      "price": "톤당 가격"
+    },
+    "pagination": {
+      "label": "페이지",
+      "prev": "이전 페이지",
+      "next": "다음 페이지",
+      "page": "{page} 페이지"
     }
   }
 }

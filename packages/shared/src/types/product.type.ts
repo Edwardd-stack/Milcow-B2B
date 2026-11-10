@@ -27,3 +27,11 @@ export interface ProductDetail extends ProductInfo {
     inventoryTon: number;
   }[];
 }
+
+/** GET /products/facets — numbers for the catalog filters */
+export interface ProductFacets {
+  total: number;
+  byType: Record<ProductType, number>;
+  priceMin: number; // KRW per ton
+  priceMax: number;
+}

@@ -5,14 +5,20 @@ import { Link } from '@/i18n/navigation';
 import { formatKrw, formatTon } from '@/lib/format';
 import { ProductIllustration } from './ProductIllustration';
 
-const GRADE_STYLE: Record<ProductInfo['productGrade'], string> = {
+export const GRADE_STYLE: Record<ProductInfo['productGrade'], string> = {
   PREMIUM: 'bg-accent/15 text-[#b86e00]',
   GRADE_1: 'bg-brand/10 text-brand',
   GRADE_2: 'bg-[#eef1f5] text-muted',
 };
 
 /** One product as a "pricing card" (template style). Reused on the home page and /products. */
-export function ProductCard({ product }: { product: ProductInfo }) {
+export function ProductCard({
+  product,
+  compact = false,
+}: {
+  product: ProductInfo;
+  compact?: boolean;
+}) {
   const t = useTranslations('Product');
   const locale = useLocale() as 'ko' | 'en' | 'uz';
 
@@ -30,9 +36,14 @@ export function ProductCard({ product }: { product: ProductInfo }) {
   ];
 
   return (
-    <article className="group flex flex-col rounded-2xl border border-white bg-white p-7 shadow-[0_10px_30px_rgba(17,55,95,0.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(17,55,95,0.12)]">
+    <article
+      className={`group flex flex-col rounded-2xl border border-white bg-white ${compact ? 'p-6' : 'p-7'} shadow-[0_10px_30px_rgba(17,55,95,0.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(17,55,95,0.12)]`}
+    >
       <div className="flex items-start justify-between gap-4">
-        <ProductIllustration type={product.productType} className="h-[72px] w-[72px]" />
+        <ProductIllustration
+          type={product.productType}
+          className={compact ? 'h-14 w-14' : 'h-[72px] w-[72px]'}
+        />
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold ${GRADE_STYLE[product.productGrade]}`}
         >
@@ -40,7 +51,9 @@ export function ProductCard({ product }: { product: ProductInfo }) {
         </span>
       </div>
 
-      <p className="mt-5 text-xs font-semibold tracking-[0.15em] text-brand uppercase">
+      <p
+        className={`${compact ? 'mt-4' : 'mt-5'} text-xs font-semibold tracking-[0.15em] text-brand uppercase`}
+      >
         {t(`type.${product.productType}`)}
       </p>
       <h3
@@ -51,14 +64,16 @@ export function ProductCard({ product }: { product: ProductInfo }) {
         {product.productName[locale]}
       </h3>
 
-      <p className="mt-4 flex items-baseline gap-1.5">
-        <span className="text-[28px] font-bold text-heading">
+      <p className={`${compact ? 'mt-2.5' : 'mt-4'} flex items-baseline gap-1.5`}>
+        <span className={`${compact ? 'text-2xl' : 'text-[28px]'} font-bold text-heading`}>
           {formatKrw(product.productPricePerTon, locale)}
         </span>
         <span className="text-sm text-muted">/ {t('ton')}</span>
       </p>
 
-      <dl className="mt-5 mb-7 space-y-2.5 border-t border-line pt-5 text-sm">
+      <dl
+        className={`border-t border-line text-sm ${compact ? 'mt-4 mb-5 space-y-2 pt-4' : 'mt-5 mb-7 space-y-2.5 pt-5'}`}
+      >
         {specs.map((spec) => (
           <div key={spec.label} className="flex justify-between gap-4">
             <dt className="text-muted">{spec.label}</dt>
@@ -69,7 +84,7 @@ export function ProductCard({ product }: { product: ProductInfo }) {
 
       <Link
         href={`/products/${product.id}`}
-        className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition group-hover:bg-navy"
+        className={`mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-brand-dark px-6 ${compact ? 'py-2.5' : 'py-3'} text-sm font-medium text-white transition group-hover:bg-navy`}
       >
         {t('details')}
         <ArrowRightIcon />

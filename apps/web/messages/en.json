@@ -294,5 +294,49 @@
         "google": "Google account connected"
       }
     }
+  },
+  "Catalog": {
+    "title": "Products",
+    "description": "Raw milk, cream, butter, cheese, yogurt and milk powder from partner farms — wholesale prices per ton.",
+    "filters": "Filters",
+    "search": "Search products",
+    "category": "Category",
+    "all": "All",
+    "grade": "Grade",
+    "price": "Price per ton",
+    "priceMin": "Minimum price",
+    "priceMax": "Maximum price",
+    "warehouse": "In stock at",
+    "inStockOnly": "In stock only",
+    "reset": "Reset filters",
+    "sort": {
+      "title": "Sort",
+      "RECOMMENDED": "Recommended",
+      "NEWEST": "Newest",
+      "PRICE_ASC": "Price: low to high",
+      "PRICE_DESC": "Price: high to low"
+    },
+    "count": "{from}–{to} of <b>{total}</b>",
+    "error": "Could not load products. Please try again in a moment.",
+    "empty": {
+      "title": "No products match",
+      "text": "Try fewer filters or a different search."
+    },
+    "view": {
+      "label": "View",
+      "card": "Cards",
+      "table": "Table"
+    },
+    "table": {
+      "product": "Product",
+      "grade": "Grade",
+      "price": "Price / ton"
+    },
+    "pagination": {
+      "label": "Pages",
+      "prev": "Previous page",
+      "next": "Next page",
+      "page": "Page {page}"
+    }
   }
 }

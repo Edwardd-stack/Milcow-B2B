@@ -11,9 +11,17 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Product catalog (filter by type, sort, paginate)' })
+  @ApiOperation({
+    summary: 'Product catalog (type, grade, warehouse, price, stock, search, sort, paginate)',
+  })
   findAll(@Query() query: ProductListQueryDto) {
     return this.productService.findAll(query);
+  }
+
+  @Get('facets')
+  @ApiOperation({ summary: 'Counts per product type and the price range (catalog filters)' })
+  facets() {
+    return this.productService.facets();
   }
 
   @Get(':id')

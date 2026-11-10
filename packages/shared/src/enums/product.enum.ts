@@ -23,6 +23,7 @@ export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus];
 
 /** Sort options for GET /products */
 export const ProductSort = {
+  RECOMMENDED: 'RECOMMENDED', // by type (raw milk → cream → … → powder), best grade first — same as the home page
   NEWEST: 'NEWEST',
   PRICE_ASC: 'PRICE_ASC',
   PRICE_DESC: 'PRICE_DESC',

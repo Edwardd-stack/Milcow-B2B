@@ -294,5 +294,49 @@
         "google": "Google hisobi ulandi"
       }
     }
+  },
+  "Catalog": {
+    "title": "Mahsulotlar",
+    "description": "Hamkor fermalardan xom sut, qaymoq, sariyog', pishloq, yogurt va sut kukuni — tonnasiga ulgurji narxda.",
+    "filters": "Filtrlar",
+    "search": "Mahsulot qidirish",
+    "category": "Kategoriya",
+    "all": "Hammasi",
+    "grade": "Daraja",
+    "price": "Tonna narxi",
+    "priceMin": "Eng past narx",
+    "priceMax": "Eng yuqori narx",
+    "warehouse": "Zaxira bor ombor",
+    "inStockOnly": "Faqat zaxirada borlar",
+    "reset": "Filtrlarni tozalash",
+    "sort": {
+      "title": "Saralash",
+      "RECOMMENDED": "Tavsiya etilgan",
+      "NEWEST": "Eng yangi",
+      "PRICE_ASC": "Arzonidan",
+      "PRICE_DESC": "Qimmatidan"
+    },
+    "count": "<b>{total}</b> tadan {from}–{to}",
+    "error": "Mahsulotlarni yuklab bo'lmadi. Birozdan keyin qayta urinib ko'ring.",
+    "empty": {
+      "title": "Mos mahsulot topilmadi",
+      "text": "Filtrlarni kamaytiring yoki boshqa so'z bilan qidiring."
+    },
+    "view": {
+      "label": "Ko'rinish",
+      "card": "Karta",
+      "table": "Jadval"
+    },
+    "table": {
+      "product": "Mahsulot",
+      "grade": "Daraja",
+      "price": "Tonna narxi"
+    },
+    "pagination": {
+      "label": "Sahifalar",
+      "prev": "Oldingi sahifa",
+      "next": "Keyingi sahifa",
+      "page": "{page}-sahifa"
+    }
   }
 }
