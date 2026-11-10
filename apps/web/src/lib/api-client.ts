@@ -1,6 +1,13 @@
 import type { ApiError } from '@milcow/shared';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+/**
+ * Browser: relative "/api/v1" → goes through the Next.js proxy (next.config.ts rewrites).
+ * Server (Server Components, route handlers): there is no "current origin", so call the API directly.
+ */
+const API_URL =
+  typeof window === 'undefined'
+    ? `${process.env.API_ORIGIN ?? 'http://localhost:3000'}/api/v1`
+    : '/api/v1';
 
 /** Thrown when the API answers with a non-2xx status. */
 export class ApiRequestError extends Error {
@@ -19,14 +26,10 @@ export class ApiRequestError extends Error {
  * and error handling are written once.
  */
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  if (!API_URL) {
-    throw new Error('NEXT_PUBLIC_API_URL is not set — see apps/web/.env.example');
-  }
-
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
     headers: { 'Content-Type': 'application/json', ...init?.headers },
-    credentials: 'include', // send cookies (needed later for auth)
+    credentials: 'include', // send the httpOnly auth cookie
   });
 
   if (!response.ok) {
@@ -35,5 +38,7 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
     throw new ApiRequestError(response.status, message ?? response.statusText);
   }
 
+  // 204 No Content (e.g. logout) has no body to parse
+  if (response.status === 204) return undefined as T;
   return (await response.json()) as T;
 }

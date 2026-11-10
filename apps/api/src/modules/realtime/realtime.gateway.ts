@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { WebSocketGateway, WebSocketServer, type OnGatewayConnection } from '@nestjs/websockets';
 import type { Namespace, Socket } from 'socket.io';
 import type { JwtPayload } from '../../libs/types/auth.type';
+import { AUTH_COOKIE, readCookie } from '../../libs/utils/auth-cookie.util';
 import { ADMIN_ROOM, memberRoom, warehouseRoom } from './realtime.rooms';
 
 /**
@@ -19,8 +20,13 @@ export class RealtimeGateway implements OnGatewayConnection {
   constructor(private readonly jwt: JwtService) {}
 
   async handleConnection(client: Socket) {
-    const { token } = client.handshake.auth as { token?: unknown };
-    if (typeof token !== 'string') {
+    // Browser apps: the httpOnly cookie comes with the handshake. Other clients: auth.token
+    const { token: authToken } = client.handshake.auth as { token?: unknown };
+    const token =
+      typeof authToken === 'string'
+        ? authToken
+        : readCookie(client.handshake.headers.cookie, AUTH_COOKIE);
+    if (!token) {
       client.disconnect(true);
       return;
     }

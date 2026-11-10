@@ -7,11 +7,13 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import type { AuthMember, AuthRequest, JwtPayload } from '../../libs/types/auth.type';
+import { AUTH_COOKIE, readCookie } from '../../libs/utils/auth-cookie.util';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
 /**
  * Runs before every route (registered globally).
- * Checks "Authorization: Bearer <token>" and attaches the member to the request.
+ * Reads the JWT from the httpOnly cookie (web/admin apps) or "Authorization: Bearer <token>"
+ * (API clients, tests) and attaches the member to the request.
  */
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -26,17 +28,18 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
     const request = context.switchToHttp().getRequest<AuthRequest>();
-    const [scheme, token] = request.headers.authorization?.split(' ') ?? [];
-    const hasToken = scheme === 'Bearer' && !!token;
+    const [scheme, bearer] = request.headers.authorization?.split(' ') ?? [];
+    const token =
+      (scheme === 'Bearer' && bearer) || readCookie(request.headers.cookie, AUTH_COOKIE);
 
     // Public route: a logged-in visitor is still recognised (e.g. the chatbot logs who asked),
     // but a missing or bad token never blocks the request.
     if (isPublic) {
-      if (hasToken) request.member = await this.verify(token).catch(() => undefined);
+      if (token) request.member = await this.verify(token).catch(() => undefined);
       return true;
     }
 
-    if (!hasToken) throw new UnauthorizedException('Missing access token');
+    if (!token) throw new UnauthorizedException('Missing access token');
     try {
       request.member = await this.verify(token);
     } catch {

@@ -15,8 +15,7 @@ export interface MemberInfo {
   createdAt: string; // ISO date
 }
 
-/** POST /auth/signup, POST /auth/login */
+/** POST /auth/signup, POST /auth/login — the JWT itself travels in an httpOnly cookie, never in the body */
 export interface AuthResponse {
-  accessToken: string;
   member: MemberInfo;
 }

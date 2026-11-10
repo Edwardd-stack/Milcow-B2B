@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import type { AuthResponse, MemberInfo } from '@milcow/shared';
+import type { MemberInfo } from '@milcow/shared';
 import type { Member } from '../../generated/prisma/client';
 import type { JwtPayload } from '../../libs/types/auth.type';
 import { hashPassword, verifyPassword } from '../../libs/utils/password.util';
@@ -14,6 +14,12 @@ import { MemberService } from '../member/member.service';
 import type { LoginDto } from './dto/login.dto';
 import type { SignupDto } from './dto/signup.dto';
 
+/** Service → controller only. The controller puts the token into a cookie and returns just the member. */
+export interface AuthResult {
+  accessToken: string;
+  member: MemberInfo;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,7 +27,7 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  async signup(input: SignupDto): Promise<AuthResponse> {
+  async signup(input: SignupDto): Promise<AuthResult> {
     const existing = await this.members.findByEmail(input.memberEmail);
     if (existing) throw new ConflictException('This email is already registered');
 
@@ -29,7 +35,7 @@ export class AuthService {
     return this.buildAuthResponse(member);
   }
 
-  async login(input: LoginDto): Promise<AuthResponse> {
+  async login(input: LoginDto): Promise<AuthResult> {
     const member = await this.members.findByEmail(input.memberEmail);
     const isValid = member?.memberPassword
       ? await verifyPassword(input.memberPassword, member.memberPassword)
@@ -49,7 +55,7 @@ export class AuthService {
     return toMemberInfo(member);
   }
 
-  private async buildAuthResponse(member: Member): Promise<AuthResponse> {
+  private async buildAuthResponse(member: Member): Promise<AuthResult> {
     const payload: JwtPayload = {
       sub: member.id,
       memberType: member.memberType,
