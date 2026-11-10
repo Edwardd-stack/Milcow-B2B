@@ -1,16 +1,10 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { LOCALES, type Locale } from '@milcow/shared';
+import { LOCALES } from '@milcow/shared';
 import { usePathname, useRouter } from '@/i18n/navigation';
 
-const LABELS: Record<Locale, string> = {
-  ko: '한국어',
-  en: 'English',
-  uz: "O'zbekcha",
-};
-
-/** Switches the language but keeps the user on the same page. */
+/** Compact KO / EN / UZ switch. Keeps the user on the same page. */
 export function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
   const locale = useLocale();
@@ -18,22 +12,24 @@ export function LocaleSwitcher() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label={t('label')} className="flex gap-2">
-      {LOCALES.map((item) => (
-        <button
-          key={item}
-          type="button"
-          onClick={() => router.replace(pathname, { locale: item })}
-          aria-current={item === locale ? 'true' : undefined}
-          className={`rounded-full border px-4 py-1.5 text-sm transition ${
-            item === locale
-              ? 'border-foreground bg-foreground text-background'
-              : 'border-zinc-300 hover:border-foreground'
-          }`}
-        >
-          {LABELS[item]}
-        </button>
-      ))}
-    </nav>
+    <div role="group" aria-label={t('label')} className="flex rounded-full bg-white/10 p-1">
+      {LOCALES.map((item) => {
+        const active = item === locale;
+        return (
+          <button
+            key={item}
+            type="button"
+            lang={item}
+            onClick={() => router.replace(pathname, { locale: item })}
+            aria-pressed={active}
+            className={`rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap uppercase transition ${
+              active ? 'bg-white text-brand-dark' : 'text-white/80 hover:text-white'
+            }`}
+          >
+            {item}
+          </button>
+        );
+      })}
+    </div>
   );
 }

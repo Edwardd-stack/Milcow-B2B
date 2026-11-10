@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw design images — only the WebP versions in public/images are committed
+/design-src/*
+!/design-src/README.md

@@ -1,26 +1,60 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Milcow design tokens (colors from the Milcow template kit).
+ * Use them as Tailwind classes: bg-brand, text-navy, border-line …
+ */
+@theme {
+  --color-brand: #2065ae; /* main blue — hero, header */
+  --color-brand-dark: #154171; /* buttons, headings on light bg */
+  --color-navy: #11375f; /* footer, dark sections */
+  --color-accent: #fd9e01; /* call-to-action orange */
+  --color-accent-dark: #e08a00;
+  --color-ink: #1f2937; /* body text */
+  --color-muted: #6b7280; /* secondary text */
+  --color-line: #e5e7eb; /* borders */
+  --color-cream: #f1f6fd; /* light section background */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Hero word swap: drops in tilted, rocks like a see-saw, settles */
+  --animate-seesaw: seesaw 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Poppins for Latin, Noto Sans KR for Hangul (Poppins has no Korean glyphs) */
+  --font-sans: var(--font-poppins), var(--font-noto-kr), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Template look: light-blue page; white only inside cards */
+  @apply bg-cream text-ink;
+  /* Korean: break lines between words, never inside a word (단위로 ≠ 단위 / 로) */
+  word-break: keep-all;
+  /* Break a word only when it cannot fit at all ("anywhere" also squeezes flex items) */
+  overflow-wrap: break-word;
+}
+
+@keyframes seesaw {
+  0% {
+    opacity: 0;
+    transform: translateY(-20%) rotate(-8deg);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0) rotate(6deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
+/* No motion for people who turned animations off in their OS */
+@media (prefers-reduced-motion: reduce) {
+  .animate-seesaw {
+    animation: none;
+  }
 }
