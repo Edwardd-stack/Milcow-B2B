@@ -66,7 +66,8 @@
     "cartonAlt2": "저지방 우유 팩",
     "word1": "Like",
     "word2": "Want",
-    "word3": "Drink"
+    "word3": "Drink",
+    "scrollHint": "아래로 스크롤"
   },
   "About": {
     "eyebrow": "Milcow 소개",
@@ -215,5 +216,8 @@
       "text": "제품, 가격, 계약 조건을 가입 없이 AI 상담으로 바로 확인하세요.",
       "button": "AI 상담 시작"
     }
+  },
+  "Common": {
+    "backToTop": "맨 위로"
   }
 }

@@ -22,13 +22,19 @@ export function Hero() {
   const badgeSize = locale === 'ko' ? 'h-11 w-11' : 'h-10 w-10';
 
   return (
-    <section className="relative overflow-x-clip bg-brand pb-20 text-white sm:pb-24 lg:pb-22 xl:pb-28">
+    <section
+      // ≥1600px: the wave grows with the screen width (100/1440 of it), so the bottom padding grows too
+      // → the visual never touches the wave on big monitors
+      className="relative overflow-x-clip bg-brand pb-20 text-white sm:pb-24 lg:pb-22 xl:pb-32 min-[100rem]:pb-[calc(6.95vw+1rem)]"
+    >
       {/* Two stacks pushed to opposite edges: visual hugs the left, text hugs the right.
           Sizes are relative (%, vw, clamp) so everything shrinks smoothly on 16" and smaller screens. */}
-      <Container className="grid gap-14 pt-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-[90px] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:pt-6 xl:pt-10">
+      <Container className="grid gap-14 pt-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-[90px] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:pt-6 xl:pt-12">
+        {/* From 1280px up: the visual is also capped by the screen HEIGHT, so the hero ends
+            above the bottom of the first screen and the next section peeks in */}
         {/* Visual — positions measured from the template (% of a square frame):
             circle behind, milk splash wrapping around the cartons, two tilted cartons, two glass cards */}
-        <div className="relative mx-auto aspect-square w-full max-w-[520px] lg:mx-0 lg:max-w-[700px] xl:-ml-12 xl:w-[calc(100%+3rem)] xl:max-w-[1000px]">
+        <div className="relative mx-auto aspect-square w-full max-w-[520px] lg:mx-0 lg:max-w-[700px] xl:-ml-12 xl:w-[calc(100%+3rem)] xl:max-w-[min(1000px,max(480px,calc(100svh-200px)))]">
           <div className="absolute top-[10%] left-[13%] aspect-square w-[66%] rounded-full bg-brand-dark/70" />
           <Image
             src="/images/hero/milk-splash.webp"
@@ -111,6 +117,17 @@ export function Hero() {
       </Container>
 
       <Wave fill="fill-cream" />
+
+      {/* Scroll hint: tells visitors the page continues below (laptops only; big monitors show it anyway) */}
+      <a
+        href="#about"
+        aria-label={t('scrollHint')}
+        className="group absolute bottom-[calc(7vw+1.5rem)] left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs font-medium tracking-[0.2em] text-white/70 uppercase transition hover:text-white lg:flex min-[100rem]:hidden"
+      >
+        <span className="flex h-9 w-6 justify-center rounded-full border-2 border-current pt-1.5">
+          <span className="h-2 w-1 animate-bounce rounded-full bg-current" />
+        </span>
+      </a>
     </section>
   );
 }

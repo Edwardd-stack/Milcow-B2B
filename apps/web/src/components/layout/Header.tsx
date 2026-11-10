@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { MAIN_NAV } from '@/config/navigation';
 import { Container } from '@/components/ui/Container';
@@ -19,25 +19,13 @@ export function Header() {
   const navText = locale === 'ko' ? 'text-[15px]' : 'text-[14px]';
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Shadow once the page is scrolled (subscribing to an external event → setState in a callback is fine)
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-white/15 bg-brand transition-shadow ${
-        scrolled ? 'shadow-lg shadow-navy/20' : ''
-      }`}
-    >
-      <Container className="flex h-20 items-center justify-between gap-6">
+    <header className="relative z-50 border-b border-white/15 bg-brand">
+      <Container className="flex h-22 items-center justify-between gap-6">
         <Logo />
 
         {/* Desktop menu */}

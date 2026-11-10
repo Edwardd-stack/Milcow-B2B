@@ -22,8 +22,8 @@ export function QueryProvider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {/* Dev-only panel to inspect the cache (removed from production builds) */}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* Dev-only panel to inspect the cache (removed from production builds); bottom-left so it does not cover the back-to-top button */}
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 }

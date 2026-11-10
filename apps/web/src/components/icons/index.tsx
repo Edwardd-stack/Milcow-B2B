@@ -50,6 +50,11 @@ export const SparkIcon = ({ className = 'h-6 w-6' }: IconProps) => (
     <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8Z" />
   </svg>
 );
+export const ArrowUpIcon = ({ className = 'h-5 w-5' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}>
+    <path d="M12 19V5M6 11l6-6 6 6" />
+  </svg>
+);
 export const ArrowRightIcon = ({ className = 'h-4 w-4' }: IconProps) => (
   <svg viewBox="0 0 24 24" className={className} {...base}>
     <path d="M5 12h14M13 6l6 6-6 6" />

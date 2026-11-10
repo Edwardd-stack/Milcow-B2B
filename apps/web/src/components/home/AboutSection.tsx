@@ -17,8 +17,9 @@ export function AboutSection() {
 
   return (
     <section
+      id="about"
       // Top / bottom padding per screen size — change the numbers here (×4 px: pt-12 = 48px)
-      className="pt-10 pb-16 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20 xl:pt-10 xl:pb-22"
+      className="pt-10 pb-16 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20 xl:pt-6 xl:pb-22"
     >
       <Container className="grid items-center gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-[90px]">
         {/* Text */}

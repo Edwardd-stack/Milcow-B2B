@@ -66,7 +66,8 @@
     "cartonAlt2": "Semi-skimmed milk carton",
     "word1": "Like",
     "word2": "Want",
-    "word3": "Drink"
+    "word3": "Drink",
+    "scrollHint": "Scroll down"
   },
   "About": {
     "eyebrow": "About Milcow",
@@ -215,5 +216,8 @@
       "text": "Products, prices and contract terms — check them with the AI assistant, no sign-up needed.",
       "button": "Start AI chat"
     }
+  },
+  "Common": {
+    "backToTop": "Back to top"
   }
 }
