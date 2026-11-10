@@ -15,6 +15,21 @@ export interface MemberInfo {
   createdAt: string; // ISO date
 }
 
+/** POST /auth/login body */
+export interface LoginInput {
+  memberEmail: string;
+  memberPassword: string;
+}
+
+/** POST /auth/signup body — a buyer (company) account */
+export interface SignupInput extends LoginInput {
+  memberNick: string;
+  memberCompanyName: string;
+  memberBizNo?: string; // 000-00-00000
+  memberPhone?: string;
+  memberLang?: Lang;
+}
+
 /** POST /auth/signup, POST /auth/login — the JWT itself travels in an httpOnly cookie, never in the body */
 export interface AuthResponse {
   member: MemberInfo;

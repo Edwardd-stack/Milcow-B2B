@@ -2,8 +2,8 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res } from '@nestjs/
 import { ConfigService } from '@nestjs/config';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
-import type { AuthResponse } from '@milcow/shared';
-import { CurrentMember } from '../../common/decorators/current-member.decorator';
+import type { AuthResponse, MemberInfo } from '@milcow/shared';
+import { OptionalMember } from '../../common/decorators/optional-member.decorator';
 import { Public } from '../../common/decorators/public.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { AUTH_COOKIE, authCookieOptions } from '../../libs/utils/auth-cookie.util';
@@ -51,11 +51,18 @@ export class AuthController {
     res.clearCookie(AUTH_COOKIE, options);
   }
 
+  /**
+   * Public on purpose: a guest gets `null` (200), not 401.
+   * The web app asks this on every page load — guests are normal, not an error.
+   */
+  @Public()
   @Get('me')
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'The logged-in member' })
-  me(@CurrentMember() member: AuthMember) {
-    return this.authService.me(member.id);
+  @ApiOperation({ summary: 'The logged-in member, or null for a guest' })
+  async me(
+    @OptionalMember() member: AuthMember | undefined,
+  ): Promise<{ member: MemberInfo | null }> {
+    return { member: member ? await this.authService.me(member.id) : null };
   }
 
   /** passthrough: true → Nest still sends our return value as JSON, we only add the cookie */

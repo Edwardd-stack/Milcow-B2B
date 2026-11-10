@@ -27,7 +27,9 @@
     "login": "Log in",
     "menu": "Main menu",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "logout": "Log out",
+    "account": "My account"
   },
   "Footer": {
     "tagline": "Fresh raw milk and dairy from partner farms in Korea, by the ton. Bulk orders, supply contracts and warehouse pickup in one place.",
@@ -221,5 +223,55 @@
   },
   "Common": {
     "backToTop": "Back to top"
+  },
+  "Auth": {
+    "eyebrow": "Milcow Business",
+    "tabs": "Log in or sign up",
+    "optional": "optional",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "login": {
+      "tab": "Log in",
+      "heading": "Welcome back",
+      "title": "Log in",
+      "lead": "Log in with your business account.",
+      "submit": "Log in",
+      "pending": "Logging in…"
+    },
+    "signup": {
+      "tab": "Sign up",
+      "heading": "Create a business account",
+      "title": "Sign up",
+      "lead": "Free to join — start ordering wholesale right away.",
+      "submit": "Create account",
+      "pending": "Creating account…"
+    },
+    "fields": {
+      "company": "Company name",
+      "name": "Contact person",
+      "phone": "Phone",
+      "email": "Email",
+      "password": "Password",
+      "bizNo": "Business registration no."
+    },
+    "placeholders": {
+      "company": "Hanbit Dairy Co., Ltd.",
+      "name": "Minjun Kim"
+    },
+    "hints": {
+      "password": "At least 8 characters",
+      "bizNo": "Type the digits — the dashes are added for you"
+    },
+    "demo": {
+      "title": "Demo account",
+      "fill": "Click to fill in the form"
+    },
+    "errors": {
+      "invalid": "Wrong email or password.",
+      "inactive": "This account is not active. Please contact support.",
+      "emailTaken": "This email is already registered.",
+      "tooMany": "Too many attempts. Please try again in a moment.",
+      "server": "Something went wrong. Please try again in a moment."
+    }
   }
 }

@@ -27,7 +27,9 @@
     "login": "Kirish",
     "menu": "Asosiy menyu",
     "openMenu": "Menyuni ochish",
-    "closeMenu": "Menyuni yopish"
+    "closeMenu": "Menyuni yopish",
+    "logout": "Chiqish",
+    "account": "Mening hisobim"
   },
   "Footer": {
     "tagline": "Koreyadagi hamkor fermalarning yangi suti va sut mahsulotlari — tonnalab. Ulgurji xarid, oylik shartnoma va ombordan olib ketish bir joyda.",
@@ -221,5 +223,55 @@
   },
   "Common": {
     "backToTop": "Tepaga qaytish"
+  },
+  "Auth": {
+    "eyebrow": "Milcow Business",
+    "tabs": "Kirish yoki ro'yxatdan o'tish",
+    "optional": "ixtiyoriy",
+    "showPassword": "Parolni ko'rsatish",
+    "hidePassword": "Parolni yashirish",
+    "login": {
+      "tab": "Kirish",
+      "heading": "Qaytganingizdan xursandmiz",
+      "title": "Kirish",
+      "lead": "Biznes hisobingiz bilan kiring.",
+      "submit": "Kirish",
+      "pending": "Kirilmoqda…"
+    },
+    "signup": {
+      "tab": "Ro'yxatdan o'tish",
+      "heading": "Biznes hisob ochish",
+      "title": "Ro'yxatdan o'tish",
+      "lead": "Ro'yxatdan o'tish bepul — darhol ulgurji buyurtma bera olasiz.",
+      "submit": "Hisob ochish",
+      "pending": "Hisob ochilmoqda…"
+    },
+    "fields": {
+      "company": "Kompaniya nomi",
+      "name": "Mas'ul shaxs",
+      "phone": "Telefon",
+      "email": "Email",
+      "password": "Parol",
+      "bizNo": "Biznes ro'yxat raqami"
+    },
+    "placeholders": {
+      "company": "Hanbit Dairy MChJ",
+      "name": "Aziz Karimov"
+    },
+    "hints": {
+      "password": "Kamida 8 ta belgi",
+      "bizNo": "Faqat raqamlarni yozing — chiziqchalar o'zi qo'yiladi"
+    },
+    "demo": {
+      "title": "Sinov hisobi",
+      "fill": "Bosing — forma avtomatik to'ldiriladi"
+    },
+    "errors": {
+      "invalid": "Email yoki parol noto'g'ri.",
+      "inactive": "Bu hisob faol emas. Yordam xizmatiga murojaat qiling.",
+      "emailTaken": "Bu email allaqachon ro'yxatdan o'tgan.",
+      "tooMany": "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring.",
+      "server": "Xatolik yuz berdi. Birozdan keyin qayta urinib ko'ring."
+    }
   }
 }

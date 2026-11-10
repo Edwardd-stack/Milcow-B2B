@@ -27,7 +27,9 @@
     "login": "로그인",
     "menu": "주 메뉴",
     "openMenu": "메뉴 열기",
-    "closeMenu": "메뉴 닫기"
+    "closeMenu": "메뉴 닫기",
+    "logout": "로그아웃",
+    "account": "내 계정"
   },
   "Footer": {
     "tagline": "국내 협력 목장의 신선한 원유와 유제품을 톤 단위로. 대량 구매부터 정기 공급 계약, 창고 픽업까지 한 곳에서.",
@@ -221,5 +223,55 @@
   },
   "Common": {
     "backToTop": "맨 위로"
+  },
+  "Auth": {
+    "eyebrow": "Milcow Business",
+    "tabs": "로그인 또는 회원가입",
+    "optional": "선택",
+    "showPassword": "비밀번호 보기",
+    "hidePassword": "비밀번호 숨기기",
+    "login": {
+      "tab": "로그인",
+      "heading": "다시 오신 것을 환영합니다",
+      "title": "로그인",
+      "lead": "사업자 계정으로 로그인하세요.",
+      "submit": "로그인",
+      "pending": "로그인 중…"
+    },
+    "signup": {
+      "tab": "회원가입",
+      "heading": "사업자 계정 만들기",
+      "title": "회원가입",
+      "lead": "가입은 무료이며 바로 도매 주문을 시작할 수 있습니다.",
+      "submit": "가입하기",
+      "pending": "가입 중…"
+    },
+    "fields": {
+      "company": "회사명",
+      "name": "담당자 이름",
+      "phone": "연락처",
+      "email": "이메일",
+      "password": "비밀번호",
+      "bizNo": "사업자등록번호"
+    },
+    "placeholders": {
+      "company": "(주)한빛유업",
+      "name": "김민준"
+    },
+    "hints": {
+      "password": "8자 이상",
+      "bizNo": "숫자만 입력하면 자동으로 형식이 맞춰집니다"
+    },
+    "demo": {
+      "title": "체험용 계정",
+      "fill": "클릭하면 자동으로 입력됩니다"
+    },
+    "errors": {
+      "invalid": "이메일 또는 비밀번호가 올바르지 않습니다.",
+      "inactive": "사용이 중지된 계정입니다. 고객센터로 문의해 주세요.",
+      "emailTaken": "이미 가입된 이메일입니다.",
+      "tooMany": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.",
+      "server": "일시적인 오류입니다. 잠시 후 다시 시도해 주세요."
+    }
   }
 }

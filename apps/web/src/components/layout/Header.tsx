@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { MAIN_NAV } from '@/config/navigation';
 import { Container } from '@/components/ui/Container';
 import { Link, usePathname } from '@/i18n/navigation';
+import { AccountButton } from './AccountButton';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { Logo } from './Logo';
 
@@ -52,12 +53,9 @@ export function Header() {
           <div className="hidden sm:block">
             <LocaleSwitcher />
           </div>
-          <Link
-            href="/login"
-            className="hidden rounded-full bg-navy px-7 py-3 text-[15px] font-medium whitespace-nowrap text-white shadow-md transition hover:bg-brand-dark sm:inline-block"
-          >
-            {t('login')}
-          </Link>
+          <div className="hidden sm:block">
+            <AccountButton />
+          </div>
 
           <button
             type="button"
@@ -101,13 +99,7 @@ export function Header() {
           </ul>
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-white/15 pt-4 sm:hidden">
             <LocaleSwitcher />
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="rounded-full bg-navy px-6 py-2.5 text-sm font-medium text-white"
-            >
-              {t('login')}
-            </Link>
+            <AccountButton compact onNavigate={() => setOpen(false)} />
           </div>
         </nav>
       </div>

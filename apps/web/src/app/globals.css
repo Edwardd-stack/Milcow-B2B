@@ -19,6 +19,8 @@
 
   /* Hero word swap: drops in tilted, rocks like a see-saw, settles */
   --animate-seesaw: seesaw 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  /* Slow up-and-down drift (login cartons). Uses `translate`, so rotate-* classes still apply */
+  --animate-float: float 6s ease-in-out infinite;
 
   /* Poppins for Latin, Noto Sans KR for Hangul (Poppins has no Korean glyphs) */
   --font-sans: var(--font-poppins), var(--font-noto-kr), ui-sans-serif, system-ui, sans-serif;
@@ -57,8 +59,19 @@ body {
   }
 }
 
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+
 /* No motion for people who turned animations off in their OS */
 @media (prefers-reduced-motion: reduce) {
+  .animate-float,
   .animate-seesaw {
     animation: none;
   }
