@@ -1,5 +1,6 @@
 import { AboutSection } from '@/components/home/AboutSection';
 import { AiSection } from '@/components/home/AiSection';
+import { CustomersSection } from '@/components/home/CustomersSection';
 import { FeaturedProducts } from '@/components/home/FeaturedProducts';
 import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
@@ -17,6 +18,7 @@ export default function HomePage() {
       <HowItWorks />
       <AiSection />
       <MapSection />
+      <CustomersSection />
     </>
   );
 }

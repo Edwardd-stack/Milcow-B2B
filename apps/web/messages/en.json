@@ -166,5 +166,38 @@
     "ariaLabel": "Map of Milcow farms and warehouses",
     "noKey": "Kakao Map key is not set (NEXT_PUBLIC_KAKAO_MAP_KEY).",
     "loadError": "Couldn't load Kakao Map."
+  },
+  "Customers": {
+    "eyebrow": "Who uses Milcow",
+    "title": "Built for these businesses",
+    "text": "From a small bakery to a dairy plant — buy the amount you need, the way you need it.",
+    "bakery": {
+      "title": "Bakeries",
+      "who": "Butter and cream every week",
+      "text": "A monthly contract keeps the price of butter and cream fixed, and they pick up from the nearest warehouse.",
+      "tag1": "Contract",
+      "tag2": "Pickup"
+    },
+    "cafe": {
+      "title": "Café chains",
+      "who": "Milk for many stores at once",
+      "text": "Head office buys by the ton instead of every store ordering alone, with cold-chain delivery to each branch.",
+      "tag1": "By the ton",
+      "tag2": "Cold chain"
+    },
+    "factory": {
+      "title": "Dairy plants",
+      "who": "Manufacturers using raw milk",
+      "text": "Tens of tons of raw milk a month straight from partner farms, with quality test reports for every batch.",
+      "tag1": "Raw milk",
+      "tag2": "Quality tests"
+    },
+    "catering": {
+      "title": "Catering",
+      "who": "School and office canteens",
+      "text": "Yogurt and milk arrive on schedule, and questions are answered instantly by the AI assistant.",
+      "tag1": "Scheduled",
+      "tag2": "AI assistant"
+    }
   }
 }

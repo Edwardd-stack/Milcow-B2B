@@ -166,5 +166,38 @@
     "ariaLabel": "Milcow fermalari va omborlari xaritasi",
     "noKey": "Kakao Map kaliti o'rnatilmagan (NEXT_PUBLIC_KAKAO_MAP_KEY).",
     "loadError": "Kakao Map'ni yuklab bo'lmadi."
+  },
+  "Customers": {
+    "eyebrow": "Mijozlarimiz",
+    "title": "Milcow'dan kimlar foydalanadi",
+    "text": "Kichik novvoyxonadan sut zavodigacha — kerakli miqdorda va qulay usulda xarid qiling.",
+    "bakery": {
+      "title": "Novvoyxonalar",
+      "who": "Har hafta sariyog' va qaymoq",
+      "text": "Oylik shartnoma sariyog' va qaymoq narxini o'zgarmas qiladi, mahsulot eng yaqin ombordan olib ketiladi.",
+      "tag1": "Shartnoma",
+      "tag2": "Olib ketish"
+    },
+    "cafe": {
+      "title": "Kafe tarmoqlari",
+      "who": "Ko'p filiallar uchun sut birdaniga",
+      "text": "Har bir filial alohida emas, bosh ofis tonnalab xarid qiladi va sovuq zanjir bilan har filialga yetkaziladi.",
+      "tag1": "Tonnalab",
+      "tag2": "Sovuq zanjir"
+    },
+    "factory": {
+      "title": "Sut zavodlari",
+      "who": "Xom sutdan foydalanuvchi ishlab chiqaruvchilar",
+      "text": "Har oy o'nlab tonna xom sut to'g'ridan-to'g'ri hamkor fermalardan, har partiyaga sifat tahlili bilan.",
+      "tag1": "Xom sut",
+      "tag2": "Sifat tahlili"
+    },
+    "catering": {
+      "title": "Umumiy ovqatlanish",
+      "who": "Maktab va ofis oshxonalari",
+      "text": "Yogurt va sut jadval bo'yicha keladi, savollarga AI yordamchi darhol javob beradi.",
+      "tag1": "Jadval asosida",
+      "tag2": "AI yordamchi"
+    }
   }
 }
