@@ -39,7 +39,7 @@
     "pickup": "Ombordan olib ketish",
     "aiAssistant": "AI maslahatchi va shartnoma yordamchisi",
     "contact": "Aloqa",
-    "address": "Majang-myeon, Icheon, Gyeonggi-do",
+    "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Ish kunlari 09:00–18:00",
     "rights": "Barcha huquqlar himoyalangan.",
     "callUs": "Qo'ng'iroq qiling",
@@ -198,6 +198,22 @@
       "text": "Yogurt va sut jadval bo'yicha keladi, savollarga AI yordamchi darhol javob beradi.",
       "tag1": "Jadval asosida",
       "tag2": "AI yordamchi"
+    }
+  },
+  "Cta": {
+    "eyebrow": "Boshlash",
+    "title": "Qanday boshlaysiz?",
+    "buy": {
+      "tag": "Xarid qilaman",
+      "title": "Biznes hisob bilan ulgurji buyurtma",
+      "text": "Tonnalab buyurtma, oylik shartnoma va ombordan olib ketish — barchasi bitta hisobda.",
+      "button": "Hisob ochish"
+    },
+    "ai": {
+      "tag": "Avval bilib olaman",
+      "title": "Avval AI'dan so'rang",
+      "text": "Mahsulot, narx va shartnoma shartlarini ro'yxatdan o'tmasdan AI yordamchi orqali bilib oling.",
+      "button": "AI suhbatni boshlash"
     }
   }
 }

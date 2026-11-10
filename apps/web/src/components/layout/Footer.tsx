@@ -62,9 +62,9 @@ export function Footer() {
           ))}
         </ul>
 
-        <div className="grid gap-10 pb-14 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.5fr] lg:pt-2">
+        <div className="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.5fr] lg:pt-2">
           <div className="space-y-5">
-            <Logo className="h-14 w-auto" />
+            <Logo className="h-16 w-auto" />
             <p className="text-sm leading-relaxed">{t('tagline')}</p>
             <span className="inline-block rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-white uppercase">
               {t('b2bOnly')}

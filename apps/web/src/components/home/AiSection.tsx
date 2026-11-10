@@ -11,7 +11,7 @@ export function AiSection() {
   const features = ['feature1', 'feature2', 'feature3'] as const;
 
   return (
-    <section className="py-18 lg:py-20">
+    <section id="ai-assistant" className="scroll-mt-20 py-18 lg:py-20">
       <Container className="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-[90px]">
         <div>
           <p className={`mb-4 font-semibold tracking-[0.2em] text-brand uppercase ${eyebrowText}`}>

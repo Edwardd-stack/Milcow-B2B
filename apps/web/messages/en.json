@@ -39,7 +39,7 @@
     "pickup": "Warehouse pickup",
     "aiAssistant": "AI chat & contract assistant",
     "contact": "Contact",
-    "address": "Majang-myeon, Icheon, Gyeonggi-do",
+    "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Weekdays 09:00–18:00",
     "rights": "All rights reserved.",
     "callUs": "Give us a call",
@@ -198,6 +198,22 @@
       "text": "Yogurt and milk arrive on schedule, and questions are answered instantly by the AI assistant.",
       "tag1": "Scheduled",
       "tag2": "AI assistant"
+    }
+  },
+  "Cta": {
+    "eyebrow": "Get started",
+    "title": "How would you like to start?",
+    "buy": {
+      "tag": "Ready to buy",
+      "title": "Order wholesale with a business account",
+      "text": "Orders by the ton, monthly contracts and warehouse pickup — all in one account.",
+      "button": "Create account"
+    },
+    "ai": {
+      "tag": "Just exploring",
+      "title": "Ask our AI first",
+      "text": "Products, prices and contract terms — check them with the AI assistant, no sign-up needed.",
+      "button": "Start AI chat"
     }
   }
 }

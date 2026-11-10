@@ -15,6 +15,6 @@ export type MainNavKey = (typeof MAIN_NAV)[number]['key'];
 
 /** Contact details shown in the footer (demo values) */
 export const COMPANY_CONTACT = {
-  phone: '02-1234-5678',
-  email: 'contact@milcow.test',
+  phone: '010-6573-1333',
+  email: 'sardor.seniorr@gmail.com',
 } as const;
