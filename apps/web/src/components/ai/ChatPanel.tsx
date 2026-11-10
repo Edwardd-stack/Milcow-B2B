@@ -1,22 +1,31 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
-import type { Locale } from '@milcow/shared';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { SparkIcon } from '@/components/icons';
-import { useChat } from '@/hooks/useChat';
 import { ApiRequestError } from '@/lib/api-client';
+import { useChatContext } from './ChatProvider';
 
 const SUGGESTIONS = ['q1', 'q2', 'q3'] as const;
 
 /**
  * A working chat window for the RAG chatbot (POST /ai/chat).
- * Used inside the home AI section and, later, in the floating chat button.
+ * Used in the home AI section and in the floating chat widget — both share one conversation (ChatProvider).
  */
-export function ChatPanel({ className = '' }: { className?: string }) {
+export function ChatPanel({
+  className = '',
+  listClassName = 'h-[340px]',
+  onClose,
+}: {
+  className?: string;
+  /** Height of the message list */
+  listClassName?: string;
+  /** Shows a close (✕) button in the header */
+  onClose?: () => void;
+}) {
   const t = useTranslations('Chat');
-  const locale = useLocale() as Locale;
-  const { messages, send, isPending, error } = useChat(locale);
+  const { messages, send, isPending, error } = useChatContext();
+  const inputId = useId(); // two panels can be on one page → ids must be unique
   const [input, setInput] = useState('');
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +49,7 @@ export function ChatPanel({ className = '' }: { className?: string }) {
     >
       {/* Header */}
       <div className="flex items-center gap-3 bg-brand px-5 py-4 text-white">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand">
           <SparkIcon className="h-5 w-5" />
         </span>
         <div className="min-w-0">
@@ -50,6 +59,26 @@ export function ChatPanel({ className = '' }: { className?: string }) {
             {t('status')}
           </p>
         </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('close')}
+            className="ml-auto grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15 transition hover:bg-white/25"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Messages */}
@@ -57,7 +86,7 @@ export function ChatPanel({ className = '' }: { className?: string }) {
         ref={listRef}
         role="log"
         aria-live="polite"
-        className="flex h-[340px] flex-col gap-3 overflow-y-auto bg-cream/60 px-5 py-5"
+        className={`flex flex-col gap-3 overflow-y-auto bg-cream/60 px-5 py-5 ${listClassName}`}
       >
         <Bubble role="assistant">{t('welcome')}</Bubble>
         {messages.map((m, i) => (
@@ -104,11 +133,11 @@ export function ChatPanel({ className = '' }: { className?: string }) {
         }}
         className="flex items-center gap-2 px-5 py-4"
       >
-        <label htmlFor="chat-input" className="sr-only">
+        <label htmlFor={inputId} className="sr-only">
           {t('placeholder')}
         </label>
         <input
-          id="chat-input"
+          id={inputId}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           maxLength={500}

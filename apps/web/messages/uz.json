@@ -151,7 +151,9 @@
     "send": "Yuborish",
     "typing": "Javob yozilmoqda",
     "errorBusy": "Hozir AI javob bera olmaydi. Birozdan keyin qayta urinib ko'ring.",
-    "errorRateLimit": "Savollar juda ko'p. Bir daqiqadan keyin qayta urinib ko'ring."
+    "errorRateLimit": "Savollar juda ko'p. Bir daqiqadan keyin qayta urinib ko'ring.",
+    "open": "AI suhbatni ochish",
+    "close": "Yopish"
   },
   "MapSection": {
     "eyebrow": "Fermalar va omborlar",

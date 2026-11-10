@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
+import { OpenChatButton } from '@/components/ai/OpenChatButton';
 import { ArrowRightIcon } from '@/components/icons';
 import { Container } from '@/components/ui/Container';
 import { Link } from '@/i18n/navigation';
@@ -57,7 +58,7 @@ export function CtaSection() {
             />
           </div>
 
-          {/* Path 2: still exploring → AI chat on this page */}
+          {/* Path 2: still exploring → opens the floating AI chat */}
           <div className={`${card} bg-white text-heading shadow-[0_20px_50px_rgba(17,55,95,0.08)]`}>
             <span className={`${tag} bg-[#fff4e0] text-[#c77800]`}>{t('ai.tag')}</span>
             <h3 className={`mt-5 mb-3 max-w-[340px] leading-snug font-bold ${cardTitle}`}>
@@ -66,13 +67,12 @@ export function CtaSection() {
             <p className="mb-8 max-w-[330px] leading-relaxed font-light text-muted">
               {t('ai.text')}
             </p>
-            <a
-              href="#ai-assistant"
+            <OpenChatButton
               className={`${btn} relative z-10 bg-brand text-white shadow-[0_12px_28px_rgba(32,101,174,0.3)] hover:bg-brand-dark`}
             >
               {t('ai.button')}
               <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" />
-            </a>
+            </OpenChatButton>
             <Image
               src="/images/about/cookies-milk-book.webp"
               alt=""

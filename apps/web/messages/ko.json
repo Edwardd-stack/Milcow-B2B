@@ -151,7 +151,9 @@
     "send": "보내기",
     "typing": "답변 작성 중",
     "errorBusy": "지금은 AI가 답변할 수 없습니다. 잠시 후 다시 시도해 주세요.",
-    "errorRateLimit": "질문이 너무 많습니다. 1분 후에 다시 시도해 주세요."
+    "errorRateLimit": "질문이 너무 많습니다. 1분 후에 다시 시도해 주세요.",
+    "open": "AI 상담 열기",
+    "close": "닫기"
   },
   "MapSection": {
     "eyebrow": "목장 · 창고",

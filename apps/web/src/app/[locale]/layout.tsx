@@ -3,6 +3,8 @@ import { Noto_Sans_KR, Poppins } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { ChatProvider } from '@/components/ai/ChatProvider';
+import { ChatWidget } from '@/components/ai/ChatWidget';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
@@ -54,10 +56,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
         {/* Translations + server-state cache for Client Components */}
         <NextIntlClientProvider>
           <QueryProvider>
-            <Header />
-            <main className="flex flex-1 flex-col">{children}</main>
-            <Footer />
-            <ScrollToTop />
+            <ChatProvider>
+              <Header />
+              <main className="flex flex-1 flex-col">{children}</main>
+              <Footer />
+              <ScrollToTop />
+              <ChatWidget />
+            </ChatProvider>
           </QueryProvider>
         </NextIntlClientProvider>
       </body>

@@ -151,7 +151,9 @@
     "send": "Send",
     "typing": "Writing an answer",
     "errorBusy": "The AI can't answer right now. Please try again shortly.",
-    "errorRateLimit": "Too many questions. Try again in a minute."
+    "errorRateLimit": "Too many questions. Try again in a minute.",
+    "open": "Open AI chat",
+    "close": "Close"
   },
   "MapSection": {
     "eyebrow": "Farms and warehouses",
