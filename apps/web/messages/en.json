@@ -112,5 +112,20 @@
       "GRADE_1": "Grade 1",
       "GRADE_2": "Grade 2"
     }
+  },
+  "HowItWorks": {
+    "eyebrow": "How it works",
+    "title": "From order to pickup in four simple steps",
+    "text": "No quote calls, no paper contracts. Pick your products on Milcow, pay online and collect them at the warehouse you choose.",
+    "orderTitle": "Order by the ton",
+    "orderText": "Choose products and tons, then the shipping warehouse and how you receive them.",
+    "contractTitle": "Monthly supply contract",
+    "contractText": "Need the same amount every month? Let the AI contract assistant draft it for you.",
+    "paymentTitle": "Pay with Toss Payments",
+    "paymentText": "The amount is verified again on the server, so every payment is safe.",
+    "pickupTitle": "Pickup or delivery",
+    "pickupText": "Collect from 0–4 °C cold-chain warehouses with your MC- gate code, or get it delivered.",
+    "button": "Start a supply contract",
+    "photoAlt": "Girl holding a glass of milk on a dairy farm"
   }
 }

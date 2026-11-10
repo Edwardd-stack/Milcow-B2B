@@ -112,5 +112,20 @@
       "GRADE_1": "1-daraja",
       "GRADE_2": "2-daraja"
     }
+  },
+  "HowItWorks": {
+    "eyebrow": "Qanday ishlaydi",
+    "title": "Buyurtmadan olib ketishgacha — 4 qadam",
+    "text": "Narx so'rab qo'ng'iroq qilish ham, qog'oz shartnoma ham kerak emas. Milcow'da mahsulotni tanlang, to'lang va o'zingiz tanlagan ombordan olib keting.",
+    "orderTitle": "Tonnalab buyurtma",
+    "orderText": "Mahsulot va miqdorni (tonna), keyin jo'natish ombori va qabul qilish usulini tanlang.",
+    "contractTitle": "Oylik shartnoma",
+    "contractText": "Har oy bir xil miqdor kerakmi? AI shartnoma yordamchisi qoralamani darhol tuzib beradi.",
+    "paymentTitle": "Toss Payments orqali to'lov",
+    "paymentText": "Summa serverda qayta tekshiriladi — har bir to'lov xavfsiz.",
+    "pickupTitle": "Olib ketish yoki yetkazish",
+    "pickupText": "0–4 °C sovuq zanjirli omborlardan MC- darvoza kodi bilan olib keting yoki yetkazib beramiz.",
+    "button": "Shartnoma tuzishni boshlash",
+    "photoAlt": "Fermada bir stakan sut ushlagan qiz"
   }
 }

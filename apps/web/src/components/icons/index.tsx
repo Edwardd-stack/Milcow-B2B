@@ -145,3 +145,33 @@ export const ProductTypeIcon = ({ type, className = 'h-7 w-7' }: IconProps & { t
     {productTypePaths[type] ?? productTypePaths.RAW_MILK}
   </svg>
 );
+
+/* "How it works" steps */
+export const CartIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.5}>
+    <path d="M3 4h2l2.4 10.2a1.5 1.5 0 0 0 1.5 1.1h8.3a1.5 1.5 0 0 0 1.4-1l2-6.3H6.2" />
+    <circle cx="9.5" cy="19" r="1.4" />
+    <circle cx="17" cy="19" r="1.4" />
+  </svg>
+);
+export const ContractIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.5}>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z" />
+    <path d="M14 3v5h5M9 13h6M9 17h3" />
+    <path d="m14.5 17.5 1.2 1.2 2.3-2.4" />
+  </svg>
+);
+export const CardIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.5}>
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="M3 10h18M7 15h4" />
+  </svg>
+);
+export const TruckIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.5}>
+    <path d="M2 6h11v10H2ZM13 9h4l3.5 3.5V16H13" />
+    <circle cx="6" cy="17.5" r="1.8" />
+    <circle cx="17" cy="17.5" r="1.8" />
+    <path d="M5 9.5h5" />
+  </svg>
+);
