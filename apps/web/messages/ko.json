@@ -80,5 +80,37 @@
     "statProducts": "유제품 종류",
     "photo1Alt": "쿠키와 우유를 든 아이",
     "photo2Alt": "우유 한 잔과 쿠키, 책"
+  },
+  "Trusted": {
+    "title": "전국 <n>300+</n> 기업이 Milcow와 함께합니다"
+  },
+  "Featured": {
+    "eyebrow": "인기 제품",
+    "title": "톤 단위로 구매하는 유제품",
+    "text": "협력 목장의 원유부터 크림·버터·치즈·요거트·분유까지. 모든 가격은 톤당 기준이며 실시간 재고가 표시됩니다.",
+    "viewAll": "전체 제품 보기",
+    "error": "제품을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
+  },
+  "Product": {
+    "ton": "톤",
+    "minOrder": "최소 주문",
+    "fatProtein": "유지방 / 단백질",
+    "inStock": "재고",
+    "farm": "목장",
+    "noFarm": "여러 목장",
+    "details": "상세 보기",
+    "type": {
+      "RAW_MILK": "원유",
+      "CREAM": "크림",
+      "BUTTER": "버터",
+      "CHEESE": "치즈",
+      "YOGURT": "요거트",
+      "MILK_POWDER": "분유"
+    },
+    "grade": {
+      "PREMIUM": "프리미엄",
+      "GRADE_1": "1등급",
+      "GRADE_2": "2등급"
+    }
   }
 }

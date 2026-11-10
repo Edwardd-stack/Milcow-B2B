@@ -102,3 +102,46 @@ export const LayersIcon = ({ className = 'h-7 w-7' }: IconProps) => (
     <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
   </svg>
 );
+
+/* One icon per product type (products cards, filters) */
+const productTypePaths: Record<string, React.ReactNode> = {
+  RAW_MILK: (
+    <>
+      <path d="M9 3h6v3l2 3v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V9l2-3Z" />
+      <path d="M7 13h10" />
+    </>
+  ),
+  CREAM: <path d="M12 3c3 4.5 6 7.6 6 11a6 6 0 0 1-12 0c0-3.4 3-6.5 6-11Z" />,
+  BUTTER: (
+    <>
+      <path d="M3 15 9 9h12v6l-6 6H3Z" />
+      <path d="M3 15h12l6-6M15 15v6" />
+    </>
+  ),
+  CHEESE: (
+    <>
+      <path d="M3 18V11l11-6 7 6v7Z" />
+      <path d="M3 11h18" />
+      <circle cx="8" cy="15" r="1.2" />
+      <circle cx="15" cy="14.5" r="1.6" />
+    </>
+  ),
+  YOGURT: (
+    <>
+      <path d="M5 8h14l-1.6 11.2a2 2 0 0 1-2 1.8H8.6a2 2 0 0 1-2-1.8Z" />
+      <path d="M4 8h16M9 4h6l1 4H8Z" />
+    </>
+  ),
+  MILK_POWDER: (
+    <>
+      <path d="M6 7h12l1 13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1Z" />
+      <path d="M8 7V4h8v3M9 13h6" />
+    </>
+  ),
+};
+
+export const ProductTypeIcon = ({ type, className = 'h-7 w-7' }: IconProps & { type: string }) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.5}>
+    {productTypePaths[type] ?? productTypePaths.RAW_MILK}
+  </svg>
+);

@@ -80,5 +80,37 @@
     "statProducts": "Sut mahsulotlari",
     "photo1Alt": "Sut va pechenye ushlagan bola",
     "photo2Alt": "Bir stakan sut, pechenye va kitob"
+  },
+  "Trusted": {
+    "title": "Koreya bo'ylab <n>300+</n> kompaniya bizga ishonadi"
+  },
+  "Featured": {
+    "eyebrow": "Ommabop mahsulotlar",
+    "title": "Tonnalab sut mahsulotlari",
+    "text": "Hamkor fermalarning xom sutidan qaymoq, sariyog', pishloq, yogurt va sut kukunigacha. Narxlar tonna uchun, zaxira jonli ko'rsatiladi.",
+    "viewAll": "Barcha mahsulotlar",
+    "error": "Mahsulotlarni yuklab bo'lmadi. Birozdan keyin qayta urinib ko'ring."
+  },
+  "Product": {
+    "ton": "t",
+    "minOrder": "Minimal buyurtma",
+    "fatProtein": "Yog' / oqsil",
+    "inStock": "Zaxirada",
+    "farm": "Ferma",
+    "noFarm": "Bir nechta ferma",
+    "details": "Batafsil",
+    "type": {
+      "RAW_MILK": "Xom sut",
+      "CREAM": "Qaymoq",
+      "BUTTER": "Sariyog'",
+      "CHEESE": "Pishloq",
+      "YOGURT": "Yogurt",
+      "MILK_POWDER": "Sut kukuni"
+    },
+    "grade": {
+      "PREMIUM": "Premium",
+      "GRADE_1": "1-daraja",
+      "GRADE_2": "2-daraja"
+    }
   }
 }

@@ -80,5 +80,37 @@
     "statProducts": "Dairy products",
     "photo1Alt": "Boy holding milk and cookies",
     "photo2Alt": "A glass of milk with cookies and a book"
+  },
+  "Trusted": {
+    "title": "Trusted by <n>300+</n> Businesses Across Korea"
+  },
+  "Featured": {
+    "eyebrow": "Popular products",
+    "title": "Dairy by the ton",
+    "text": "From partner-farm raw milk to cream, butter, cheese, yogurt and milk powder. Prices are per ton, with live stock.",
+    "viewAll": "View all products",
+    "error": "Couldn't load products. Please try again shortly."
+  },
+  "Product": {
+    "ton": "t",
+    "minOrder": "Minimum order",
+    "fatProtein": "Fat / protein",
+    "inStock": "In stock",
+    "farm": "Farm",
+    "noFarm": "Several farms",
+    "details": "View details",
+    "type": {
+      "RAW_MILK": "Raw milk",
+      "CREAM": "Cream",
+      "BUTTER": "Butter",
+      "CHEESE": "Cheese",
+      "YOGURT": "Yogurt",
+      "MILK_POWDER": "Milk powder"
+    },
+    "grade": {
+      "PREMIUM": "Premium",
+      "GRADE_1": "Grade 1",
+      "GRADE_2": "Grade 2"
+    }
   }
 }
