@@ -25,7 +25,7 @@ export function Hero() {
     <section className="relative overflow-x-clip bg-brand pb-20 text-white sm:pb-24 lg:pb-22 xl:pb-28">
       {/* Two stacks pushed to opposite edges: visual hugs the left, text hugs the right.
           Sizes are relative (%, vw, clamp) so everything shrinks smoothly on 16" and smaller screens. */}
-      <Container className="grid items-center gap-14 pt-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-[90px] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:pt-6 xl:pt-10">
+      <Container className="grid gap-14 pt-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-[90px] xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:pt-6 xl:pt-10">
         {/* Visual — positions measured from the template (% of a square frame):
             circle behind, milk splash wrapping around the cartons, two tilted cartons, two glass cards */}
         <div className="relative mx-auto aspect-square w-full max-w-[520px] lg:mx-0 lg:max-w-[700px] xl:-ml-12 xl:w-[calc(100%+3rem)] xl:max-w-[1000px]">
@@ -69,7 +69,7 @@ export function Hero() {
 
         {/* Text */}
         <div>
-          <p className={`mb-4 font-semibold tracking-[0.2em] uppercase ${eyebrowText}`}>
+          <p className={`mb-4 mt-22 font-semibold tracking-[0.2em] uppercase ${eyebrowText}`}>
             {t('eyebrow')}
           </p>
           {/* Template typography: 60px / 120px, weight 800, uppercase, letter-spacing 0.8px */}

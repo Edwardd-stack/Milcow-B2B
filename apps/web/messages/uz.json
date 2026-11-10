@@ -127,5 +127,29 @@
     "pickupText": "0–4 °C sovuq zanjirli omborlardan MC- darvoza kodi bilan olib keting yoki yetkazib beramiz.",
     "button": "Shartnoma tuzishni boshlash",
     "photoAlt": "Fermada bir stakan sut ushlagan qiz"
+  },
+  "AiSection": {
+    "eyebrow": "AI yordamchi",
+    "title": "Savolingizni AI'dan so'rang",
+    "text": "Milcow AI haqiqiy narxlar, zaxira va qoidalarimiz asosida javob beradi. Ma'lumot bo'lmasa, to'qib chiqarmaydi — xodimlarimizga yo'naltiradi.",
+    "feature1Title": "Jonli ma'lumotga asoslangan javob (RAG)",
+    "feature1Text": "Mahsulot, ombor va shartnoma qoidalarini qidirib, faqat shular asosida javob beradi.",
+    "feature2Title": "AI shartnoma yordamchisi",
+    "feature2Text": "\"Har oy 20 tonna, Icheondan olib ketamiz\" deb yozing — narxi bilan shartnoma qoralamasi tayyor.",
+    "feature3Title": "Koreyscha · Inglizcha · O'zbekcha",
+    "feature3Text": "Qaysi tilda so'rasangiz, shu tilda javob beradi."
+  },
+  "Chat": {
+    "title": "Milcow AI",
+    "status": "Onlayn · odatda bir necha soniyada javob beradi",
+    "welcome": "Salom! Narxlar, minimal buyurtma, shartnoma yoki olib ketish haqida so'rang.",
+    "q1": "Sariyog' narxi va minimal buyurtmasi?",
+    "q2": "Ombordan olib ketish qanday ishlaydi?",
+    "q3": "Shartnoma necha oyga tuziladi?",
+    "placeholder": "Savolingizni yozing",
+    "send": "Yuborish",
+    "typing": "Javob yozilmoqda",
+    "errorBusy": "Hozir AI javob bera olmaydi. Birozdan keyin qayta urinib ko'ring.",
+    "errorRateLimit": "Savollar juda ko'p. Bir daqiqadan keyin qayta urinib ko'ring."
   }
 }

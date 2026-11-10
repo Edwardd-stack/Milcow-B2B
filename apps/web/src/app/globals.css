@@ -60,3 +60,9 @@ body {
     animation: none;
   }
 }
+
+/* Tailwind v4 no longer gives buttons a hand cursor — bring it back for every clickable button */
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']) {
+  cursor: pointer;
+}

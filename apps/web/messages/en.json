@@ -127,5 +127,29 @@
     "pickupText": "Collect from 0–4 °C cold-chain warehouses with your MC- gate code, or get it delivered.",
     "button": "Start a supply contract",
     "photoAlt": "Girl holding a glass of milk on a dairy farm"
+  },
+  "AiSection": {
+    "eyebrow": "AI assistant",
+    "title": "Ask our AI anything",
+    "text": "Milcow AI answers from our real prices, stock and rules. If it doesn't know, it says so and points you to our team — it never makes things up.",
+    "feature1Title": "Answers grounded in live data (RAG)",
+    "feature1Text": "It searches products, warehouses and contract rules, then answers only from them.",
+    "feature2Title": "AI contract assistant",
+    "feature2Text": "Write \"20 tons a month, pickup in Icheon\" and get a contract draft with a price.",
+    "feature3Title": "Korean · English · Uzbek",
+    "feature3Text": "It replies in the language you ask in."
+  },
+  "Chat": {
+    "title": "Milcow AI",
+    "status": "Online · usually replies in seconds",
+    "welcome": "Hi! Ask me anything about prices, minimum orders, contracts or pickup.",
+    "q1": "Butter price and minimum order?",
+    "q2": "How does warehouse pickup work?",
+    "q3": "How long can a supply contract be?",
+    "placeholder": "Type your question",
+    "send": "Send",
+    "typing": "Writing an answer",
+    "errorBusy": "The AI can't answer right now. Please try again shortly.",
+    "errorRateLimit": "Too many questions. Try again in a minute."
   }
 }

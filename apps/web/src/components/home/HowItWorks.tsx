@@ -44,7 +44,7 @@ export function HowItWorks() {
             <li
               key={key}
               // Brighter frosted glass + light border + deep shadow → the cards pop off the photo
-              className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/[0.17] p-7 shadow-2xl shadow-navy/40 ring-1 ring-white/10 backdrop-blur-lg transition duration-300 ring-inset hover:-translate-y-1.5 hover:bg-white/25"
+              className="group relative cursor-default overflow-hidden rounded-2xl border border-white/40 bg-white/[0.17] p-7 shadow-2xl shadow-navy/40 ring-1 ring-white/10 backdrop-blur-lg transition duration-300 ring-inset hover:-translate-y-1.5 hover:bg-white/25"
             >
               {/* Light streak along the top edge */}
               <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />

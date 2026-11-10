@@ -1,4 +1,5 @@
 import { AboutSection } from '@/components/home/AboutSection';
+import { AiSection } from '@/components/home/AiSection';
 import { FeaturedProducts } from '@/components/home/FeaturedProducts';
 import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';
@@ -13,6 +14,7 @@ export default function HomePage() {
       <TrustedSection />
       <FeaturedProducts />
       <HowItWorks />
+      <AiSection />
     </>
   );
 }

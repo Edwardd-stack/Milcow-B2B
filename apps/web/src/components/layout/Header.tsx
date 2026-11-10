@@ -37,7 +37,7 @@ export function Header() {
         scrolled ? 'shadow-lg shadow-navy/20' : ''
       }`}
     >
-      <Container className="flex h-20 items-center justify-between gap-6 xl:h-[100px]">
+      <Container className="flex h-20 items-center justify-between gap-6">
         <Logo />
 
         {/* Desktop menu */}
