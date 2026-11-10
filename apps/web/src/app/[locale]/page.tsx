@@ -1,11 +1,12 @@
+import { AboutSection } from '@/components/home/AboutSection';
 import { Hero } from '@/components/home/Hero';
 
-/** Home — more sections (about, products, contracts CTA, news) come in the "Home page" task */
+/** Home — sections are added one by one, in the template's order */
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <section className="bg-cream py-16" />
+      <AboutSection />
     </>
   );
 }

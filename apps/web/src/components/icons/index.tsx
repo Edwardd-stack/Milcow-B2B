@@ -83,3 +83,22 @@ export const StoreIcon = ({ className = 'h-7 w-7' }: IconProps) => (
     <rect x="18" y="19" width="4" height="4" rx=".5" fill="#e8583d" />
   </svg>
 );
+
+/* About section */
+export const DoubleCheckIcon = ({ className = 'h-4 w-4' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}>
+    <path d="m2 13 4 4 8-9M10 16l1 1 9-10" />
+  </svg>
+);
+export const ShopIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.4}>
+    <path d="M3 9 5 4h14l2 5M3 9h18M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0" />
+    <path d="M5 12v8h14v-8M10 20v-5h4v5" />
+  </svg>
+);
+export const LayersIcon = ({ className = 'h-7 w-7' }: IconProps) => (
+  <svg viewBox="0 0 24 24" className={className} {...base} strokeWidth={1.4}>
+    <path d="m12 3 9 5-9 5-9-5Z" />
+    <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+  </svg>
+);

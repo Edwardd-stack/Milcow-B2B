@@ -40,8 +40,9 @@ export function Footer() {
       </div>
 
       <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
-        {/* Navy contact bar — half above the footer edge */}
-        <ul className="-translate-y-1/2 grid gap-6 rounded-xl bg-navy px-6 py-7 shadow-xl sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+        {/* Navy contact bar — half above the footer edge on desktop; on phones it is tall (4 rows),
+            so it only peeks 48px above the edge instead of covering the section above */}
+        <ul className="-translate-y-12 grid lg:-translate-y-1/2 gap-6 rounded-xl bg-navy px-6 py-7 shadow-xl sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
           {contacts.map(({ icon: Icon, title, value, href }) => (
             <li key={title} className="flex items-center gap-4">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand text-white">

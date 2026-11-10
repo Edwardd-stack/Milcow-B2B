@@ -67,5 +67,18 @@
     "word1": "Like",
     "word2": "Want",
     "word3": "Drink"
+  },
+  "About": {
+    "eyebrow": "Milcow haqida",
+    "title": "Eng yaxshi sut mahsulotlarini yetkazamiz",
+    "text": "Milcow Koreyadagi hamkor fermalarni biznes xaridorlar bilan to'g'ridan-to'g'ri bog'laydi. Xom sutdan tortib pishloq, sariyog' va sut kukunigacha kerakli miqdorda tonnalab xarid qiling, oylik shartnoma bilan esa barqaror hajm va narxni ta'minlang.",
+    "point1": "Hamkor fermalardan yangi sutni tonnalab to'g'ridan-to'g'ri xarid qiling",
+    "point2": "Oylik shartnoma davomida narx o'zgarmaydi",
+    "point3": "0–4 °C sovuq zanjirli omborlardan olib ketish yoki yetkazib berish",
+    "button": "Batafsil",
+    "statYears": "Yillik tajriba",
+    "statProducts": "Sut mahsulotlari",
+    "photo1Alt": "Sut va pechenye ushlagan bola",
+    "photo2Alt": "Bir stakan sut, pechenye va kitob"
   }
 }

@@ -11,6 +11,8 @@
   --color-accent: #fd9e01; /* call-to-action orange */
   --color-accent-dark: #e08a00;
   --color-ink: #1f2937; /* body text */
+  --color-heading: #1b2a47; /* dark section titles (template) */
+  --color-soft: #9b9b9b; /* light paragraph text (template) */
   --color-muted: #6b7280; /* secondary text */
   --color-line: #e5e7eb; /* borders */
   --color-cream: #f1f6fd; /* light section background */

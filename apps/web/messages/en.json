@@ -67,5 +67,18 @@
     "word1": "Like",
     "word2": "Want",
     "word3": "Drink"
+  },
+  "About": {
+    "eyebrow": "About Milcow",
+    "title": "We supply the best dairy products",
+    "text": "Milcow connects partner farms in Korea directly with business buyers. Buy anything from raw milk to cheese, butter and milk powder by the ton, and lock in stable volumes and prices with a monthly supply contract.",
+    "point1": "Buy fresh milk from partner farms directly, by the ton",
+    "point2": "Monthly supply contracts keep your price fixed",
+    "point3": "Pick up or get delivery from 0–4 °C cold-chain warehouses",
+    "button": "Read more",
+    "statYears": "Years of experience",
+    "statProducts": "Dairy products",
+    "photo1Alt": "Boy holding milk and cookies",
+    "photo2Alt": "A glass of milk with cookies and a book"
   }
 }
