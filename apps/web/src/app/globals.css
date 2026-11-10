@@ -27,6 +27,9 @@
 body {
   /* Template look: light-blue page; white only inside cards */
   @apply bg-cream text-ink;
+  /* App-like feel: arrow over plain text (not the text I-beam); links/buttons still get the hand */
+  cursor: default;
+
   /* Korean: break lines between words, never inside a word (단위로 ≠ 단위 / 로) */
   word-break: keep-all;
   /* Break a word only when it cannot fit at all ("anywhere" also squeezes flex items) */
@@ -65,4 +68,11 @@ body {
 button:not(:disabled),
 [role='button']:not([aria-disabled='true']) {
   cursor: pointer;
+}
+
+/* …but fields you type into keep the text cursor */
+input:not([type='button'], [type='submit'], [type='checkbox'], [type='radio']),
+textarea,
+[contenteditable='true'] {
+  cursor: text;
 }

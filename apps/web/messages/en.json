@@ -151,5 +151,20 @@
     "typing": "Writing an answer",
     "errorBusy": "The AI can't answer right now. Please try again shortly.",
     "errorRateLimit": "Too many questions. Try again in a minute."
+  },
+  "MapSection": {
+    "eyebrow": "Farms and warehouses",
+    "title": "Partner farms and cold-chain warehouses",
+    "text": "Milk from five partner farms goes straight to 0–4 °C cold-chain warehouses. Pick the one closest to you for pickup, or get it delivered.",
+    "farms": "{count} farms",
+    "warehouses": "{count} warehouses",
+    "button": "Open the full map",
+    "loading": "Loading the map…",
+    "dataError": "Couldn't load farms and warehouses."
+  },
+  "Map": {
+    "ariaLabel": "Map of Milcow farms and warehouses",
+    "noKey": "Kakao Map key is not set (NEXT_PUBLIC_KAKAO_MAP_KEY).",
+    "loadError": "Couldn't load Kakao Map."
   }
 }

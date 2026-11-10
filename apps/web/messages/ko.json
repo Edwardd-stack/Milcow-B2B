@@ -151,5 +151,20 @@
     "typing": "답변 작성 중",
     "errorBusy": "지금은 AI가 답변할 수 없습니다. 잠시 후 다시 시도해 주세요.",
     "errorRateLimit": "질문이 너무 많습니다. 1분 후에 다시 시도해 주세요."
+  },
+  "MapSection": {
+    "eyebrow": "목장 · 창고",
+    "title": "전국 협력 목장과 콜드체인 창고",
+    "text": "5곳의 협력 목장에서 짠 원유가 0–4°C 콜드체인 창고로 바로 옵니다. 가까운 창고를 골라 픽업하거나 배송받으세요.",
+    "farms": "목장 {count}곳",
+    "warehouses": "창고 {count}곳",
+    "button": "지도에서 자세히 보기",
+    "loading": "지도를 불러오는 중…",
+    "dataError": "목장·창고 정보를 불러오지 못했습니다."
+  },
+  "Map": {
+    "ariaLabel": "Milcow 목장과 창고 위치 지도",
+    "noKey": "카카오맵 키가 설정되지 않았습니다 (NEXT_PUBLIC_KAKAO_MAP_KEY).",
+    "loadError": "카카오맵을 불러오지 못했습니다."
   }
 }

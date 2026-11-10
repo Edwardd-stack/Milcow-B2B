@@ -151,5 +151,20 @@
     "typing": "Javob yozilmoqda",
     "errorBusy": "Hozir AI javob bera olmaydi. Birozdan keyin qayta urinib ko'ring.",
     "errorRateLimit": "Savollar juda ko'p. Bir daqiqadan keyin qayta urinib ko'ring."
+  },
+  "MapSection": {
+    "eyebrow": "Fermalar va omborlar",
+    "title": "Hamkor fermalar va sovuq zanjirli omborlar",
+    "text": "Beshta hamkor fermaning suti to'g'ridan-to'g'ri 0–4 °C sovuq zanjirli omborlarga keladi. Sizga yaqin omborni tanlab olib keting yoki yetkazib berishni buyurtma qiling.",
+    "farms": "{count} ta ferma",
+    "warehouses": "{count} ta ombor",
+    "button": "Xaritani to'liq ochish",
+    "loading": "Xarita yuklanmoqda…",
+    "dataError": "Ferma va omborlar ma'lumotini yuklab bo'lmadi."
+  },
+  "Map": {
+    "ariaLabel": "Milcow fermalari va omborlari xaritasi",
+    "noKey": "Kakao Map kaliti o'rnatilmagan (NEXT_PUBLIC_KAKAO_MAP_KEY).",
+    "loadError": "Kakao Map'ni yuklab bo'lmadi."
   }
 }

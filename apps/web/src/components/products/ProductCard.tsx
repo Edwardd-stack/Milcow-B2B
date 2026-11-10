@@ -43,7 +43,11 @@ export function ProductCard({ product }: { product: ProductInfo }) {
       <p className="mt-5 text-xs font-semibold tracking-[0.15em] text-brand uppercase">
         {t(`type.${product.productType}`)}
       </p>
-      <h3 className="mt-1.5 text-lg leading-snug font-semibold text-heading">
+      <h3
+        // Always reserve 2 lines (longer names end with "…") → prices and specs line up across cards
+        className="mt-1.5 line-clamp-2 min-h-[2lh] text-lg leading-snug font-semibold text-heading"
+        title={product.productName[locale]}
+      >
         {product.productName[locale]}
       </h3>
 
@@ -54,7 +58,7 @@ export function ProductCard({ product }: { product: ProductInfo }) {
         <span className="text-sm text-muted">/ {t('ton')}</span>
       </p>
 
-      <dl className="mt-5 space-y-2.5 border-t border-line pt-5 text-sm">
+      <dl className="mt-5 mb-7 space-y-2.5 border-t border-line pt-5 text-sm">
         {specs.map((spec) => (
           <div key={spec.label} className="flex justify-between gap-4">
             <dt className="text-muted">{spec.label}</dt>
@@ -65,7 +69,7 @@ export function ProductCard({ product }: { product: ProductInfo }) {
 
       <Link
         href={`/products/${product.id}`}
-        className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition group-hover:bg-navy"
+        className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-brand-dark px-6 py-3 text-sm font-medium text-white transition group-hover:bg-navy"
       >
         {t('details')}
         <ArrowRightIcon />
