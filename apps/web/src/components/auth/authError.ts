@@ -12,8 +12,12 @@ export function authErrorKey(
   return 'server';
 }
 
-/** After login go back to where the visitor came from (?next=/contracts), never to another site */
+/**
+ * After login go back to where the visitor came from (?next=/contracts), never to another site.
+ * The locale prefix is removed ("/ko/contracts" → "/contracts"): the next-intl router adds the current one.
+ */
 export function nextPath(): string {
   const next = new URLSearchParams(window.location.search).get('next');
-  return next?.startsWith('/') && !next.startsWith('//') ? next : '/';
+  if (!next?.startsWith('/') || next.startsWith('//')) return '/';
+  return next.replace(/^\/(ko|en|uz)(?=\/|$)/, '') || '/';
 }
