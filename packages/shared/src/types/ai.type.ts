@@ -11,6 +11,10 @@ export interface KnowledgeSourceSummary {
 export interface KnowledgeIngestResult {
   sources: KnowledgeSourceSummary[];
   totalChunks: number;
+  /** Chunks sent to the embedding API (new or changed text) */
+  embedded: number;
+  /** Chunks whose text did not change — old vector kept, no API call */
+  reused: number;
   latencyMs: number;
 }
 
@@ -62,11 +66,7 @@ export interface ContractDraftPricing {
 }
 
 export interface ContractDraftIssue {
-  code:
-    | 'BELOW_MIN_ORDER'
-    | 'TOO_MANY_MONTHS'
-    | 'START_NOT_IN_FUTURE'
-    | 'UNKNOWN_REFERENCE';
+  code: 'BELOW_MIN_ORDER' | 'TOO_MANY_MONTHS' | 'START_NOT_IN_FUTURE' | 'UNKNOWN_REFERENCE';
   message: string;
 }
 

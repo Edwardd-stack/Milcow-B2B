@@ -1,7 +1,13 @@
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GoogleGenAI, ThinkingLevel, type Schema } from '@google/genai';
-import { EMBEDDING_CONCURRENCY, EMBEDDING_DIMENSIONS, GEMINI_TIMEOUT_MS } from './ai.constants';
+import {
+  EMBEDDING_CONCURRENCY,
+  EMBEDDING_DIMENSIONS,
+  EMBEDDING_GROUP_INTERVAL_MS,
+  EMBEDDING_MAX_RETRIES,
+  GEMINI_TIMEOUT_MS,
+} from './ai.constants';
 
 export interface GenerateOptions {
   systemInstruction?: string;
@@ -83,32 +89,51 @@ export class GeminiService {
     return this.embed(`task: search result | query: ${question}`);
   }
 
-  /** Embeddings for knowledge-base chunks (RAG "ingest" step) */
+  /**
+   * Embeddings for knowledge-base chunks (RAG "ingest" step).
+   * gemini-embedding-2 merges several inputs into ONE vector, so every text is its own request.
+   * Small parallel groups, spaced out to stay under the free-tier per-minute limit,
+   * and a 429 is retried after the delay Google asks for (ingest is a background job — it can wait).
+   */
   async embedDocuments(documents: DocumentToEmbed[]): Promise<number[][]> {
     const texts = documents.map((d) => `title: ${d.title} | text: ${d.text}`);
     const vectors: number[][] = [];
-    // gemini-embedding-2 merges several inputs into ONE vector, so every text is its own request.
-    // Send them in small parallel groups: fast, but without hitting the free-tier rate limit.
     for (let i = 0; i < texts.length; i += EMBEDDING_CONCURRENCY) {
+      const groupStartedAt = Date.now();
       const group = texts.slice(i, i + EMBEDDING_CONCURRENCY);
-      vectors.push(...(await Promise.all(group.map((text) => this.embed(text)))));
+      vectors.push(
+        ...(await Promise.all(group.map((text) => this.embed(text, EMBEDDING_MAX_RETRIES)))),
+      );
+      const isLast = i + EMBEDDING_CONCURRENCY >= texts.length;
+      if (!isLast) await sleep(EMBEDDING_GROUP_INTERVAL_MS - (Date.now() - groupStartedAt));
     }
     return vectors;
   }
 
-  private async embed(text: string): Promise<number[]> {
-    const response = await this.call('embed', () =>
-      this.ai.models.embedContent({
-        model: this.embeddingModel,
-        contents: text,
-        config: { outputDimensionality: EMBEDDING_DIMENSIONS },
-      }),
-    );
-    const vector = response.embeddings?.[0]?.values ?? [];
-    if (vector.length !== EMBEDDING_DIMENSIONS) {
-      throw new ServiceUnavailableException('AI embedding returned an unexpected shape');
+  /** `retries` > 0 only for ingest; a chat question fails fast instead of making the user wait */
+  private async embed(text: string, retries = 0): Promise<number[]> {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const response = await this.ai.models.embedContent({
+          model: this.embeddingModel,
+          contents: text,
+          config: { outputDimensionality: EMBEDDING_DIMENSIONS },
+        });
+        const vector = response.embeddings?.[0]?.values ?? [];
+        if (vector.length !== EMBEDDING_DIMENSIONS) {
+          throw new ServiceUnavailableException('AI embedding returned an unexpected shape');
+        }
+        return vector;
+      } catch (error) {
+        const waitMs = quotaRetryDelayMs(error);
+        if (waitMs !== null && attempt < retries) {
+          this.logger.warn(`Embedding quota hit — retrying in ${Math.ceil(waitMs / 1000)}s`);
+          await sleep(waitMs);
+          continue;
+        }
+        throw this.toUnavailable('embed', error);
+      }
     }
-    return vector;
   }
 
   /** Turns any SDK/network error into a clean 503 and logs the real reason */
@@ -116,11 +141,29 @@ export class GeminiService {
     try {
       return await fn();
     } catch (error) {
-      if (error instanceof ServiceUnavailableException) throw error;
-      this.logger.error(
-        `Gemini ${operation} failed: ${error instanceof Error ? error.message : String(error)}`,
-      );
-      throw new ServiceUnavailableException('AI service is temporarily unavailable');
+      throw this.toUnavailable(operation, error);
     }
   }
+
+  private toUnavailable(operation: string, error: unknown): ServiceUnavailableException {
+    if (error instanceof ServiceUnavailableException) return error;
+    this.logger.error(
+      `Gemini ${operation} failed: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return new ServiceUnavailableException('AI service is temporarily unavailable');
+  }
+}
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, Math.max(0, ms)));
+
+/**
+ * 429 RESOURCE_EXHAUSTED → how long Google asks us to wait (its "retryDelay": "27s"), else null.
+ * Adds 1 s of margin; falls back to 30 s when the delay is missing.
+ */
+function quotaRetryDelayMs(error: unknown): number | null {
+  const message = error instanceof Error ? error.message : '';
+  const status = (error as { status?: number } | null)?.status;
+  if (status !== 429 && !message.includes('RESOURCE_EXHAUSTED')) return null;
+  const seconds = /"retryDelay":"(\d+(?:\.\d+)?)s"/.exec(message)?.[1];
+  return seconds ? (Number(seconds) + 1) * 1000 : 30_000;
 }

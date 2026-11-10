@@ -54,12 +54,25 @@ export class KnowledgeService {
       ...(await this.loadCatalogDocuments()),
     ];
 
-    // 1) Network first, OUTSIDE the transaction: never hold DB locks while waiting for an API
     const flat = documents.flatMap((doc) => doc.chunks.map((text) => ({ title: doc.title, text })));
-    const vectors = await this.gemini.embedDocuments(flat);
 
-    // 2) Replace everything in one transaction: a failed ingest leaves the old knowledge intact
-    let cursor = 0;
+    // 1) Reuse: a chunk whose text did not change keeps its old vector — no API call, no quota.
+    //    Key = title + text, because the title is part of what gets embedded.
+    const keyOf = (title: string, text: string) => `${title}\n${text}`;
+    const known = await this.loadExistingVectors(documents);
+    const missing = [
+      ...new Map(
+        flat
+          .filter((c) => !known.has(keyOf(c.title, c.text)))
+          .map((c) => [keyOf(c.title, c.text), c]),
+      ).values(),
+    ];
+
+    // 2) Network for the new/changed chunks only, OUTSIDE the transaction (never hold DB locks while waiting for an API)
+    const fresh = await this.gemini.embedDocuments(missing);
+    missing.forEach((c, i) => known.set(keyOf(c.title, c.text), JSON.stringify(fresh[i])));
+
+    // 3) Replace everything in one transaction: a failed ingest leaves the old knowledge intact
     await this.prisma.$transaction(async (tx) => {
       for (const doc of documents) {
         const lang = LOCALE_TO_LANG[doc.locale];
@@ -78,7 +91,7 @@ export class KnowledgeService {
         // Prisma cannot write `vector` columns → one raw UPDATE for the whole document.
         // Vectors are sent as text '[0.1,0.2,...]' and cast to ::vector by PostgreSQL.
         const ids = created.map((c) => c.id);
-        const embeddings = doc.chunks.map(() => JSON.stringify(vectors[cursor++]));
+        const embeddings = doc.chunks.map((text) => known.get(keyOf(doc.title, text)) ?? '');
         await tx.$executeRaw`
           UPDATE knowledge_chunks AS k
           SET chunk_embedding = v.embedding::vector
@@ -92,9 +105,39 @@ export class KnowledgeService {
       lang: LOCALE_TO_LANG[doc.locale],
       chunks: doc.chunks.length,
     }));
-    const result = { sources, totalChunks: flat.length, latencyMs: Date.now() - startedAt };
-    this.logger.log(`Knowledge ingested: ${result.totalChunks} chunks in ${result.latencyMs}ms`);
+    const result: KnowledgeIngestResult = {
+      sources,
+      totalChunks: flat.length,
+      embedded: missing.length,
+      reused: flat.length - missing.length,
+      latencyMs: Date.now() - startedAt,
+    };
+    this.logger.log(
+      `Knowledge ingested: ${result.totalChunks} chunks (${result.embedded} embedded, ${result.reused} reused) in ${result.latencyMs}ms`,
+    );
     return result;
+  }
+
+  /**
+   * Vectors already in the DB, keyed like ingest keys them (document title + chunk text).
+   * The title is not a column, so it is taken from the current documents (same source + language).
+   */
+  private async loadExistingVectors(documents: KnowledgeDocument[]): Promise<Map<string, string>> {
+    const rows = await this.prisma.$queryRaw<
+      { source: string; lang: string; text: string; embedding: string }[]
+    >`
+      SELECT chunk_source AS source, chunk_lang::text AS lang, chunk_text AS text, chunk_embedding::text AS embedding
+      FROM knowledge_chunks
+      WHERE chunk_embedding IS NOT NULL`;
+    const titles = new Map(
+      documents.map((d) => [`${d.source}|${LOCALE_TO_LANG[d.locale]}`, d.title]),
+    );
+    const map = new Map<string, string>();
+    for (const r of rows) {
+      const title = titles.get(`${r.source}|${r.lang}`);
+      if (title) map.set(`${title}\n${r.text}`, r.embedding);
+    }
+    return map;
   }
 
   /**
