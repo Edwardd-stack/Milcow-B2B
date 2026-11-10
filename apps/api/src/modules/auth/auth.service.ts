@@ -55,7 +55,8 @@ export class AuthService {
     return toMemberInfo(member);
   }
 
-  private async buildAuthResponse(member: Member): Promise<AuthResult> {
+  /** Signs the JWT for a member (also used by social login) */
+  async buildAuthResponse(member: Member): Promise<AuthResult> {
     const payload: JwtPayload = {
       sub: member.id,
       memberType: member.memberType,

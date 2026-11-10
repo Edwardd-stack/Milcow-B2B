@@ -6,6 +6,7 @@ import { useLogin } from '@/hooks/useAuth';
 import { useRouter } from '@/i18n/navigation';
 import { authErrorKey, nextPath } from './authError';
 import { FormField } from './FormField';
+import { SocialButtons } from './SocialButtons';
 
 // Seed account (apps/api/prisma/seed) — shown so a visitor can try the platform at once
 const DEMO = { memberEmail: 'buyer@milcow.test', memberPassword: 'Milcow1234!' };
@@ -58,6 +59,8 @@ export function LoginForm() {
       >
         {loginMutation.isPending ? t('login.pending') : t('login.submit')}
       </button>
+
+      <SocialButtons />
 
       {/* Demo account: one click fills the form */}
       <button

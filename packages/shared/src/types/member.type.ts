@@ -34,3 +34,23 @@ export interface SignupInput extends LoginInput {
 export interface AuthResponse {
   member: MemberInfo;
 }
+
+/** Social login providers */
+export type SocialProvider = 'kakao' | 'google';
+
+/** GET /auth/social/pending — a social login that still needs the company details */
+export interface SocialPendingInfo {
+  provider: SocialProvider;
+  email: string | null; // null → ask for it (Kakao may not share the email)
+  nick: string;
+}
+
+/** POST /auth/social/complete body */
+export interface SocialCompleteInput {
+  memberCompanyName: string;
+  memberNick: string;
+  memberEmail?: string; // required only when the provider gave no verified email
+  memberBizNo?: string;
+  memberPhone?: string;
+  memberLang?: Lang;
+}

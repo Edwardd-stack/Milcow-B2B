@@ -1,12 +1,11 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 import type { AuthResponse, MemberInfo } from '@milcow/shared';
 import { OptionalMember } from '../../common/decorators/optional-member.decorator';
 import { Public } from '../../common/decorators/public.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
-import { AUTH_COOKIE, authCookieOptions } from '../../libs/utils/auth-cookie.util';
+import { AuthCookieService } from './auth-cookie.service';
 import { AuthService, type AuthResult } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { SignupDto } from './dto/signup.dto';
@@ -16,7 +15,7 @@ import { SignupDto } from './dto/signup.dto';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly config: ConfigService,
+    private readonly cookies: AuthCookieService,
   ) {}
 
   @Public()
@@ -45,10 +44,7 @@ export class AuthController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Log out — clears the auth cookie' })
   logout(@Res({ passthrough: true }) res: Response): void {
-    // Same options as when it was set (except maxAge), otherwise the browser keeps it
-    const options = this.cookieOptions();
-    delete options.maxAge;
-    res.clearCookie(AUTH_COOKIE, options);
+    this.cookies.clearAuth(res);
   }
 
   /**
@@ -67,14 +63,7 @@ export class AuthController {
 
   /** passthrough: true → Nest still sends our return value as JSON, we only add the cookie */
   private withCookie(res: Response, { accessToken, member }: AuthResult): AuthResponse {
-    res.cookie(AUTH_COOKIE, accessToken, this.cookieOptions());
+    this.cookies.setAuth(res, accessToken);
     return { member };
-  }
-
-  private cookieOptions() {
-    return authCookieOptions(
-      this.config.getOrThrow<number>('JWT_EXPIRES_IN_SEC'),
-      this.config.get<string>('NODE_ENV') === 'production',
-    );
   }
 }

@@ -272,6 +272,27 @@
       "emailTaken": "This email is already registered.",
       "tooMany": "Too many attempts. Please try again in a moment.",
       "server": "Something went wrong. Please try again in a moment."
+    },
+    "social": {
+      "or": "or",
+      "kakao": "Kakao",
+      "google": "Google",
+      "error": "Social login failed. Please try again."
+    },
+    "complete": {
+      "tab": "Details",
+      "heading": "Almost there!",
+      "title": "Company details",
+      "lead": "Fill in your company details once to finish signing up.",
+      "submit": "Finish sign-up",
+      "pending": "Saving…",
+      "expired": "Your login session has expired. Please log in again.",
+      "backToLogin": "Back to log in",
+      "emailFromProvider": "Verified by your social account",
+      "connected": {
+        "kakao": "Kakao account connected",
+        "google": "Google account connected"
+      }
     }
   }
 }

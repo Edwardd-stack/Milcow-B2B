@@ -1,8 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMe, login, logout, signup } from '@/services/auth.service';
+import {
+  completeSocial,
+  getMe,
+  getSocialPending,
+  login,
+  logout,
+  signup,
+} from '@/services/auth.service';
 
 export const authKeys = {
   me: ['auth', 'me'] as const,
+  socialPending: ['auth', 'social-pending'] as const,
 };
 
 /**
@@ -43,6 +51,27 @@ export function useLogout() {
     onSuccess: () => {
       queryClient.clear();
       queryClient.setQueryData(authKeys.me, null);
+    },
+  });
+}
+
+/** New Kakao / Google user: what we already know, to prefill the company form */
+export function useSocialPending() {
+  return useQuery({
+    queryKey: authKeys.socialPending,
+    queryFn: getSocialPending,
+    staleTime: 0,
+    retry: false,
+  });
+}
+
+export function useCompleteSocial() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: completeSocial,
+    onSuccess: ({ member }) => {
+      queryClient.setQueryData(authKeys.me, member);
+      queryClient.removeQueries({ queryKey: authKeys.socialPending });
     },
   });
 }

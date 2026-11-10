@@ -272,6 +272,27 @@
       "emailTaken": "Bu email allaqachon ro'yxatdan o'tgan.",
       "tooMany": "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring.",
       "server": "Xatolik yuz berdi. Birozdan keyin qayta urinib ko'ring."
+    },
+    "social": {
+      "or": "yoki",
+      "kakao": "Kakao",
+      "google": "Google",
+      "error": "Ijtimoiy tarmoq orqali kirish amalga oshmadi. Qayta urinib ko'ring."
+    },
+    "complete": {
+      "tab": "Qo'shimcha",
+      "heading": "Oz qoldi!",
+      "title": "Kompaniya ma'lumotlari",
+      "lead": "Ro'yxatdan o'tishni yakunlash uchun kompaniya ma'lumotlarini bir marta kiriting.",
+      "submit": "Yakunlash",
+      "pending": "Saqlanmoqda…",
+      "expired": "Kirish vaqti tugadi. Qaytadan kiring.",
+      "backToLogin": "Kirish sahifasiga qaytish",
+      "emailFromProvider": "Ijtimoiy hisobingiz tasdiqlagan email",
+      "connected": {
+        "kakao": "Kakao hisobi ulandi",
+        "google": "Google hisobi ulandi"
+      }
     }
   }
 }

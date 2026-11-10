@@ -11,7 +11,7 @@ export function AuthShell({
   mode,
   children,
 }: {
-  mode: 'login' | 'signup';
+  mode: 'login' | 'signup' | 'complete';
   children: React.ReactNode;
 }) {
   const t = useTranslations('Auth');
@@ -69,22 +69,24 @@ export function AuthShell({
       {/* ── Card ── */}
       <div
         className={`relative mx-4 rounded-[28px] bg-white p-7 shadow-[0_30px_70px_rgba(17,55,95,0.18)] sm:mx-auto sm:p-10 ${
-          mode === 'signup' ? 'sm:max-w-[600px]' : 'sm:max-w-[460px]'
+          mode === 'login' ? 'sm:max-w-[460px]' : 'sm:max-w-[600px]'
         }`}
       >
-        {/* Login / Signup tabs */}
-        <nav aria-label={t('tabs')} className="mb-7 flex rounded-full bg-cream p-1.5">
-          {tabs.map((tab) => (
-            <Link
-              key={tab.key}
-              href={tab.href}
-              aria-current={mode === tab.key ? 'page' : undefined}
-              className="flex-1 rounded-full py-2.5 text-center text-[15px] font-semibold text-muted transition hover:text-brand aria-[current=page]:bg-white aria-[current=page]:text-brand aria-[current=page]:shadow-[0_4px_12px_rgba(17,55,95,0.08)]"
-            >
-              {t(`${tab.key}.tab`)}
-            </Link>
-          ))}
-        </nav>
+        {/* Login / Signup tabs (not on the "complete your company details" step) */}
+        {mode !== 'complete' && (
+          <nav aria-label={t('tabs')} className="mb-7 flex rounded-full bg-cream p-1.5">
+            {tabs.map((tab) => (
+              <Link
+                key={tab.key}
+                href={tab.href}
+                aria-current={mode === tab.key ? 'page' : undefined}
+                className="flex-1 rounded-full py-2.5 text-center text-[15px] font-semibold text-muted transition hover:text-brand aria-[current=page]:bg-white aria-[current=page]:text-brand aria-[current=page]:shadow-[0_4px_12px_rgba(17,55,95,0.08)]"
+              >
+                {t(`${tab.key}.tab`)}
+              </Link>
+            ))}
+          </nav>
+        )}
 
         <h2 className="text-2xl font-extrabold text-navy">{t(`${mode}.title`)}</h2>
         <p className="mt-2 mb-7 text-[15px] text-muted">{t(`${mode}.lead`)}</p>

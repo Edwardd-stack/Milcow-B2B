@@ -27,8 +27,9 @@ model Member {
   memberType        MemberType   @default(BUYER) @map("member_type")
   memberStatus      MemberStatus @default(ACTIVE) @map("member_status")
   memberEmail       String       @unique @map("member_email")
-  memberPassword    String?      @map("member_password") // null for Kakao-only accounts
+  memberPassword    String?      @map("member_password") // null for social-only accounts (Kakao / Google)
   memberKakaoId     String?      @unique @map("member_kakao_id")
+  memberGoogleId    String?      @unique @map("member_google_id")
   memberNick        String       @map("member_nick")
   memberPhone       String?      @map("member_phone")
   memberCompanyName String?      @map("member_company_name")

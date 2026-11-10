@@ -6,7 +6,9 @@ import type { Lang, SignupInput } from '@milcow/shared';
 import { useSignup } from '@/hooks/useAuth';
 import { useRouter } from '@/i18n/navigation';
 import { authErrorKey, nextPath } from './authError';
+import { formatBizNo } from './formatBizNo';
 import { FormField } from './FormField';
+import { SocialButtons } from './SocialButtons';
 
 const EMPTY = {
   memberCompanyName: '',
@@ -16,12 +18,6 @@ const EMPTY = {
   memberBizNo: '',
   memberPhone: '',
 };
-
-/** 1234567890 → 123-45-67890 while typing (the API expects this format) */
-function formatBizNo(value: string) {
-  const d = value.replace(/\D/g, '').slice(0, 10);
-  return [d.slice(0, 3), d.slice(3, 5), d.slice(5)].filter(Boolean).join('-');
-}
 
 export function SignupForm() {
   const t = useTranslations('Auth');
@@ -129,6 +125,10 @@ export function SignupForm() {
       >
         {signupMutation.isPending ? t('signup.pending') : t('signup.submit')}
       </button>
+
+      <div className="sm:col-span-2">
+        <SocialButtons />
+      </div>
     </form>
   );
 }

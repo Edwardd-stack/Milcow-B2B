@@ -1,6 +1,8 @@
 import { plainToInstance } from 'class-transformer';
 import {
   IsIn,
+  IsOptional,
+  IsUrl,
   IsInt,
   IsNotEmpty,
   IsString,
@@ -59,6 +61,27 @@ class EnvironmentVariables {
   /** Embedding model — must stay the same for documents and questions (see EMBEDDING_DIMENSIONS) */
   @IsString()
   GEMINI_EMBEDDING_MODEL: string = 'gemini-embedding-2';
+
+  /** Web app origin — OAuth redirect URIs and the redirects after social login are built from it */
+  @IsUrl({ require_tld: false })
+  WEB_ORIGIN: string = 'http://localhost:3001';
+
+  /** Social login keys are optional: without them the API still starts, only that button answers 503 */
+  @IsOptional()
+  @IsString()
+  KAKAO_REST_API_KEY?: string;
+
+  @IsOptional()
+  @IsString()
+  KAKAO_CLIENT_SECRET?: string;
+
+  @IsOptional()
+  @IsString()
+  GOOGLE_CLIENT_ID?: string;
+
+  @IsOptional()
+  @IsString()
+  GOOGLE_CLIENT_SECRET?: string;
 }
 
 export function validateEnv(config: Record<string, unknown>) {

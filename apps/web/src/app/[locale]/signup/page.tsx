@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { AuthShell } from '@/components/auth/AuthShell';
+import { SocialLoginError } from '@/components/auth/SocialLoginError';
 import { SignupForm } from '@/components/auth/SignupForm';
 
 export async function generateMetadata({
@@ -14,6 +16,10 @@ export async function generateMetadata({
 export default function SignupPage() {
   return (
     <AuthShell mode="signup">
+      {/* useSearchParams needs a Suspense boundary (the rest of the page is still pre-rendered) */}
+      <Suspense fallback={null}>
+        <SocialLoginError />
+      </Suspense>
       <SignupForm />
     </AuthShell>
   );
