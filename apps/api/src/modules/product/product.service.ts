@@ -5,6 +5,7 @@ import {
   type ProductDetail,
   type ProductFacets,
   type ProductInfo,
+  type ProductNeighbors,
   type ProductSort,
 } from '@milcow/shared';
 import { Prisma } from '../../generated/prisma/client';
@@ -60,6 +61,25 @@ export class ProductService {
     where: Prisma.ProductWhereInput,
     query: ProductListQueryDto,
   ): Promise<Paginated<ProductInfo>> {
+    const orderedIds = await this.recommendedIds(where);
+
+    const { skip, take } = toSkipTake(query.page, query.limit);
+    const pageIds = orderedIds.slice(skip, skip + take);
+    const rows = await this.prisma.product.findMany({
+      where: { id: { in: pageIds } },
+      include: productListInclude,
+    });
+    const byId = new Map(rows.map((row) => [row.id, row]));
+    const page = pageIds.flatMap((id) => {
+      const row = byId.get(id);
+      return row ? [toProductInfo(row)] : [];
+    });
+
+    return toPaginated(page, orderedIds.length, query.page, query.limit);
+  }
+
+  /** All matching product ids in the "recommended" (round-robin by type) order */
+  private async recommendedIds(where: Prisma.ProductWhereInput): Promise<string[]> {
     const light = await this.prisma.product.findMany({
       where,
       select: { id: true, productType: true },
@@ -74,25 +94,26 @@ export class ProductService {
       rankInType.set(row.id, rank);
       seen.set(row.productType, rank + 1);
     }
-    const ordered = [...light].sort(
-      (a, b) =>
-        rankInType.get(a.id)! - rankInType.get(b.id)! ||
-        typeOrder.indexOf(a.productType) - typeOrder.indexOf(b.productType),
-    );
+    return [...light]
+      .sort(
+        (a, b) =>
+          rankInType.get(a.id)! - rankInType.get(b.id)! ||
+          typeOrder.indexOf(a.productType) - typeOrder.indexOf(b.productType),
+      )
+      .map((row) => row.id);
+  }
 
-    const { skip, take } = toSkipTake(query.page, query.limit);
-    const pageIds = ordered.slice(skip, skip + take).map((row) => row.id);
-    const rows = await this.prisma.product.findMany({
-      where: { id: { in: pageIds } },
-      include: productListInclude,
-    });
-    const byId = new Map(rows.map((row) => [row.id, row]));
-    const page = pageIds.flatMap((id) => {
-      const row = byId.get(id);
-      return row ? [toProductInfo(row)] : [];
-    });
-
-    return toPaginated(page, light.length, query.page, query.limit);
+  /** Previous / next product for the detail page arrows (same order as the catalog's first view) */
+  async neighbors(id: string): Promise<ProductNeighbors> {
+    const ids = await this.recommendedIds({ productStatus: 'ACTIVE' });
+    const index = ids.indexOf(id);
+    if (index === -1) throw new NotFoundException('Product not found');
+    return {
+      prevId: ids[index - 1] ?? null,
+      nextId: ids[index + 1] ?? null,
+      position: index + 1,
+      total: ids.length,
+    };
   }
 
   /** Counts per type + price range — for the catalog sidebar (whole active catalog, not the filtered page) */

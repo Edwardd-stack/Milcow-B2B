@@ -1,8 +1,10 @@
 import type {
   Paginated,
+  ProductDetail,
   ProductFacets,
   ProductGrade,
   ProductInfo,
+  ProductNeighbors,
   ProductSort,
   ProductType,
 } from '@milcow/shared';
@@ -39,4 +41,14 @@ export function getProducts(params: ProductListParams = {}) {
 /** GET /products/facets — counts per type + price range for the sidebar */
 export function getProductFacets() {
   return apiFetch<ProductFacets>('/products/facets');
+}
+
+/** GET /products/:id — one product with its stock per warehouse */
+export function getProduct(id: string) {
+  return apiFetch<ProductDetail>(`/products/${id}`);
+}
+
+/** GET /products/:id/neighbors — ids of the previous / next product (detail page arrows) */
+export function getProductNeighbors(id: string) {
+  return apiFetch<ProductNeighbors>(`/products/${id}/neighbors`);
 }

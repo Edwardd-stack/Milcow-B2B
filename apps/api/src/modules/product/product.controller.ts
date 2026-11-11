@@ -24,6 +24,12 @@ export class ProductController {
     return this.productService.facets();
   }
 
+  @Get(':id/neighbors')
+  @ApiOperation({ summary: 'Previous / next product in the default catalog order' })
+  neighbors(@Param('id', ParseUUIDPipe) id: string) {
+    return this.productService.neighbors(id);
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Product detail with stock per warehouse' })
   findOne(@Param('id', ParseUUIDPipe) id: string) {

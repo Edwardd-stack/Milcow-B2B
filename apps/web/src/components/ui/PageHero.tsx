@@ -8,7 +8,16 @@ import { Link } from '@/i18n/navigation';
  * ≥1600px: the wave's height grows with the screen width (100/1440 of it = 6.95vw), so the bottom
  * padding grows with it too → the blue still reaches well below the title on big monitors.
  */
-export function PageHero({ title, current }: { title: string; current: string }) {
+export function PageHero({
+  title,
+  current,
+  parent,
+}: {
+  title: string;
+  current: string;
+  /** Optional middle step of the breadcrumb: Home / parent / current */
+  parent?: { label: string; href: string };
+}) {
   const t = useTranslations('Nav');
   return (
     <section className="relative isolate overflow-x-clip bg-brand pt-12 pb-28 text-center text-white sm:pt-14 sm:pb-32 min-[100rem]:pb-[calc(6.95vw+4rem)]">
@@ -29,6 +38,14 @@ export function PageHero({ title, current }: { title: string; current: string })
             {t('home')}
           </Link>
           <span className="mx-2">/</span>
+          {parent && (
+            <>
+              <Link href={parent.href} className="transition hover:text-white">
+                {parent.label}
+              </Link>
+              <span className="mx-2">/</span>
+            </>
+          )}
           <span aria-current="page" className="text-[#ffd28a]">
             {current}
           </span>

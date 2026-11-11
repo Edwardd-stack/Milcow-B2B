@@ -338,5 +338,37 @@
       "next": "Keyingi sahifa",
       "page": "{page}-sahifa"
     }
+  },
+  "ProductDetail": {
+    "title": "Mahsulot tafsilotlari",
+    "fat": "Yog'",
+    "protein": "Oqsil",
+    "minOrder": "Minimal buyurtma",
+    "totalStock": "Jami zaxira",
+    "stockTitle": "Omborlar bo'yicha zaxira",
+    "stockHint": "Mahsulotni qaysi ombordan olishingizni tanlang",
+    "soldOut": "Zaxira yo'q",
+    "originFarm": "Yetkazuvchi ferma",
+    "viewOnMap": "Xaritada ko'rish",
+    "pricePerTon": "Tonna narxi",
+    "quantity": "Buyurtma miqdori",
+    "qtyHint": "Kamida {min} t · bu omborda {max} t bor",
+    "warehouse": "Ombor",
+    "estimated": "Taxminiy summa",
+    "vat": "QQS alohida",
+    "order": "Buyurtma berish",
+    "aiContract": "AI shartnoma qoralamasi",
+    "decrease": "Miqdorni kamaytirish",
+    "increase": "Miqdorni ko'paytirish",
+    "unavailable": "Hozir zaxira yo'q, buyurtma berib bo'lmaydi.",
+    "perkCold": "0–4 °C sovuq zanjir",
+    "perkPickup": "Ombordan olib ketish",
+    "perkContract": "Shartnomada narx o'zgarmaydi",
+    "notFound": "Mahsulot topilmadi",
+    "notFoundText": "U o'chirilgan yoki sotuvdan olingan.",
+    "back": "Mahsulotlar ro'yxatiga",
+    "backToList": "Mahsulotlar ro'yxati",
+    "prev": "Oldingi mahsulot",
+    "next": "Keyingi mahsulot"
   }
 }

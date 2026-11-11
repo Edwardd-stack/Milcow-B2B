@@ -338,5 +338,37 @@
       "next": "Next page",
       "page": "Page {page}"
     }
+  },
+  "ProductDetail": {
+    "title": "Product details",
+    "fat": "Fat",
+    "protein": "Protein",
+    "minOrder": "Min. order",
+    "totalStock": "Total stock",
+    "stockTitle": "Stock by warehouse",
+    "stockHint": "Choose the warehouse you will receive from",
+    "soldOut": "Out of stock",
+    "originFarm": "Origin farm",
+    "viewOnMap": "View on map",
+    "pricePerTon": "Price per ton",
+    "quantity": "Quantity",
+    "qtyHint": "Min. {min} t · {max} t in this warehouse",
+    "warehouse": "Warehouse",
+    "estimated": "Estimated total",
+    "vat": "VAT not included",
+    "order": "Order now",
+    "aiContract": "AI contract draft",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "unavailable": "This product is out of stock right now.",
+    "perkCold": "0–4 °C cold chain",
+    "perkPickup": "Warehouse pickup",
+    "perkContract": "Fixed price with a contract",
+    "notFound": "Product not found",
+    "notFoundText": "It was removed or is no longer on sale.",
+    "back": "Back to products",
+    "backToList": "All products",
+    "prev": "Previous product",
+    "next": "Next product"
   }
 }

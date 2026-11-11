@@ -35,3 +35,11 @@ export interface ProductFacets {
   priceMin: number; // KRW per ton
   priceMax: number;
 }
+
+/** GET /products/:id/neighbors — previous / next product in the catalog's default (recommended) order */
+export interface ProductNeighbors {
+  prevId: string | null; // null on the first product
+  nextId: string | null; // null on the last product
+  position: number; // 1-based
+  total: number;
+}

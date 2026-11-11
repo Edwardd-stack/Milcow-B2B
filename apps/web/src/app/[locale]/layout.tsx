@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR, Poppins } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -57,7 +58,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
         <NextIntlClientProvider>
           <QueryProvider>
             <ChatProvider>
-              <Header />
+              {/* The header reads the current path (active menu item). On routes with a runtime
+                  segment (/products/[id]) that is only known per request → Suspense lets the rest
+                  of the page prerender; the fallback keeps the header's height (no layout shift). */}
+              <Suspense fallback={<div className="h-[81px] bg-brand" />}>
+                <Header />
+              </Suspense>
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
               <ScrollToTop />

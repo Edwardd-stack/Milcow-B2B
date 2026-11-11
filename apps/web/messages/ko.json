@@ -338,5 +338,37 @@
       "next": "다음 페이지",
       "page": "{page} 페이지"
     }
+  },
+  "ProductDetail": {
+    "title": "제품 상세",
+    "fat": "유지방",
+    "protein": "단백질",
+    "minOrder": "최소 주문",
+    "totalStock": "총 재고",
+    "stockTitle": "창고별 재고",
+    "stockHint": "받으실 창고를 선택하세요",
+    "soldOut": "재고 없음",
+    "originFarm": "원산지 목장",
+    "viewOnMap": "지도에서 보기",
+    "pricePerTon": "톤당 가격",
+    "quantity": "주문 수량",
+    "qtyHint": "최소 {min}톤 · 이 창고 재고 {max}톤",
+    "warehouse": "수령 창고",
+    "estimated": "예상 금액",
+    "vat": "부가세 별도",
+    "order": "주문하기",
+    "aiContract": "AI 정기 계약 초안",
+    "decrease": "수량 줄이기",
+    "increase": "수량 늘리기",
+    "unavailable": "현재 재고가 없어 주문할 수 없습니다.",
+    "perkCold": "0~4°C 콜드체인",
+    "perkPickup": "창고 픽업 가능",
+    "perkContract": "정기 계약 시 가격 고정",
+    "notFound": "제품을 찾을 수 없습니다",
+    "notFoundText": "삭제되었거나 판매가 중지된 제품입니다.",
+    "back": "제품 목록으로",
+    "backToList": "제품 목록",
+    "prev": "이전 제품",
+    "next": "다음 제품"
   }
 }

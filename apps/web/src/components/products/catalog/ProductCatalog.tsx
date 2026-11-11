@@ -12,6 +12,9 @@ import { SortSelect } from './SortSelect';
 import { useCatalogParams } from './useCatalogParams';
 import { ViewToggle } from './ViewToggle';
 
+/** sessionStorage key: the catalog's last query string ("?type=BUTTER&page=2") */
+export const CATALOG_QS_KEY = 'milcow:catalog-qs';
+
 // Cards are tall → 6 per page; table rows are short → 10
 const PAGE_SIZE = { card: 6, table: 10 } as const;
 
@@ -43,6 +46,18 @@ export function ProductCatalog() {
     q: state.q || undefined,
     sort: state.sort,
   });
+  // Remember the current filters / page → the detail page's "back" arrow returns to exactly this list
+  useEffect(() => {
+    try {
+      // Only while the catalog is the page on screen (Next may keep it mounted in the background)
+      if (/\/products\/?$/.test(window.location.pathname)) {
+        sessionStorage.setItem(CATALOG_QS_KEY, window.location.search);
+      }
+    } catch {
+      // storage can be blocked (private mode) — the back arrow then opens the plain catalog
+    }
+  });
+
   const { data: facets } = useProductFacets();
   const { data: warehouses } = useWarehouses();
 
@@ -68,7 +83,9 @@ export function ProductCatalog() {
   const to = meta ? Math.min(meta.page * meta.limit, meta.total) : 0;
 
   return (
-    <div className="relative -mt-16 grid gap-7 pb-22 lg:pt-3 lg:grid-cols-[280px_minmax(0,1fr)]">
+    // ≥1600px: lifted a little more, but only as far as the cream part of the wave reaches at the
+    // right edge of the container (≈3.2vw) — the right corner must not climb onto the blue
+    <div className="relative -mt-16 grid gap-7 min-[100rem]:-mt-[max(4rem,calc(3.2vw+0.5rem))] pb-22 lg:pt-3 lg:grid-cols-[280px_minmax(0,1fr)]">
       {/* ── Sidebar ── */}
       <aside className="self-start rounded-3xl bg-white p-6 shadow-[0_20px_50px_rgba(17,55,95,0.1)] lg:sticky lg:top-6">
         <button
