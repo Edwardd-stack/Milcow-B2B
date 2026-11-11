@@ -426,5 +426,101 @@
       "reason": "Reason",
       "retry": "Back to products"
     }
+  },
+  "Contracts": {
+    "title": "Supply contracts",
+    "description": "Draft and manage monthly supply contracts with the AI contract assistant.",
+    "ai": {
+      "title": "AI contract assistant",
+      "lead": "Describe what you need in your own words. Prices are calculated by the server from real catalog prices, not by the AI.",
+      "placeholder": "e.g. 20 tons of A2 raw milk every month, pickup at Icheon, 6 months from next month, with quality tests",
+      "submit": "Draft the contract",
+      "pending": "The AI is drafting…",
+      "understood": "What I understood",
+      "prefill": "{product}, {ton} t every month, 6 months from the 1st of next month, warehouse pickup",
+      "examples": {
+        "ex1": "20 t raw milk monthly, 6 months, Icheon pickup",
+        "ex2": "2 t unsalted butter delivered monthly for a year",
+        "ex3": "3 t fresh cream monthly with a price lock"
+      },
+      "issues": {
+        "BELOW_MIN_ORDER": "The monthly amount is below the minimum order",
+        "TOO_MANY_MONTHS": "A contract can run for at most 24 months",
+        "START_NOT_IN_FUTURE": "The first delivery must be after today",
+        "UNKNOWN_REFERENCE": "Some products or warehouses were not found"
+      }
+    },
+    "paper": {
+      "kicker": "Supply contract (draft)",
+      "untitled": "New contract",
+      "draft": "Draft",
+      "perMonth": "{ton} t / month",
+      "product": "Product",
+      "warehouse": "Warehouse",
+      "start": "First delivery",
+      "months": "Term",
+      "monthsValue": "{count} deliveries · until {end}",
+      "ton": "Monthly amount",
+      "delivery": "Receive by",
+      "deliveryType": {
+        "PICKUP": "Warehouse pickup",
+        "DELIVERY": "Cold-chain delivery"
+      },
+      "address": "Delivery address",
+      "choose": "Choose…",
+      "services": "Add-on services (monthly)",
+      "noServices": "No services chosen",
+      "monthly": "Per month",
+      "total": "Total ({count} deliveries)",
+      "estimate": "Estimate from catalog prices · fixed by the server on saving",
+      "edit": "Edit",
+      "done": "Done",
+      "submit": "Submit for review →",
+      "saving": "Saving…",
+      "saveDraft": "Only save as a draft",
+      "problem": {
+        "product": "Choose a product",
+        "warehouse": "Choose a warehouse",
+        "start": "Check the date",
+        "months": "Enter the term",
+        "ton": "Check the amount",
+        "address": "Enter the address"
+      }
+    },
+    "list": {
+      "title": "My contracts",
+      "empty": "No contracts yet. Draft your first one with the AI above.",
+      "error": "Could not load your contracts.",
+      "month": "month",
+      "monthlyTotal": "Monthly",
+      "progress": "{done} / {total} delivered · next {next}",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "cancelConfirm": "Cancel this contract?",
+      "status": {
+        "DRAFT": "Draft",
+        "REVIEW": "In review",
+        "ACTIVE": "Active",
+        "ENDED": "Ended",
+        "CANCELLED": "Cancelled"
+      },
+      "hint": {
+        "DRAFT": "Not submitted · edit it, then submit for review",
+        "REVIEW": "Waiting for Milcow approval",
+        "ACTIVE": "All deliveries are done",
+        "ENDED": "This contract has ended",
+        "CANCELLED": "This contract was cancelled"
+      }
+    },
+    "saved": {
+      "submitted": "The contract was saved and sent for review. Once approved, an order is created automatically every month.",
+      "draft": "Saved as a draft. You can submit it for review from the list below."
+    },
+    "errors": {
+      "rateLimit": "Too many requests. Please try again in a minute.",
+      "buyerOnly": "Only buyer accounts can make contracts.",
+      "invalid": "Please check the details (minimum order, dates, warehouse).",
+      "busy": "This cannot be processed right now. Please try again in a moment."
+    }
   }
 }

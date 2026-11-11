@@ -426,5 +426,101 @@
       "reason": "Sabab",
       "retry": "Mahsulotlarga qaytish"
     }
+  },
+  "Contracts": {
+    "title": "Yetkazib berish shartnomalari",
+    "description": "AI yordamchi bilan oylik yetkazib berish shartnomasi qoralamasini tuzing va boshqaring.",
+    "ai": {
+      "title": "AI shartnoma yordamchisi",
+      "lead": "Nima kerakligini oddiy so'zlar bilan yozing. Narxlarni AI emas, server haqiqiy katalog narxlari bo'yicha hisoblaydi.",
+      "placeholder": "Masalan: har oy 20 tonna A2 xom sut, Ichxon omboridan olib ketish, keyingi oydan 6 oy, sifat tahlili bilan",
+      "submit": "Shartnoma qoralamasini tuzish",
+      "pending": "AI qoralama tuzmoqda…",
+      "understood": "Tushunganlarim",
+      "prefill": "{product}, har oy {ton} t, keyingi oyning 1-sanasidan 6 oy, ombordan olib ketish",
+      "examples": {
+        "ex1": "Har oy 20 t xom sut, 6 oy, Ichxondan olib ketish",
+        "ex2": "Tuzsiz sariyog' har oy 2 t, bir yil yetkazish",
+        "ex3": "Har oy 3 t qaymoq, narx o'zgarmasin"
+      },
+      "issues": {
+        "BELOW_MIN_ORDER": "Oylik miqdor minimal buyurtmadan kam",
+        "TOO_MANY_MONTHS": "Shartnoma ko'pi bilan 24 oy",
+        "START_NOT_IN_FUTURE": "Birinchi yetkazish ertangi kundan keyin bo'lishi kerak",
+        "UNKNOWN_REFERENCE": "Ayrim mahsulot yoki omborlar topilmadi"
+      }
+    },
+    "paper": {
+      "kicker": "Yetkazib berish shartnomasi (qoralama)",
+      "untitled": "Yangi shartnoma",
+      "draft": "Qoralama",
+      "perMonth": "oyiga {ton} t",
+      "product": "Mahsulot",
+      "warehouse": "Ombor",
+      "start": "Birinchi yetkazish",
+      "months": "Muddat",
+      "monthsValue": "{count} marta · {end} gacha",
+      "ton": "Oylik miqdor",
+      "delivery": "Qabul qilish",
+      "deliveryType": {
+        "PICKUP": "Ombordan olib ketish",
+        "DELIVERY": "Sovuq zanjir bilan yetkazish"
+      },
+      "address": "Yetkazish manzili",
+      "choose": "Tanlang…",
+      "services": "Qo'shimcha xizmatlar (oylik)",
+      "noServices": "Xizmat tanlanmagan",
+      "monthly": "Oylik summa",
+      "total": "Jami ({count} marta)",
+      "estimate": "Katalog narxi bo'yicha taxmin · saqlanganda server aniqlaydi",
+      "edit": "Tahrirlash",
+      "done": "Tayyor",
+      "submit": "Ko'rib chiqishga yuborish →",
+      "saving": "Saqlanmoqda…",
+      "saveDraft": "Faqat qoralama sifatida saqlash",
+      "problem": {
+        "product": "Mahsulotni tanlang",
+        "warehouse": "Omborni tanlang",
+        "start": "Sanani tekshiring",
+        "months": "Muddatni kiriting",
+        "ton": "Miqdorni tekshiring",
+        "address": "Manzilni kiriting"
+      }
+    },
+    "list": {
+      "title": "Mening shartnomalarim",
+      "empty": "Hali shartnoma yo'q. Yuqorida AI bilan birinchisini tuzing.",
+      "error": "Shartnomalarni yuklab bo'lmadi.",
+      "month": "oy",
+      "monthlyTotal": "Oylik",
+      "progress": "{done} / {total} yetkazildi · keyingisi {next}",
+      "submit": "Yuborish",
+      "cancel": "Bekor qilish",
+      "cancelConfirm": "Shartnoma bekor qilinsinmi?",
+      "status": {
+        "DRAFT": "Qoralama",
+        "REVIEW": "Ko'rib chiqilmoqda",
+        "ACTIVE": "Faol",
+        "ENDED": "Tugagan",
+        "CANCELLED": "Bekor qilingan"
+      },
+      "hint": {
+        "DRAFT": "Yuborilmagan · tahrirlab, ko'rib chiqishga yuboring",
+        "REVIEW": "Milcow tasdig'i kutilmoqda",
+        "ACTIVE": "Barcha yetkazishlar tugadi",
+        "ENDED": "Shartnoma tugagan",
+        "CANCELLED": "Shartnoma bekor qilingan"
+      }
+    },
+    "saved": {
+      "submitted": "Shartnoma saqlandi va ko'rib chiqishga yuborildi. Tasdiqlangach, har oy buyurtma avtomatik yaratiladi.",
+      "draft": "Qoralama sifatida saqlandi. Quyidagi ro'yxatdan ko'rib chiqishga yuborishingiz mumkin."
+    },
+    "errors": {
+      "rateLimit": "Juda ko'p so'rov. Bir daqiqadan keyin qayta urinib ko'ring.",
+      "buyerOnly": "Shartnomani faqat xaridor hisobi tuza oladi.",
+      "invalid": "Ma'lumotlarni tekshiring (minimal buyurtma, sanalar, ombor).",
+      "busy": "Hozir bajarib bo'lmaydi. Birozdan keyin qayta urinib ko'ring."
+    }
   }
 }

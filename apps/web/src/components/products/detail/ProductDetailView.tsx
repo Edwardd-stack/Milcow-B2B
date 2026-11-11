@@ -107,7 +107,7 @@ function Loaded({ product }: { product: ProductDetail }) {
   ];
 
   return (
-    <div className="relative -mt-16 min-[100rem]:-mt-[calc(6.95vw-1rem)] grid gap-6 pb-24 lg:grid-cols-[minmax(0,1fr)_380px]">
+    <div className="relative -mt-16 min-[100rem]:-mt-[calc(6.95vw-1rem)] grid gap-6 pb-20 lg:grid-cols-[minmax(0,1fr)_380px]">
       {/* Back + previous / next: one row across both columns */}
       <div className="lg:col-span-2">
         <DetailNav productId={product.id} />

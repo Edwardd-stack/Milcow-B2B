@@ -426,5 +426,101 @@
       "reason": "사유",
       "retry": "제품으로 돌아가기"
     }
+  },
+  "Contracts": {
+    "title": "공급 계약",
+    "description": "AI 계약 도우미로 정기 공급 계약서 초안을 만들고 관리하세요.",
+    "ai": {
+      "title": "AI 계약 도우미",
+      "lead": "필요한 내용을 평소 말하듯 적어 주세요. 가격은 AI가 아니라 서버가 실제 단가로 계산합니다.",
+      "placeholder": "예: 매달 20톤 A2 원유, 이천 창고에서 픽업. 다음 달부터 6개월, 품질 검사 포함",
+      "submit": "계약서 초안 만들기",
+      "pending": "AI가 초안을 작성 중…",
+      "understood": "이해한 내용",
+      "prefill": "{product} 매달 {ton}톤, 다음 달 1일부터 6개월, 창고 픽업",
+      "examples": {
+        "ex1": "매달 20톤 원유, 6개월, 이천 픽업",
+        "ex2": "무염 버터 2톤씩 1년 동안 배송",
+        "ex3": "생크림 매달 3톤, 가격 고정 포함"
+      },
+      "issues": {
+        "BELOW_MIN_ORDER": "월 수량이 최소 주문량보다 적습니다",
+        "TOO_MANY_MONTHS": "계약 기간은 최대 24개월입니다",
+        "START_NOT_IN_FUTURE": "첫 공급일은 내일 이후여야 합니다",
+        "UNKNOWN_REFERENCE": "일부 제품·창고를 찾지 못했습니다"
+      }
+    },
+    "paper": {
+      "kicker": "정기 공급 계약서 (초안)",
+      "untitled": "새 계약",
+      "draft": "초안",
+      "perMonth": "매월 {ton}톤",
+      "product": "제품",
+      "warehouse": "창고",
+      "start": "첫 공급일",
+      "months": "기간",
+      "monthsValue": "{count}회 · ~{end}",
+      "ton": "월 수량",
+      "delivery": "수령 방법",
+      "deliveryType": {
+        "PICKUP": "창고 픽업",
+        "DELIVERY": "콜드체인 배송"
+      },
+      "address": "배송 주소",
+      "choose": "선택하세요",
+      "services": "부가 서비스 (월)",
+      "noServices": "선택한 서비스 없음",
+      "monthly": "월 금액",
+      "total": "총액 ({count}회)",
+      "estimate": "카탈로그 기준 예상 금액 · 저장 시 서버가 확정",
+      "edit": "수정하기",
+      "done": "수정 완료",
+      "submit": "검토 요청 →",
+      "saving": "저장 중…",
+      "saveDraft": "초안으로만 저장",
+      "problem": {
+        "product": "제품 선택 필요",
+        "warehouse": "창고 선택 필요",
+        "start": "날짜 확인 필요",
+        "months": "기간 입력 필요",
+        "ton": "수량 확인 필요",
+        "address": "주소 입력 필요"
+      }
+    },
+    "list": {
+      "title": "내 계약",
+      "empty": "아직 계약이 없습니다. 위에서 AI로 첫 계약서를 만들어 보세요.",
+      "error": "계약 목록을 불러오지 못했습니다.",
+      "month": "월",
+      "monthlyTotal": "월",
+      "progress": "{done} / {total}회 공급 · 다음 공급 {next}",
+      "submit": "검토 요청",
+      "cancel": "취소",
+      "cancelConfirm": "이 계약을 취소할까요?",
+      "status": {
+        "DRAFT": "초안",
+        "REVIEW": "검토 중",
+        "ACTIVE": "진행 중",
+        "ENDED": "종료",
+        "CANCELLED": "취소됨"
+      },
+      "hint": {
+        "DRAFT": "제출 전 · 수정 후 검토 요청하세요",
+        "REVIEW": "Milcow 담당자 승인 대기 중",
+        "ACTIVE": "모든 공급이 완료되었습니다",
+        "ENDED": "계약이 종료되었습니다",
+        "CANCELLED": "취소된 계약입니다"
+      }
+    },
+    "saved": {
+      "submitted": "계약서가 저장되어 검토 요청되었습니다. 승인되면 매월 자동으로 주문이 생성됩니다.",
+      "draft": "초안으로 저장되었습니다. 아래 목록에서 검토 요청할 수 있습니다."
+    },
+    "errors": {
+      "rateLimit": "요청이 너무 많습니다. 1분 후에 다시 시도해 주세요.",
+      "buyerOnly": "구매 회원 계정으로만 계약할 수 있습니다.",
+      "invalid": "입력 내용을 확인해 주세요 (최소 주문량, 날짜, 창고).",
+      "busy": "지금은 처리할 수 없습니다. 잠시 후 다시 시도해 주세요."
+    }
   }
 }
