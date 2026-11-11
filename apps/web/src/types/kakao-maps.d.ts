@@ -22,6 +22,12 @@ declare global {
         paddingLeft?: number,
       ): void;
       setZoomable(zoomable: boolean): void;
+      panTo(latlng: LatLng): void;
+      setLevel(
+        level: number,
+        options?: { animate?: boolean | { duration: number }; anchor?: LatLng },
+      ): void;
+      getLevel(): number;
       relayout(): void;
       addControl(control: ZoomControl, position: number): void;
     }
@@ -35,8 +41,17 @@ declare global {
         clickable?: boolean;
       });
       setMap(map: Map | null): void;
+      setZIndex(zIndex: number): void;
     }
     class ZoomControl {}
+    namespace event {
+      function addListener(target: Map, type: 'idle' | 'zoom_changed', handler: () => void): void;
+      function removeListener(
+        target: Map,
+        type: 'idle' | 'zoom_changed',
+        handler: () => void,
+      ): void;
+    }
     namespace ControlPosition {
       const RIGHT: number;
     }

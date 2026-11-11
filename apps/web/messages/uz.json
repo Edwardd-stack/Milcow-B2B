@@ -522,5 +522,29 @@
       "invalid": "Ma'lumotlarni tekshiring (minimal buyurtma, sanalar, ombor).",
       "busy": "Hozir bajarib bo'lmaydi. Birozdan keyin qayta urinib ko'ring."
     }
+  },
+  "MapPage": {
+    "title": "Fermalar va omborlar",
+    "description": "Milcow hamkor fermalari va sovuq zanjir omborlari xaritada.",
+    "panel": "Fermalar va omborlar ro'yxati",
+    "tabs": {
+      "all": "Hammasi",
+      "farm": "Fermalar",
+      "warehouse": "Omborlar"
+    },
+    "search": "Nomi yoki hudud bo'yicha qidirish",
+    "empty": "Hech narsa topilmadi.",
+    "loading": "Xarita yuklanmoqda…",
+    "error": "Joylashuvlarni yuklab bo'lmadi.",
+    "cows": "{count} ta sigir",
+    "capacity": "{ton} t sig'im",
+    "daily": "Kuniga",
+    "products": "Mahsulotlar",
+    "directions": "Yo'nalish",
+    "cert": {
+      "HACCP": "HACCP",
+      "ORGANIC": "Organik",
+      "ANIMAL_WELFARE": "Hayvonlar farovonligi"
+    }
   }
 }

@@ -522,5 +522,29 @@
       "invalid": "입력 내용을 확인해 주세요 (최소 주문량, 날짜, 창고).",
       "busy": "지금은 처리할 수 없습니다. 잠시 후 다시 시도해 주세요."
     }
+  },
+  "MapPage": {
+    "title": "목장·창고 지도",
+    "description": "Milcow 협력 목장과 콜드체인 창고 위치를 지도에서 확인하세요.",
+    "panel": "목장·창고 목록",
+    "tabs": {
+      "all": "전체",
+      "farm": "목장",
+      "warehouse": "창고"
+    },
+    "search": "이름·지역 검색",
+    "empty": "검색 결과가 없습니다.",
+    "loading": "지도를 불러오는 중…",
+    "error": "위치 정보를 불러오지 못했습니다.",
+    "cows": "젖소 {count}두",
+    "capacity": "{ton}톤 보관",
+    "daily": "일 생산",
+    "products": "제품 보기",
+    "directions": "길찾기",
+    "cert": {
+      "HACCP": "HACCP",
+      "ORGANIC": "유기농",
+      "ANIMAL_WELFARE": "동물복지"
+    }
   }
 }

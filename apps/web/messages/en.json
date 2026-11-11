@@ -522,5 +522,29 @@
       "invalid": "Please check the details (minimum order, dates, warehouse).",
       "busy": "This cannot be processed right now. Please try again in a moment."
     }
+  },
+  "MapPage": {
+    "title": "Farms & Warehouses",
+    "description": "See where Milcow partner farms and cold-chain warehouses are.",
+    "panel": "Farms and warehouses",
+    "tabs": {
+      "all": "All",
+      "farm": "Farms",
+      "warehouse": "Warehouses"
+    },
+    "search": "Search by name or area",
+    "empty": "Nothing found.",
+    "loading": "Loading the map…",
+    "error": "Could not load the locations.",
+    "cows": "{count} cows",
+    "capacity": "{ton} t storage",
+    "daily": "Daily",
+    "products": "Products",
+    "directions": "Directions",
+    "cert": {
+      "HACCP": "HACCP",
+      "ORGANIC": "Organic",
+      "ANIMAL_WELFARE": "Animal welfare"
+    }
   }
 }
