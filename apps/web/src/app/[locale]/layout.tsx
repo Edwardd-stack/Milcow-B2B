@@ -51,9 +51,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${poppins.variable} ${notoKr.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* suppressHydrationWarning: browser extensions (password managers, antivirus, translators)
+          add their own attributes to <body> before React loads. This only silences attribute
+          differences on <body> itself — mismatches inside the page are still reported. */}
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         {/* Translations + server-state cache for Client Components */}
         <NextIntlClientProvider>
           <QueryProvider>

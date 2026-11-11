@@ -4,7 +4,11 @@ import { useLocale, useTranslations } from 'next-intl';
 import { LOCALES } from '@milcow/shared';
 import { usePathname, useRouter } from '@/i18n/navigation';
 
-/** Compact KO / EN / UZ switch. Keeps the user on the same page. */
+/**
+ * Compact KO / EN / UZ switch. Keeps the user on the same page — including the query string
+ * (?product=…&ton=… on checkout, filters on /products). The query is read at click time
+ * (not with useSearchParams) so the header needs no extra Suspense boundary.
+ */
 export function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
   const locale = useLocale();
@@ -20,7 +24,12 @@ export function LocaleSwitcher() {
             key={item}
             type="button"
             lang={item}
-            onClick={() => router.replace(pathname, { locale: item })}
+            onClick={() =>
+              router.replace(`${pathname}${window.location.search}`, {
+                locale: item,
+                scroll: false,
+              })
+            }
             aria-pressed={active}
             className={`rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap uppercase transition ${
               active ? 'bg-white text-brand-dark' : 'text-white/80 hover:text-white'
