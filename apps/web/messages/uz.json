@@ -34,7 +34,11 @@
     "profile": "Profilim",
     "myContracts": "Shartnomalarim",
     "passport": "Sifat pasporti",
-    "surplus": "Ortiqcha sut"
+    "surplus": "Ortiqcha sut",
+    "console": "Admin konsoli",
+    "pickupGate": "Pickup darvozasi",
+    "roleAdmin": "Admin",
+    "roleStaff": "Ombor xodimi"
   },
   "Footer": {
     "tagline": "Koreya hamkor fermalarining suti va sut mahsulotlari — tonnalab.",
@@ -247,9 +251,14 @@
       "bizNo": "Faqat raqamlarni yozing — chiziqchalar o'zi qo'yiladi"
     },
     "demo": {
-      "title": "Demo bilan kirish",
-      "text": "Bir bosishda — buyurtma va shartnomalari bor namuna xaridor sifatida kiring.",
-      "pending": "Demo ochilmoqda…"
+      "title": "Demo bilan sinab ko'rish",
+      "text": "Parolsiz — har bir rol uchun tayyor akkaunt.",
+      "pending": "Demo ochilmoqda…",
+      "role": {
+        "BUYER": "Xaridor",
+        "ADMIN": "Admin",
+        "STAFF": "Ombor"
+      }
     },
     "errors": {
       "invalid": "Email yoki parol noto'g'ri.",
@@ -496,7 +505,8 @@
         "ACTIVE": "Barcha yetkazishlar tugadi",
         "ENDED": "Shartnoma tugagan",
         "CANCELLED": "Shartnoma bekor qilingan"
-      }
+      },
+      "rejected": "Rad etish sababi: {reason}"
     },
     "saved": {
       "submitted": "Shartnoma saqlandi va ko'rib chiqishga yuborildi. Tasdiqlangach, har oy buyurtma avtomatik yaratiladi.",
@@ -619,7 +629,9 @@
     },
     "track": "Xaritada kuzatish",
     "lot": "Partiya {code}",
-    "holdLeft": "To'lov muddati {time}"
+    "holdLeft": "To'lov muddati {time}",
+    "qrHint": "Ombor darvozasida shu QR ni ko'rsating",
+    "cancelReason": "Bekor qilish sababi: {reason}"
   },
   "Profile": {
     "title": "Profilim",
@@ -882,5 +894,206 @@
       "error": "Band qilib bo'lmadi. Qayta urinib ko'ring.",
       "payError": "To'lovni boshlab bo'lmadi."
     }
+  },
+  "Admin": {
+    "title": "Admin konsoli",
+    "staffTitle": "Ombor konsoli",
+    "close": "Yopish",
+    "back": "Orqaga",
+    "save": "Saqlash",
+    "saving": "Saqlanmoqda…",
+    "errors": {
+      "demo": "Demo akkaunt faqat demo ma'lumotlarni o'zgartira oladi. (Haqiqiy mijozlar va katalog himoyalangan.)",
+      "generic": "Xatolik yuz berdi. Birozdan so'ng qayta urinib ko'ring."
+    },
+    "demoBanner": {
+      "title": "Demo rejim",
+      "text": "Haqiqiy mijozlarning email va telefoni yashirilgan, o'zgarishlar faqat demo ma'lumotlarga tegadi. Har kuni ertalab tiklanadi."
+    },
+    "nav": {
+      "dashboard": "Boshqaruv paneli",
+      "orders": "Buyurtmalar",
+      "contracts": "Shartnomalarni ko'rib chiqish",
+      "pickup": "Pickup darvozasi",
+      "products": "Mahsulotlar",
+      "inquiries": "Xabarlar",
+      "copilot": "Ma'lumotdan so'rash"
+    },
+    "kpi": {
+      "today": "Bugungi buyurtmalar",
+      "month": "Shu oy tushumi",
+      "monthSub": "{count} ta to'lov · qaytarilganlarsiz",
+      "review": "Ko'rib chiqilayotgan shartnomalar",
+      "reviewSub": "Tasdiqlash yoki rad etish kerak",
+      "inquiries": "Yangi xabarlar",
+      "inquiriesSub": "Javob kutmoqda"
+    },
+    "dashboard": {
+      "subtitle": "Bugungi holat bir qarashda.",
+      "chart": "Oxirgi 14 kun tushumi",
+      "lowStock": "Kam zaxira (10 t dan kam)",
+      "noLowStock": "Kam zaxira yo'q.",
+      "recent": "Oxirgi buyurtmalar",
+      "all": "Hammasi"
+    },
+    "orders": {
+      "subtitle": "Filtrlar URL'da saqlanadi — ko'rinishni ulashish mumkin.",
+      "search": "Kompaniya, mas'ul, buyurtma raqami oxiri",
+      "status": "Holat",
+      "type": "Olish usuli",
+      "warehouse": "Ombor",
+      "from": "Dan",
+      "to": "Gacha",
+      "allStatus": "Barcha holatlar",
+      "allTypes": "Barcha usullar",
+      "allWarehouses": "Barcha omborlar",
+      "reset": "Tozalash",
+      "empty": "Mos buyurtma topilmadi.",
+      "total": "Jami {count} ta",
+      "no": "Buyurtma №",
+      "customer": "Mijoz",
+      "items": "Mahsulotlar",
+      "created": "Sana",
+      "detail": "Buyurtma tafsiloti",
+      "payment": "To'lov",
+      "noPayment": "To'lov yo'q",
+      "demoPayment": "demo to'lov",
+      "paymentStatus": {
+        "READY": "Kutilmoqda",
+        "DONE": "To'langan",
+        "CANCELED": "Qaytarilgan",
+        "FAILED": "Xato"
+      },
+      "history": "Tarix",
+      "system": "Tizim",
+      "event": {
+        "CREATED": "Buyurtma yaratildi",
+        "STATUS_CHANGED": "Holat o'zgardi",
+        "CANCELLED": "Bekor qilindi",
+        "REFUNDED": "Pul qaytarildi",
+        "PICKUP_STEP": "Pickup bosqichi"
+      },
+      "cancel": "Bekor qilish",
+      "cancelRefund": "Bekor qilish va qaytarish",
+      "cancelNote": "Buyurtma bekor qilinadi, zaxira qaytariladi.",
+      "refundNote": "{amount} mijozga qaytariladi (Toss).",
+      "reasonPlaceholder": "Sabab (mijozga ko'rinadi)",
+      "confirmCancel": "Bekor qilish",
+      "confirmRefund": "Bekor qilib qaytarish"
+    },
+    "contracts": {
+      "subtitle": "Ko'rib chiqilayotgan shartnomani tasdiqlang yoki sabab bilan rad eting.",
+      "queue": "Navbatda",
+      "all": "Hammasi",
+      "queueEmpty": "Ko'rib chiqiladigan shartnoma yo'q. 👍",
+      "empty": "Shartnoma yo'q.",
+      "period": "Muddat",
+      "monthly": "Oylik hajm · narx",
+      "deliveries": "Yetkazishlar",
+      "deliveryCount": "{count} marta",
+      "warehouse": "Ombor",
+      "services": "Qo'shimcha xizmatlar",
+      "total": "Shartnoma summasi",
+      "approve": "Tasdiqlash",
+      "reject": "Rad etish",
+      "reasonPlaceholder": "Rad etish sababi (mijozga ko'rinadi)",
+      "confirmReject": "Rad etish"
+    },
+    "pickup": {
+      "subtitle": "Haydovchining QR kodini skanerlang yoki kodni kiriting.",
+      "find": "Topish",
+      "scan": "QR skaner",
+      "notFound": "Bu kod bilan pickup topilmadi.",
+      "step": {
+        "SCHEDULED": "Band qilingan",
+        "LOADING": "Yuklanmoqda",
+        "READY": "Tayyor",
+        "PICKED_UP": "Olib ketildi"
+      },
+      "action": {
+        "LOADING": "Yuklashni boshlash",
+        "READY": "Tayyor deb belgilash",
+        "PICKED_UP": "Topshirish"
+      },
+      "done": "Pickup yakunlandi.",
+      "today": "Bugungi pickuplar ({date})",
+      "noneToday": "Bugunga pickup yo'q."
+    },
+    "products": {
+      "subtitle": "To'xtatilgan mahsulotlar ham ko'rsatiladi. SKU avtomatik beriladi.",
+      "new": "Yangi mahsulot",
+      "name": "Nomi",
+      "desc": "Tavsif (ixtiyoriy)",
+      "type": "Turi",
+      "grade": "Daraja",
+      "price": "Tonna narxi",
+      "stock": "Ombor zaxirasi (t)",
+      "selling": "Sotuvda",
+      "active": "Sotuvda",
+      "paused": "To'xtatilgan",
+      "reindex": "AI bilimini yangilash",
+      "reindexHint": "Katalog o'zgarishlarini AI chatbotga o'rgatish",
+      "reindexing": "Yangilanmoqda…",
+      "reindexed": "Yangilandi ({count} ta yangi embedding)",
+      "skuAuto": "SKU saqlanganda beriladi (masalan MC-RAW-0004)",
+      "basic": "Asosiy",
+      "texts": "Nomi · tavsif (3 tilda)",
+      "priceAndSpec": "Narx · tarkib",
+      "fat": "Yog'",
+      "protein": "Oqsil",
+      "stockTitle": "Omborlar bo'yicha zaxira",
+      "demoNote": "Demo akkaunt barcha sahifalarni ko'ra oladi, lekin umumiy katalog saqlanmaydi."
+    },
+    "inquiries": {
+      "subtitle": "Aloqa formasidan kelgan xabarlar. Javob email orqali yuboriladi.",
+      "NEW": "Yangi",
+      "ANSWERED": "Javob berilgan",
+      "empty": "Xabar yo'q.",
+      "reply": "Email bilan javob",
+      "replySubject": "Murojaatingiz uchun rahmat",
+      "markAnswered": "Javob berildi deb belgilash"
+    },
+    "copilot": {
+      "subtitle": "Operatsion ma'lumotlarni oddiy so'z bilan so'rang. AI faqat 4 ta ruxsat etilgan (faqat o'qish) vositadan foydalanadi.",
+      "cardTitle": "Ma'lumotdan so'rash",
+      "cardText": "Savdo, top mijozlar, kam zaxira va shartnomalar haqida so'rang.",
+      "emptyTitle": "Istalgan narsani so'rang",
+      "emptyText": "Misolni bosing yoki savol yozing. SQL ishlamaydi — faqat belgilangan so'rovlar.",
+      "examples": [
+        "Shu oy savdosi mahsulot bo'yicha",
+        "Oxirgi 30 kun top-5 mijoz",
+        "10 t dan kam zaxira",
+        "Shartnomalar holati"
+      ],
+      "placeholder": "Masalan: o'tgan hafta omborlar bo'yicha savdo?",
+      "ask": "So'rash",
+      "thinking": "Ma'lumot olinmoqda…",
+      "usedTool": "Ishlatilgan vosita",
+      "tooMany": "Savol juda ko'p — bir daqiqadan so'ng urinib ko'ring.",
+      "col": {
+        "product": "Mahsulot",
+        "customer": "Mijoz",
+        "warehouse": "Ombor",
+        "day": "Sana",
+        "orders": "Buyurtma",
+        "ton": "Hajm",
+        "revenue": "Tushum",
+        "email": "Email",
+        "status": "Holat",
+        "count": "Soni"
+      },
+      "status": {
+        "DRAFT": "Qoralama",
+        "REVIEW": "Ko'rib chiqilmoqda",
+        "ACTIVE": "Faol",
+        "ENDED": "Tugagan",
+        "CANCELLED": "Bekor qilingan"
+      }
+    }
+  },
+  "Realtime": {
+    "orderCreated": "🛒 Yangi buyurtma · {total}",
+    "inquiryCreated": "✉️ Yangi xabar: {name}",
+    "contractSubmitted": "📄 Yangi shartnoma ko'rib chiqishni kutmoqda"
   }
 }

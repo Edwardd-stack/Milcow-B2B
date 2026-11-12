@@ -34,7 +34,11 @@
     "profile": "My profile",
     "myContracts": "My contracts",
     "passport": "Milk Passport",
-    "surplus": "Surplus Milk"
+    "surplus": "Surplus Milk",
+    "console": "Admin console",
+    "pickupGate": "Pickup gate",
+    "roleAdmin": "Admin",
+    "roleStaff": "Staff"
   },
   "Footer": {
     "tagline": "Raw milk and dairy from Korean partner farms — by the ton.",
@@ -248,8 +252,13 @@
     },
     "demo": {
       "title": "Try the demo",
-      "text": "One click — log in as a sample buyer with orders and contracts.",
-      "pending": "Opening the demo…"
+      "text": "Enter a ready-made account for each role — no password.",
+      "pending": "Opening the demo…",
+      "role": {
+        "BUYER": "Buyer",
+        "ADMIN": "Admin",
+        "STAFF": "Warehouse"
+      }
     },
     "errors": {
       "invalid": "Wrong email or password.",
@@ -496,7 +505,8 @@
         "ACTIVE": "All deliveries are done",
         "ENDED": "This contract has ended",
         "CANCELLED": "This contract was cancelled"
-      }
+      },
+      "rejected": "Rejected: {reason}"
     },
     "saved": {
       "submitted": "The contract was saved and sent for review. Once approved, an order is created automatically every month.",
@@ -619,7 +629,9 @@
     },
     "track": "Track on the map",
     "lot": "Lot {code}",
-    "holdLeft": "Pay within {time}"
+    "holdLeft": "Pay within {time}",
+    "qrHint": "Show this QR at the warehouse gate",
+    "cancelReason": "Cancelled: {reason}"
   },
   "Profile": {
     "title": "My profile",
@@ -882,5 +894,206 @@
       "error": "Could not reserve. Please try again.",
       "payError": "The payment could not be started."
     }
+  },
+  "Admin": {
+    "title": "Admin console",
+    "staffTitle": "Warehouse console",
+    "close": "Close",
+    "back": "Back",
+    "save": "Save",
+    "saving": "Saving…",
+    "errors": {
+      "demo": "Demo accounts can only change demo data. (Real customers and the catalog are protected.)",
+      "generic": "Something went wrong. Please try again."
+    },
+    "demoBanner": {
+      "title": "Demo mode",
+      "text": "Real customers' e-mails and phone numbers are masked, and changes apply only to demo data. Everything resets every morning."
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "contracts": "Contract review",
+      "pickup": "Pickup gate",
+      "products": "Products",
+      "inquiries": "Inbox",
+      "copilot": "Ask your data"
+    },
+    "kpi": {
+      "today": "Orders today",
+      "month": "Revenue this month",
+      "monthSub": "{count} payments · refunds excluded",
+      "review": "Contracts in review",
+      "reviewSub": "Approve or reject",
+      "inquiries": "New inquiries",
+      "inquiriesSub": "Waiting for a reply"
+    },
+    "dashboard": {
+      "subtitle": "Today's operations at a glance.",
+      "chart": "Revenue, last 14 days",
+      "lowStock": "Low stock (under 10 t)",
+      "noLowStock": "No low stock.",
+      "recent": "Latest orders",
+      "all": "See all"
+    },
+    "orders": {
+      "subtitle": "Filters are kept in the URL, so you can share a view.",
+      "search": "Company, contact, end of order no.",
+      "status": "Status",
+      "type": "Receive",
+      "warehouse": "Warehouse",
+      "from": "From",
+      "to": "To",
+      "allStatus": "All statuses",
+      "allTypes": "All types",
+      "allWarehouses": "All warehouses",
+      "reset": "Reset",
+      "empty": "No orders match these filters.",
+      "total": "{count} orders",
+      "no": "Order no.",
+      "customer": "Customer",
+      "items": "Items",
+      "created": "Ordered",
+      "detail": "Order details",
+      "payment": "Payment",
+      "noPayment": "No payment yet",
+      "demoPayment": "demo payment",
+      "paymentStatus": {
+        "READY": "Waiting",
+        "DONE": "Paid",
+        "CANCELED": "Refunded",
+        "FAILED": "Failed"
+      },
+      "history": "History",
+      "system": "System",
+      "event": {
+        "CREATED": "Order placed",
+        "STATUS_CHANGED": "Status changed",
+        "CANCELLED": "Cancelled",
+        "REFUNDED": "Refunded",
+        "PICKUP_STEP": "Pickup step"
+      },
+      "cancel": "Cancel order",
+      "cancelRefund": "Cancel & refund",
+      "cancelNote": "The order is cancelled and its stock is returned.",
+      "refundNote": "{amount} will be refunded to the customer (Toss).",
+      "reasonPlaceholder": "Reason (shown to the customer)",
+      "confirmCancel": "Cancel order",
+      "confirmRefund": "Cancel and refund"
+    },
+    "contracts": {
+      "subtitle": "Approve contracts in review, or reject them with a reason.",
+      "queue": "In review",
+      "all": "All",
+      "queueEmpty": "Nothing to review. 👍",
+      "empty": "No contracts.",
+      "period": "Period",
+      "monthly": "Monthly volume · price",
+      "deliveries": "Deliveries",
+      "deliveryCount": "{count}",
+      "warehouse": "Warehouse",
+      "services": "Services",
+      "total": "Contract total",
+      "approve": "Approve",
+      "reject": "Reject",
+      "reasonPlaceholder": "Reason (the customer will see it)",
+      "confirmReject": "Reject"
+    },
+    "pickup": {
+      "subtitle": "Scan the driver's QR or type the pickup code.",
+      "find": "Find",
+      "scan": "Scan QR",
+      "notFound": "No pickup with this code.",
+      "step": {
+        "SCHEDULED": "Booked",
+        "LOADING": "Loading",
+        "READY": "Ready",
+        "PICKED_UP": "Picked up"
+      },
+      "action": {
+        "LOADING": "Start loading",
+        "READY": "Mark ready",
+        "PICKED_UP": "Hand over"
+      },
+      "done": "Pickup completed.",
+      "today": "Today's pickups ({date})",
+      "noneToday": "No pickups booked for today."
+    },
+    "products": {
+      "subtitle": "Paused products are listed too. SKUs are assigned automatically.",
+      "new": "New product",
+      "name": "Name",
+      "desc": "Description (optional)",
+      "type": "Type",
+      "grade": "Grade",
+      "price": "Price per ton",
+      "stock": "Stock per warehouse (t)",
+      "selling": "On sale",
+      "active": "On sale",
+      "paused": "Paused",
+      "reindex": "Update AI knowledge",
+      "reindexHint": "Teach the AI chatbot the latest catalog",
+      "reindexing": "Updating…",
+      "reindexed": "Updated ({count} new embeddings)",
+      "skuAuto": "SKU is assigned on save (e.g. MC-RAW-0004)",
+      "basic": "Basics",
+      "texts": "Name · description (3 languages)",
+      "priceAndSpec": "Price · composition",
+      "fat": "Fat",
+      "protein": "Protein",
+      "stockTitle": "Stock per warehouse",
+      "demoNote": "Demo accounts can try every screen, but the shared catalog is not saved."
+    },
+    "inquiries": {
+      "subtitle": "Messages from the contact form. Replies are sent by e-mail.",
+      "NEW": "New",
+      "ANSWERED": "Answered",
+      "empty": "No messages.",
+      "reply": "Reply by e-mail",
+      "replySubject": "Thank you for your inquiry",
+      "markAnswered": "Mark as answered"
+    },
+    "copilot": {
+      "subtitle": "Ask about operations in plain words. The AI can only use four read-only lookup tools.",
+      "cardTitle": "Ask your data",
+      "cardText": "Sales, top customers, low stock and contracts — just ask.",
+      "emptyTitle": "Ask anything",
+      "emptyText": "Tap an example or type a question. No SQL is ever run — only fixed lookups.",
+      "examples": [
+        "This month's sales by product",
+        "Top 5 customers in the last 30 days",
+        "Products with stock under 10 t",
+        "Contract pipeline"
+      ],
+      "placeholder": "e.g. Sales by warehouse last week?",
+      "ask": "Ask",
+      "thinking": "Looking it up…",
+      "usedTool": "Tool used",
+      "tooMany": "Too many questions — try again in a minute.",
+      "col": {
+        "product": "Product",
+        "customer": "Customer",
+        "warehouse": "Warehouse",
+        "day": "Date",
+        "orders": "Orders",
+        "ton": "Volume",
+        "revenue": "Revenue",
+        "email": "E-mail",
+        "status": "Status",
+        "count": "Count"
+      },
+      "status": {
+        "DRAFT": "Draft",
+        "REVIEW": "In review",
+        "ACTIVE": "Active",
+        "ENDED": "Ended",
+        "CANCELLED": "Cancelled"
+      }
+    }
+  },
+  "Realtime": {
+    "orderCreated": "🛒 New order · {total}",
+    "inquiryCreated": "✉️ New inquiry from {name}",
+    "contractSubmitted": "📄 A new contract is waiting for review"
   }
 }

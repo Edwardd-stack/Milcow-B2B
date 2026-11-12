@@ -34,7 +34,11 @@
     "profile": "내 정보",
     "myContracts": "내 계약",
     "passport": "품질 여권",
-    "surplus": "잉여 원유"
+    "surplus": "잉여 원유",
+    "console": "관리자 콘솔",
+    "pickupGate": "픽업 게이트",
+    "roleAdmin": "관리자",
+    "roleStaff": "창고직원"
   },
   "Footer": {
     "tagline": "국내 협력 목장의 원유·유제품을 톤 단위로.",
@@ -247,9 +251,14 @@
       "bizNo": "숫자만 입력하면 자동으로 형식이 맞춰집니다"
     },
     "demo": {
-      "title": "데모로 둘러보기",
-      "text": "클릭 한 번으로 주문·계약 내역이 있는 샘플 구매 기업으로 로그인합니다.",
-      "pending": "데모 여는 중…"
+      "title": "데모로 체험하기",
+      "text": "비밀번호 없이 역할별 데모 계정으로 바로 들어가 보세요.",
+      "pending": "데모 여는 중…",
+      "role": {
+        "BUYER": "구매기업",
+        "ADMIN": "관리자",
+        "STAFF": "창고직원"
+      }
     },
     "errors": {
       "invalid": "이메일 또는 비밀번호가 올바르지 않습니다.",
@@ -496,7 +505,8 @@
         "ACTIVE": "모든 공급이 완료되었습니다",
         "ENDED": "계약이 종료되었습니다",
         "CANCELLED": "취소된 계약입니다"
-      }
+      },
+      "rejected": "반려 사유: {reason}"
     },
     "saved": {
       "submitted": "계약서가 저장되어 검토 요청되었습니다. 승인되면 매월 자동으로 주문이 생성됩니다.",
@@ -619,7 +629,9 @@
     },
     "track": "실시간 위치 보기",
     "lot": "로트 {code}",
-    "holdLeft": "결제 기한 {time}"
+    "holdLeft": "결제 기한 {time}",
+    "qrHint": "창고 게이트에서 QR을 보여 주세요",
+    "cancelReason": "취소 사유: {reason}"
   },
   "Profile": {
     "title": "내 정보",
@@ -882,5 +894,206 @@
       "error": "예약하지 못했습니다. 다시 시도해 주세요.",
       "payError": "결제를 시작하지 못했습니다."
     }
+  },
+  "Admin": {
+    "title": "관리자 콘솔",
+    "staffTitle": "창고 콘솔",
+    "close": "닫기",
+    "back": "돌아가기",
+    "save": "저장",
+    "saving": "저장 중…",
+    "errors": {
+      "demo": "데모 계정은 데모 데이터만 변경할 수 있습니다. (실제 고객·카탈로그 데이터는 보호됩니다)",
+      "generic": "요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요."
+    },
+    "demoBanner": {
+      "title": "데모 모드",
+      "text": "실제 고객의 이메일·전화번호는 가려지고, 변경은 데모 데이터에만 적용됩니다. 매일 아침 초기화됩니다."
+    },
+    "nav": {
+      "dashboard": "대시보드",
+      "orders": "주문 관리",
+      "contracts": "계약 검토",
+      "pickup": "픽업 게이트",
+      "products": "상품 관리",
+      "inquiries": "문의함",
+      "copilot": "데이터에게 묻기"
+    },
+    "kpi": {
+      "today": "오늘 주문",
+      "month": "이번 달 매출",
+      "monthSub": "결제 {count}건 · 환불 제외",
+      "review": "검토 대기 계약",
+      "reviewSub": "승인 또는 반려 필요",
+      "inquiries": "새 문의",
+      "inquiriesSub": "답변 대기 중"
+    },
+    "dashboard": {
+      "subtitle": "오늘의 운영 현황을 한눈에 확인하세요.",
+      "chart": "최근 14일 매출",
+      "lowStock": "재고 부족 (10톤 미만)",
+      "noLowStock": "부족한 재고가 없습니다.",
+      "recent": "최근 주문",
+      "all": "전체 보기"
+    },
+    "orders": {
+      "subtitle": "필터는 주소(URL)에 저장되어 공유할 수 있습니다.",
+      "search": "회사명, 담당자, 주문번호 끝자리",
+      "status": "상태",
+      "type": "수령 방식",
+      "warehouse": "창고",
+      "from": "시작일",
+      "to": "종료일",
+      "allStatus": "전체 상태",
+      "allTypes": "전체 방식",
+      "allWarehouses": "전체 창고",
+      "reset": "초기화",
+      "empty": "조건에 맞는 주문이 없습니다.",
+      "total": "총 {count}건",
+      "no": "주문번호",
+      "customer": "고객",
+      "items": "상품",
+      "created": "주문일시",
+      "detail": "주문 상세",
+      "payment": "결제",
+      "noPayment": "결제 내역 없음",
+      "demoPayment": "데모 결제",
+      "paymentStatus": {
+        "READY": "결제 대기",
+        "DONE": "결제 완료",
+        "CANCELED": "환불 완료",
+        "FAILED": "결제 실패"
+      },
+      "history": "처리 이력",
+      "system": "시스템",
+      "event": {
+        "CREATED": "주문 생성",
+        "STATUS_CHANGED": "상태 변경",
+        "CANCELLED": "주문 취소",
+        "REFUNDED": "환불",
+        "PICKUP_STEP": "픽업 단계"
+      },
+      "cancel": "주문 취소",
+      "cancelRefund": "취소 및 환불",
+      "cancelNote": "주문을 취소하고 재고를 되돌립니다.",
+      "refundNote": "결제된 {amount}이(가) 고객에게 환불됩니다 (Toss).",
+      "reasonPlaceholder": "취소 사유 (고객에게 표시됩니다)",
+      "confirmCancel": "취소하기",
+      "confirmRefund": "취소하고 환불"
+    },
+    "contracts": {
+      "subtitle": "검토 대기 계약을 승인하거나 사유와 함께 반려합니다.",
+      "queue": "검토 대기",
+      "all": "전체",
+      "queueEmpty": "검토할 계약이 없습니다. 👍",
+      "empty": "계약이 없습니다.",
+      "period": "계약 기간",
+      "monthly": "월 물량 · 단가",
+      "deliveries": "공급 횟수",
+      "deliveryCount": "{count}회",
+      "warehouse": "창고",
+      "services": "부가 서비스",
+      "total": "계약 총액",
+      "approve": "승인",
+      "reject": "반려",
+      "reasonPlaceholder": "반려 사유 (고객 화면에 표시됩니다)",
+      "confirmReject": "반려하기"
+    },
+    "pickup": {
+      "subtitle": "기사님의 QR을 스캔하거나 픽업 코드를 입력하세요.",
+      "find": "조회",
+      "scan": "QR 스캔",
+      "notFound": "해당 코드의 픽업을 찾을 수 없습니다.",
+      "step": {
+        "SCHEDULED": "예약됨",
+        "LOADING": "상차 중",
+        "READY": "준비 완료",
+        "PICKED_UP": "픽업 완료"
+      },
+      "action": {
+        "LOADING": "상차 시작",
+        "READY": "준비 완료",
+        "PICKED_UP": "픽업 완료 처리"
+      },
+      "done": "픽업이 완료되었습니다.",
+      "today": "오늘 픽업 ({date})",
+      "noneToday": "오늘 예약된 픽업이 없습니다."
+    },
+    "products": {
+      "subtitle": "판매 중지된 상품도 함께 표시됩니다. SKU는 자동으로 부여됩니다.",
+      "new": "상품 등록",
+      "name": "상품명",
+      "desc": "설명 (선택)",
+      "type": "종류",
+      "grade": "등급",
+      "price": "톤당 가격",
+      "stock": "창고별 재고 (t)",
+      "selling": "판매",
+      "active": "판매 중",
+      "paused": "판매 중지",
+      "reindex": "AI 지식 갱신",
+      "reindexHint": "카탈로그 변경을 AI 상담 챗봇에 반영합니다",
+      "reindexing": "갱신 중…",
+      "reindexed": "갱신 완료 ({count}개 새로 임베딩)",
+      "skuAuto": "SKU는 저장 시 자동 부여 (예: MC-RAW-0004)",
+      "basic": "기본 정보",
+      "texts": "상품명 · 설명 (3개 언어)",
+      "priceAndSpec": "가격 · 성분",
+      "fat": "유지방",
+      "protein": "단백질",
+      "stockTitle": "창고별 재고",
+      "demoNote": "데모 계정은 화면을 모두 체험할 수 있지만, 공용 카탈로그는 저장되지 않습니다."
+    },
+    "inquiries": {
+      "subtitle": "문의 폼으로 들어온 메시지입니다. 답장은 이메일로 보냅니다.",
+      "NEW": "새 문의",
+      "ANSWERED": "답변 완료",
+      "empty": "문의가 없습니다.",
+      "reply": "메일로 답장",
+      "replySubject": "문의 주셔서 감사합니다",
+      "markAnswered": "답변 완료로 표시"
+    },
+    "copilot": {
+      "subtitle": "운영 데이터를 자연어로 질문하세요. AI는 허용된 4가지 조회 도구만 사용합니다 (읽기 전용).",
+      "cardTitle": "데이터에게 묻기",
+      "cardText": "매출, 주요 고객, 재고 부족, 계약 현황을 자연어로 물어보세요.",
+      "emptyTitle": "무엇이든 물어보세요",
+      "emptyText": "예시 질문을 누르거나 직접 입력하세요. SQL은 실행되지 않으며, 정해진 조회만 수행합니다.",
+      "examples": [
+        "이번 달 매출을 상품별로 보여줘",
+        "지난 30일 상위 고객 5곳",
+        "10톤 미만 재고가 있는 상품",
+        "계약 진행 현황 알려줘"
+      ],
+      "placeholder": "예: 지난주 창고별 매출은?",
+      "ask": "질문",
+      "thinking": "데이터를 조회하고 있습니다…",
+      "usedTool": "사용한 도구",
+      "tooMany": "질문이 너무 많습니다. 1분 후 다시 시도해 주세요.",
+      "col": {
+        "product": "상품",
+        "customer": "고객",
+        "warehouse": "창고",
+        "day": "날짜",
+        "orders": "주문",
+        "ton": "물량",
+        "revenue": "매출",
+        "email": "이메일",
+        "status": "상태",
+        "count": "건수"
+      },
+      "status": {
+        "DRAFT": "초안",
+        "REVIEW": "검토 중",
+        "ACTIVE": "진행 중",
+        "ENDED": "종료",
+        "CANCELLED": "취소"
+      }
+    }
+  },
+  "Realtime": {
+    "orderCreated": "🛒 새 주문이 들어왔습니다 · {total}",
+    "inquiryCreated": "✉️ 새 문의: {name}",
+    "contractSubmitted": "📄 새 계약이 검토를 기다립니다"
   }
 }

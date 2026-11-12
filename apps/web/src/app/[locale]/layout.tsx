@@ -10,6 +10,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { ScrollReset } from '@/components/layout/ScrollReset';
 import { QueryProvider } from '@/components/providers/QueryProvider';
+import { RealtimeBridge } from '@/components/providers/RealtimeBridge';
+import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
 
@@ -73,6 +75,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
               <ChatWidget />
+              <RealtimeBridge />
+              <Toaster />
             </ChatProvider>
           </QueryProvider>
         </NextIntlClientProvider>

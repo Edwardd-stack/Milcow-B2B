@@ -4,9 +4,14 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useDemoLogin, useLogin } from '@/hooks/useAuth';
 import { useRouter } from '@/i18n/navigation';
+import type { DemoRole } from '@milcow/shared';
+import { ROLE_HOME } from '@/hooks/useRole';
 import { authErrorKey, nextPath } from './authError';
 import { FormField } from './FormField';
 import { SocialButtons } from './SocialButtons';
+
+const DEMO_ROLES: DemoRole[] = ['BUYER', 'ADMIN', 'STAFF'];
+const DEMO_ICON: Record<DemoRole, string> = { BUYER: '🏭', ADMIN: '🛠️', STAFF: '📦' };
 
 export function LoginForm() {
   const t = useTranslations('Auth');
@@ -20,7 +25,10 @@ export function LoginForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loginMutation.mutate(form, { onSuccess: () => router.replace(nextPath()) });
+    loginMutation.mutate(form, {
+      onSuccess: ({ member }) =>
+        router.replace(member.memberType === 'BUYER' ? nextPath() : ROLE_HOME[member.memberType]),
+    });
   };
 
   return (
@@ -60,20 +68,36 @@ export function LoginForm() {
 
       <SocialButtons />
 
-      {/* Demo: one click logs in as a ready-made buyer (no password on the page) */}
-      <button
-        type="button"
-        disabled={demoMutation.isPending}
-        onClick={() =>
-          demoMutation.mutate(undefined, { onSuccess: () => router.replace(nextPath()) })
-        }
-        className="mt-3 rounded-2xl border border-dashed border-brand/35 bg-brand/[0.04] px-4 py-3.5 text-left text-sm transition hover:border-brand hover:bg-brand/[0.08] disabled:opacity-60"
-      >
-        <span className="block font-semibold text-brand-dark">
-          {demoMutation.isPending ? t('demo.pending') : t('demo.title')} →
-        </span>
-        <span className="mt-0.5 block text-muted">{t('demo.text')}</span>
-      </button>
+      {/* Demo: one click → a ready-made account per role (no password on the page) */}
+      <div className="mt-3 rounded-2xl border border-dashed border-brand/35 bg-brand/[0.04] p-4">
+        <p className="text-sm font-semibold text-brand-dark">{t('demo.title')}</p>
+        <p className="mt-0.5 text-xs text-muted">{t('demo.text')}</p>
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          {DEMO_ROLES.map((role) => (
+            <button
+              key={role}
+              type="button"
+              disabled={demoMutation.isPending}
+              onClick={() =>
+                demoMutation.mutate(role, {
+                  // Buyer → back where they came from; admin / staff → their console
+                  onSuccess: () => router.replace(role === 'BUYER' ? nextPath() : ROLE_HOME[role]),
+                })
+              }
+              className="rounded-xl bg-white px-2 py-2.5 text-center text-xs font-semibold text-heading shadow-sm ring-1 ring-line transition hover:text-brand hover:ring-brand disabled:opacity-60"
+            >
+              <span className="block text-lg leading-none" aria-hidden="true">
+                {DEMO_ICON[role]}
+              </span>
+              <span className="mt-1.5 block">
+                {demoMutation.isPending && demoMutation.variables === role
+                  ? t('demo.pending')
+                  : t(`demo.role.${role}`)}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
     </form>
   );
 }
