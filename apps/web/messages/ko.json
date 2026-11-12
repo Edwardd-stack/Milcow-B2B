@@ -529,6 +529,44 @@
       "HACCP": "HACCP",
       "ORGANIC": "유기농",
       "ANIMAL_WELFARE": "동물복지"
+    },
+    "fleet": {
+      "legend": "차량",
+      "demoBadge": "운행 시뮬레이션 (데모)",
+      "title": "실시간 물류 현황",
+      "subtitle": "목장 → 창고 원유 집유와 창고 → 고객 배송 차량의 현재 위치입니다.",
+      "live": "실시간",
+      "timelapse": "타임랩스",
+      "timelapseHint": "오늘 하루 운행을 60초로 보기",
+      "summary": {
+        "onRoad": "운행 중",
+        "tons": "운송 중 물량",
+        "avgTemp": "평균 적재 온도",
+        "trips": "오늘 완료 운행"
+      },
+      "phase": {
+        "OFF": "운행 종료",
+        "LOADING": "상차 중",
+        "DRIVING": "운행 중",
+        "UNLOADING": "하차 중",
+        "RETURNING": "회차 중",
+        "IDLE": "대기"
+      },
+      "kind": {
+        "TANKER": "원유 탱크로리",
+        "REEFER": "냉장 탑차",
+        "SMALL_REEFER": "소형 냉장차"
+      },
+      "depart": "출발",
+      "eta": "도착 예정",
+      "remaining": "남은 거리",
+      "cargo": "적재",
+      "empty": "공차 (빈 차)",
+      "free": "여유",
+      "offHours": "운행 종료 · 내일 08:00 출발",
+      "nextDepart": "다음 출발 {time}",
+      "trips": "오늘 운행 {done}/{total}회",
+      "demoOrder": "데모 주문 배송 중"
     }
   },
   "Orders": {
@@ -576,7 +614,8 @@
       "LOADING": "상차 중",
       "READY": "준비 완료",
       "PICKED_UP": "픽업 완료"
-    }
+    },
+    "track": "실시간 위치 보기"
   },
   "Profile": {
     "title": "내 정보",

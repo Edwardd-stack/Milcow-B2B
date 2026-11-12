@@ -13,6 +13,7 @@ export function toMemberInfo(member: Member): MemberInfo {
     memberCompanyName: member.memberCompanyName,
     memberBizNo: member.memberBizNo,
     memberLang: member.memberLang,
+    memberIsDemo: member.memberIsDemo,
     warehouseId: member.warehouseId,
     createdAt: member.createdAt.toISOString(),
   };

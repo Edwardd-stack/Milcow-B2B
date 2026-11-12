@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "eslint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "routes:build": "node scripts/build-truck-routes.mjs"
   },
   "dependencies": {
     "@milcow/shared": "workspace:*",

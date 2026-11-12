@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Locale, OrderInfo } from '@milcow/shared';
 import { useCancelOrder, usePayOrder } from '@/hooks/useOrders';
+import { Link } from '@/i18n/navigation';
+import { truckForOrder } from '@/lib/fleet/fleet-sim';
 import { formatKrw, formatTon } from '@/lib/format';
 import { TOSS_CLIENT_KEY } from '@/lib/toss';
 import { OrderStatusBadge, PickupStatusBadge } from './StatusBadge';
@@ -12,7 +14,15 @@ import { OrderStatusBadge, PickupStatusBadge } from './StatusBadge';
 const orderNo = (id: string) => id.slice(-8).toUpperCase();
 
 /** One order: a compact summary row that opens into the details + actions */
-export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: string }) {
+export function OrderRow({
+  order,
+  memberId,
+  isDemo = false,
+}: {
+  order: OrderInfo;
+  memberId: string;
+  isDemo?: boolean;
+}) {
   const t = useTranslations('Orders');
   const tp = useTranslations('Product');
   const locale = useLocale() as Locale;
@@ -195,6 +205,16 @@ export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: stri
             >
               {error}
             </p>
+          )}
+
+          {order.orderStatus === 'SHIPPING' && (
+            // Delivery in progress → follow the (simulated) truck on the map
+            <Link
+              href={`/map?truck=${truckForOrder(order.id, isDemo)}`}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white"
+            >
+              🚚 {t('track')} →
+            </Link>
           )}
 
           {isPending && (

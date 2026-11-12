@@ -529,6 +529,44 @@
       "HACCP": "HACCP",
       "ORGANIC": "Organik",
       "ANIMAL_WELFARE": "Hayvonlar farovonligi"
+    },
+    "fleet": {
+      "legend": "Mashinalar",
+      "demoBadge": "Harakat simulyatsiyasi (demo)",
+      "title": "Jonli logistika",
+      "subtitle": "Xom sut sisternalari (ferma → ombor) va yetkazish mashinalari (ombor → mijoz) hozir qayerda.",
+      "live": "Jonli",
+      "timelapse": "Taymlaps",
+      "timelapseHint": "Bugungi reyslarni 60 soniyada ko'rish",
+      "summary": {
+        "onRoad": "Yo'lda",
+        "tons": "Tashilayotgan yuk",
+        "avgTemp": "O'rtacha harorat",
+        "trips": "Bugun yakunlangan reyslar"
+      },
+      "phase": {
+        "OFF": "Ish tugagan",
+        "LOADING": "Yuklanmoqda",
+        "DRIVING": "Yo'lda",
+        "UNLOADING": "Tushirilmoqda",
+        "RETURNING": "Qaytmoqda",
+        "IDLE": "Kutmoqda"
+      },
+      "kind": {
+        "TANKER": "Sut sisternasi",
+        "REEFER": "Sovutgichli yuk mashinasi",
+        "SMALL_REEFER": "Kichik sovutgichli mashina"
+      },
+      "depart": "Jo'nadi",
+      "eta": "Yetib borish",
+      "remaining": "Qolgan masofa",
+      "cargo": "Yuk",
+      "empty": "Bo'sh (qaytmoqda)",
+      "free": "Bo'sh joy",
+      "offHours": "Ish tugagan · ertaga 08:00 da jo'naydi",
+      "nextDepart": "Keyingi jo'nash {time}",
+      "trips": "Bugungi reyslar {done}/{total}",
+      "demoOrder": "Demo buyurtmani tashiyapti"
     }
   },
   "Orders": {
@@ -576,7 +614,8 @@
       "LOADING": "Yuklanmoqda",
       "READY": "Tayyor",
       "PICKED_UP": "Olib ketildi"
-    }
+    },
+    "track": "Xaritada kuzatish"
   },
   "Profile": {
     "title": "Profilim",

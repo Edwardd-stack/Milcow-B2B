@@ -11,6 +11,7 @@ export interface MemberInfo {
   memberCompanyName: string | null;
   memberBizNo: string | null;
   memberLang: Lang;
+  memberIsDemo: boolean; // a "Try the demo" account
   warehouseId: string | null;
   createdAt: string; // ISO date
 }

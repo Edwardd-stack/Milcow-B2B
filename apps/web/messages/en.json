@@ -529,6 +529,44 @@
       "HACCP": "HACCP",
       "ORGANIC": "Organic",
       "ANIMAL_WELFARE": "Animal welfare"
+    },
+    "fleet": {
+      "legend": "Trucks",
+      "demoBadge": "Fleet simulation (demo)",
+      "title": "Live logistics",
+      "subtitle": "Where our raw-milk tankers (farm → warehouse) and delivery trucks (warehouse → customer) are right now.",
+      "live": "Live",
+      "timelapse": "Time-lapse",
+      "timelapseHint": "Play today's trips in 60 seconds",
+      "summary": {
+        "onRoad": "On the road",
+        "tons": "Tons in transit",
+        "avgTemp": "Avg. cargo temp.",
+        "trips": "Trips done today"
+      },
+      "phase": {
+        "OFF": "Off duty",
+        "LOADING": "Loading",
+        "DRIVING": "On the way",
+        "UNLOADING": "Unloading",
+        "RETURNING": "Returning",
+        "IDLE": "Waiting"
+      },
+      "kind": {
+        "TANKER": "Milk tanker",
+        "REEFER": "Refrigerated truck",
+        "SMALL_REEFER": "Small refrigerated truck"
+      },
+      "depart": "Departed",
+      "eta": "ETA",
+      "remaining": "Remaining",
+      "cargo": "Cargo",
+      "empty": "Empty (returning)",
+      "free": "Free",
+      "offHours": "Off duty · leaves tomorrow 08:00",
+      "nextDepart": "Next departure {time}",
+      "trips": "Trips today {done}/{total}",
+      "demoOrder": "Carrying the demo order"
     }
   },
   "Orders": {
@@ -576,7 +614,8 @@
       "LOADING": "Loading",
       "READY": "Ready",
       "PICKED_UP": "Picked up"
-    }
+    },
+    "track": "Track on the map"
   },
   "Profile": {
     "title": "My profile",

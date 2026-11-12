@@ -1,0 +1,30 @@
+{
+  "points": {
+    "pyeongchang": { "kind": "farm", "lat": 37.683, "lng": 128.721, "name": { "ko": "평창 은빛들 목장", "en": "Pyeongchang Silverfield Farm", "uz": "Pxyonchxan Kumushdala fermasi" } },
+    "anseong": { "kind": "farm", "lat": 37.0078, "lng": 127.2797, "name": { "ko": "안성 푸른언덕 목장", "en": "Anseong Green Hill Farm", "uz": "Anson Yashil tepalik fermasi" } },
+    "hoengseong": { "kind": "farm", "lat": 37.4917, "lng": 127.9852, "name": { "ko": "횡성 맑은샘 목장", "en": "Hoengseong Clearspring Farm", "uz": "Xvenson Tiniq buloq fermasi" } },
+    "gochang": { "kind": "farm", "lat": 35.4358, "lng": 126.702, "name": { "ko": "고창 해오름 목장", "en": "Gochang Sunrise Farm", "uz": "Gochxan Quyosh chiqishi fermasi" } },
+    "icheon": { "kind": "warehouse", "lat": 37.2449, "lng": 127.372, "name": { "ko": "이천 콜드체인 센터", "en": "Icheon Cold-Chain Center", "uz": "Ichxon sovuq zanjir markazi" } },
+    "pyeongtaek": { "kind": "warehouse", "lat": 36.9649, "lng": 126.8378, "name": { "ko": "평택 물류센터", "en": "Pyeongtaek Logistics Center", "uz": "Pxyontek logistika markazi" } },
+    "gimhae": { "kind": "warehouse", "lat": 35.247, "lng": 128.837, "name": { "ko": "김해 남부센터", "en": "Gimhae Southern Center", "uz": "Gimxe janubiy markazi" } },
+    "seoul": { "kind": "customer", "lat": 37.5446, "lng": 127.0559, "name": { "ko": "서울 · 한강제과", "en": "Seoul · Hangang Bakery", "uz": "Seul · Hangang novvoyxonasi" } },
+    "suwon": { "kind": "customer", "lat": 37.2636, "lng": 127.0286, "name": { "ko": "수원 · 수원유가공", "en": "Suwon · Suwon Dairy Works", "uz": "Suvon · Suvon sut zavodi" } },
+    "daejeon": { "kind": "customer", "lat": 36.3504, "lng": 127.3845, "name": { "ko": "대전 · 대전푸드", "en": "Daejeon · Daejeon Foods", "uz": "Tejon · Tejon Foods" } },
+    "busan": { "kind": "customer", "lat": 35.1796, "lng": 129.0756, "name": { "ko": "부산 · 해운대 치즈공방", "en": "Busan · Haeundae Cheese Lab", "uz": "Pusan · Xeunde pishloq ustaxonasi" } },
+    "daegu": { "kind": "customer", "lat": 35.8714, "lng": 128.6014, "name": { "ko": "대구 · 달구벌 카페", "en": "Daegu · Dalgubeol Cafe", "uz": "Tegu · Dalgubol kafe" } },
+    "gyeongsan": { "kind": "customer", "lat": 35.8325, "lng": 128.7520, "name": { "ko": "경산 · (주)한빛유업", "en": "Gyeongsan · Hanbit Dairy", "uz": "Kyonsan · Hanbit Dairy" } }
+  },
+  "routes": [
+    { "id": "pyeongchang-icheon", "from": "pyeongchang", "to": "icheon" },
+    { "id": "hoengseong-icheon", "from": "hoengseong", "to": "icheon" },
+    { "id": "anseong-pyeongtaek", "from": "anseong", "to": "pyeongtaek" },
+    { "id": "gochang-pyeongtaek", "from": "gochang", "to": "pyeongtaek" },
+    { "id": "icheon-seoul", "from": "icheon", "to": "seoul" },
+    { "id": "icheon-suwon", "from": "icheon", "to": "suwon" },
+    { "id": "icheon-gyeongsan", "from": "icheon", "to": "gyeongsan" },
+    { "id": "gimhae-busan", "from": "gimhae", "to": "busan" },
+    { "id": "gimhae-daegu", "from": "gimhae", "to": "daegu" },
+    { "id": "pyeongtaek-daejeon", "from": "pyeongtaek", "to": "daejeon" },
+    { "id": "pyeongtaek-suwon", "from": "pyeongtaek", "to": "suwon" }
+  ]
+}
