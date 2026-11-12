@@ -1,0 +1,31 @@
+# Keeps the free Render API reachable during the day (06:00–24:00 Korea time).
+# A real browser is needed to wake a sleeping Render service (see .github/scripts/wake-render.mjs);
+# cron-job.org then pings /health/live every 10 minutes to keep it awake.
+# GitHub cron is in UTC (Korea = UTC+9) and can start a few minutes late → odd minutes, early start.
+name: Wake Render API
+
+on:
+  schedule:
+    - cron: '37 20 * * *' # 05:37 KST — awake before the 06:05–06:15 jobs
+    - cron: '17 21-23 * * *' # 06:17–08:17 KST, hourly: wakes it again after an unexpected restart
+    - cron: '17 0-14 * * *' # 09:17–23:17 KST
+  workflow_dispatch: # "Run workflow" button for a manual wake-up
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Install puppeteer-core (uses the runner's preinstalled Chrome)
+        working-directory: .github/scripts
+        run: npm install --no-save --no-audit --no-fund puppeteer-core@24.1.0
+
+      - name: Open the API in headless Chrome until it answers
+        working-directory: .github/scripts
+        env:
+          WAKE_URL: https://milcow-api.onrender.com/api/v1/health/live
+        run: CHROME_PATH="$(which google-chrome)" node wake-render.mjs
