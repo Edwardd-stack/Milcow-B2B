@@ -1,0 +1,43 @@
+enum PickupStatus {
+  SCHEDULED
+  LOADING
+  READY
+  PICKED_UP
+
+  @@map("pickup_status")
+}
+
+// A time window at a warehouse, e.g. 10:00–11:00, max 3 trucks
+model PickupSlot {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  slotStart    DateTime @map("slot_start") @db.Timestamptz(3)
+  slotEnd      DateTime @map("slot_end") @db.Timestamptz(3)
+  slotCapacity Int      @map("slot_capacity") // trucks per slot
+  slotBooked   Int      @default(0) @map("slot_booked") // 0..slotCapacity (CHECK constraint in migration)
+
+  warehouseId String    @map("warehouse_id") @db.Uuid
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  pickups Pickup[]
+
+  @@unique([warehouseId, slotStart])
+  @@map("pickup_slots")
+}
+
+model Pickup {
+  id              String       @id @default(uuid(7)) @db.Uuid
+  pickupStatus    PickupStatus @default(SCHEDULED) @map("pickup_status")
+  pickupVehicleNo String?      @map("pickup_vehicle_no")
+  pickupCode      String       @unique @map("pickup_code") // shown to the driver at the gate
+
+  orderId      String     @unique @map("order_id") @db.Uuid // 1:1 with Order
+  order        Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  pickupSlotId String     @map("pickup_slot_id") @db.Uuid
+  pickupSlot   PickupSlot @relation(fields: [pickupSlotId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([pickupSlotId])
+  @@map("pickups")
+}

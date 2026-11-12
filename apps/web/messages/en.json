@@ -1,0 +1,674 @@
+{
+  "Metadata": {
+    "title": "Milcow — B2B Dairy Trading Platform",
+    "description": "Buy raw milk and dairy products by the ton, sign long-term supply contracts and pick up directly from our warehouses."
+  },
+  "HomePage": {
+    "title": "Fresh milk, by the ton",
+    "subtitle": "Milcow is a B2B dairy platform for businesses: bulk orders, supply contracts and warehouse pickup in one place."
+  },
+  "LocaleSwitcher": {
+    "label": "Choose language"
+  },
+  "ApiStatus": {
+    "title": "API status",
+    "loading": "checking…",
+    "online": "online",
+    "offline": "offline",
+    "uptime": "uptime {seconds}s"
+  },
+  "Nav": {
+    "home": "Home",
+    "products": "Products",
+    "map": "Farms & Warehouses",
+    "contracts": "Contracts",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log in",
+    "menu": "Main menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "logout": "Log out",
+    "account": "My account",
+    "orders": "My orders",
+    "profile": "My profile",
+    "myContracts": "My contracts"
+  },
+  "Footer": {
+    "tagline": "Fresh raw milk and dairy from partner farms in Korea, by the ton. Bulk orders, supply contracts and warehouse pickup in one place.",
+    "b2bOnly": "For businesses only",
+    "menu": "Menu",
+    "services": "B2B services",
+    "bulkOrder": "Bulk orders by the ton",
+    "supplyContract": "Monthly supply contracts",
+    "pickup": "Warehouse pickup",
+    "aiAssistant": "AI chat & contract assistant",
+    "contact": "Contact",
+    "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
+    "hours": "Weekdays 09:00–18:00",
+    "rights": "All rights reserved.",
+    "callUs": "Give us a call",
+    "emailUs": "Email address",
+    "office": "Office location",
+    "workHours": "Work hours",
+    "ctaTitle": "Bulk order consultation",
+    "ctaText": "Tell us the products and quantities you need — our team will send a quote and a delivery schedule.",
+    "ctaButton": "Request a consultation",
+    "portfolio": "Milcow B2B — portfolio project"
+  },
+  "Hero": {
+    "eyebrow": "Farm-fresh milk",
+    "title1": "That's what",
+    "title2": "I",
+    "text": "Milcow is a B2B dairy platform for businesses. Bulk orders, monthly supply contracts and warehouse pickup — all in one place.",
+    "primary": "View products",
+    "secondary": "<b>AI</b> contract assistant",
+    "card1Title": "Direct from farms",
+    "card1Text": "Partner farms in Korea",
+    "card2Title": "Cold-chain storage",
+    "card2Text": "0–4 °C warehouses",
+    "cartonAlt1": "Full-fat milk carton",
+    "cartonAlt2": "Semi-skimmed milk carton",
+    "word1": "Like",
+    "word2": "Want",
+    "word3": "Drink",
+    "scrollHint": "Scroll down"
+  },
+  "About": {
+    "eyebrow": "About Milcow",
+    "title": "We supply the best dairy products",
+    "text": "Milcow connects partner farms in Korea directly with business buyers. Buy anything from raw milk to cheese, butter and milk powder by the ton, and lock in stable volumes and prices with a monthly supply contract.",
+    "point1": "Buy fresh milk from partner farms directly, by the ton",
+    "point2": "Monthly supply contracts keep your price fixed",
+    "point3": "Pick up or get delivery from 0–4 °C cold-chain warehouses",
+    "button": "View products",
+    "statYears": "Years of experience",
+    "statProducts": "Dairy products",
+    "photo1Alt": "Boy holding milk and cookies",
+    "photo2Alt": "A glass of milk with cookies and a book"
+  },
+  "Trusted": {
+    "title": "Trusted by <n>300+</n> Businesses Across Korea"
+  },
+  "Featured": {
+    "eyebrow": "Popular products",
+    "title": "Dairy by the ton",
+    "text": "From partner-farm raw milk to cream, butter, cheese, yogurt and milk powder. Prices are per ton, with live stock.",
+    "viewAll": "View all products",
+    "error": "Couldn't load products. Please try again shortly."
+  },
+  "Product": {
+    "ton": "t",
+    "minOrder": "Minimum order",
+    "fatProtein": "Fat / protein",
+    "inStock": "In stock",
+    "farm": "Farm",
+    "noFarm": "Several farms",
+    "details": "View details",
+    "type": {
+      "RAW_MILK": "Raw milk",
+      "CREAM": "Cream",
+      "BUTTER": "Butter",
+      "CHEESE": "Cheese",
+      "YOGURT": "Yogurt",
+      "MILK_POWDER": "Milk powder"
+    },
+    "grade": {
+      "PREMIUM": "Premium",
+      "GRADE_1": "Grade 1",
+      "GRADE_2": "Grade 2"
+    }
+  },
+  "HowItWorks": {
+    "eyebrow": "How it works",
+    "title": "From order to pickup in four simple steps",
+    "text": "No quote calls, no paper contracts. Pick your products on Milcow, pay online and collect them at the warehouse you choose.",
+    "orderTitle": "Order by the ton",
+    "orderText": "Choose products and tons, then the shipping warehouse and how you receive them.",
+    "contractTitle": "Monthly supply contract",
+    "contractText": "Need the same amount every month? Let the AI contract assistant draft it for you.",
+    "paymentTitle": "Pay with Toss Payments",
+    "paymentText": "The amount is verified again on the server, so every payment is safe.",
+    "pickupTitle": "Pickup or delivery",
+    "pickupText": "Collect from 0–4 °C cold-chain warehouses with your MC- gate code, or get it delivered.",
+    "button": "Start a supply contract",
+    "photoAlt": "Girl holding a glass of milk on a dairy farm"
+  },
+  "AiSection": {
+    "eyebrow": "AI assistant",
+    "title": "Ask our AI anything",
+    "text": "Milcow AI answers from our real prices, stock and rules. If it doesn't know, it says so and points you to our team — it never makes things up.",
+    "feature1Title": "Answers grounded in live data (RAG)",
+    "feature1Text": "It searches products, warehouses and contract rules, then answers only from them.",
+    "feature2Title": "AI contract assistant",
+    "feature2Text": "Write \"20 tons a month, pickup in Icheon\" and get a contract draft with a price.",
+    "feature3Title": "Korean · English · Uzbek",
+    "feature3Text": "It replies in the language you ask in."
+  },
+  "Chat": {
+    "title": "Milcow AI",
+    "status": "Online · usually replies in seconds",
+    "welcome": "Hi! Ask me anything about prices, minimum orders, contracts or pickup.",
+    "q1": "Butter price and minimum order?",
+    "q2": "How does warehouse pickup work?",
+    "q3": "How long can a supply contract be?",
+    "placeholder": "Type your question",
+    "send": "Send",
+    "typing": "Writing an answer",
+    "errorBusy": "The AI can't answer right now. Please try again shortly.",
+    "errorRateLimit": "Too many questions. Try again in a minute.",
+    "open": "Open AI chat",
+    "close": "Close"
+  },
+  "MapSection": {
+    "eyebrow": "Farms and warehouses",
+    "title": "Partner farms and cold-chain warehouses",
+    "text": "Milk from five partner farms goes straight to 0–4 °C cold-chain warehouses. Pick the one closest to you for pickup, or get it delivered.",
+    "farms": "{count} farms",
+    "warehouses": "{count} warehouses",
+    "button": "Open the full map",
+    "loading": "Loading the map…",
+    "dataError": "Couldn't load farms and warehouses."
+  },
+  "Map": {
+    "ariaLabel": "Map of Milcow farms and warehouses",
+    "noKey": "Kakao Map key is not set (NEXT_PUBLIC_KAKAO_MAP_KEY).",
+    "loadError": "Couldn't load Kakao Map."
+  },
+  "Customers": {
+    "eyebrow": "Who uses Milcow",
+    "title": "Built for these businesses",
+    "text": "From a small bakery to a dairy plant — buy the amount you need, the way you need it.",
+    "bakery": {
+      "title": "Bakeries",
+      "who": "Butter and cream every week",
+      "text": "A monthly contract keeps the price of butter and cream fixed, and they pick up from the nearest warehouse.",
+      "tag1": "Contract",
+      "tag2": "Pickup"
+    },
+    "cafe": {
+      "title": "Café chains",
+      "who": "Milk for many stores at once",
+      "text": "Head office buys by the ton instead of every store ordering alone, with cold-chain delivery to each branch.",
+      "tag1": "By the ton",
+      "tag2": "Cold chain"
+    },
+    "factory": {
+      "title": "Dairy plants",
+      "who": "Manufacturers using raw milk",
+      "text": "Tens of tons of raw milk a month straight from partner farms, with quality test reports for every batch.",
+      "tag1": "Raw milk",
+      "tag2": "Quality tests"
+    },
+    "catering": {
+      "title": "Catering",
+      "who": "School and office canteens",
+      "text": "Yogurt and milk arrive on schedule, and questions are answered instantly by the AI assistant.",
+      "tag1": "Scheduled",
+      "tag2": "AI assistant"
+    }
+  },
+  "Cta": {
+    "eyebrow": "Get started",
+    "title": "How would you like to start?",
+    "buy": {
+      "tag": "Ready to buy",
+      "title": "Order wholesale with a business account",
+      "text": "Orders by the ton, monthly contracts and warehouse pickup — all in one account.",
+      "button": "Create account"
+    },
+    "ai": {
+      "tag": "Just exploring",
+      "title": "Ask our AI first",
+      "text": "Products, prices and contract terms — check them with the AI assistant, no sign-up needed.",
+      "button": "Start AI chat"
+    }
+  },
+  "Common": {
+    "backToTop": "Back to top"
+  },
+  "Auth": {
+    "eyebrow": "Milcow Business",
+    "tabs": "Log in or sign up",
+    "optional": "optional",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "login": {
+      "tab": "Log in",
+      "heading": "Welcome back",
+      "title": "Log in",
+      "lead": "Log in with your business account.",
+      "submit": "Log in",
+      "pending": "Logging in…"
+    },
+    "signup": {
+      "tab": "Sign up",
+      "heading": "Create a business account",
+      "title": "Sign up",
+      "lead": "Free to join — start ordering wholesale right away.",
+      "submit": "Create account",
+      "pending": "Creating account…"
+    },
+    "fields": {
+      "company": "Company name",
+      "name": "Contact person",
+      "phone": "Phone",
+      "email": "Email",
+      "password": "Password",
+      "bizNo": "Business registration no."
+    },
+    "placeholders": {
+      "company": "Hanbit Dairy Co., Ltd.",
+      "name": "Minjun Kim"
+    },
+    "hints": {
+      "password": "At least 8 characters",
+      "bizNo": "Type the digits — the dashes are added for you"
+    },
+    "demo": {
+      "title": "Try the demo",
+      "text": "One click — log in as a sample buyer with orders and contracts.",
+      "pending": "Opening the demo…"
+    },
+    "errors": {
+      "invalid": "Wrong email or password.",
+      "inactive": "This account is not active. Please contact support.",
+      "emailTaken": "This email is already registered.",
+      "tooMany": "Too many attempts. Please try again in a moment.",
+      "server": "Something went wrong. Please try again in a moment."
+    },
+    "social": {
+      "or": "or",
+      "kakao": "Kakao",
+      "google": "Google",
+      "error": "Social login failed. Please try again."
+    },
+    "complete": {
+      "tab": "Details",
+      "heading": "Almost there!",
+      "title": "Company details",
+      "lead": "Fill in your company details once to finish signing up.",
+      "submit": "Finish sign-up",
+      "pending": "Saving…",
+      "expired": "Your login session has expired. Please log in again.",
+      "backToLogin": "Back to log in",
+      "emailFromProvider": "Verified by your social account",
+      "connected": {
+        "kakao": "Kakao account connected",
+        "google": "Google account connected"
+      }
+    }
+  },
+  "Catalog": {
+    "title": "Products",
+    "description": "Raw milk, cream, butter, cheese, yogurt and milk powder from partner farms — wholesale prices per ton.",
+    "filters": "Filters",
+    "search": "Search products",
+    "category": "Category",
+    "all": "All",
+    "grade": "Grade",
+    "price": "Price per ton",
+    "priceMin": "Minimum price",
+    "priceMax": "Maximum price",
+    "warehouse": "In stock at",
+    "inStockOnly": "In stock only",
+    "reset": "Reset filters",
+    "sort": {
+      "title": "Sort",
+      "RECOMMENDED": "Recommended",
+      "NEWEST": "Newest",
+      "PRICE_ASC": "Price: low to high",
+      "PRICE_DESC": "Price: high to low"
+    },
+    "count": "{from}–{to} of <b>{total}</b>",
+    "error": "Could not load products. Please try again in a moment.",
+    "empty": {
+      "title": "No products match",
+      "text": "Try fewer filters or a different search."
+    },
+    "view": {
+      "label": "View",
+      "card": "Cards",
+      "table": "Table"
+    },
+    "table": {
+      "product": "Product",
+      "grade": "Grade",
+      "price": "Price / ton"
+    },
+    "pagination": {
+      "label": "Pages",
+      "prev": "Previous page",
+      "next": "Next page",
+      "page": "Page {page}"
+    }
+  },
+  "ProductDetail": {
+    "title": "Product details",
+    "fat": "Fat",
+    "protein": "Protein",
+    "minOrder": "Min. order",
+    "totalStock": "Total stock",
+    "stockTitle": "Stock by warehouse",
+    "stockHint": "Choose the warehouse you will receive from",
+    "soldOut": "Out of stock",
+    "originFarm": "Origin farm",
+    "viewOnMap": "View on map",
+    "pricePerTon": "Price per ton",
+    "quantity": "Quantity",
+    "qtyHint": "Min. {min} t · {max} t in this warehouse",
+    "warehouse": "Warehouse",
+    "estimated": "Estimated total",
+    "vat": "VAT not included",
+    "order": "Order now",
+    "aiContract": "AI contract draft",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "unavailable": "This product is out of stock right now.",
+    "perkCold": "0–4 °C cold chain",
+    "perkPickup": "Warehouse pickup",
+    "perkContract": "Fixed price with a contract",
+    "notFound": "Product not found",
+    "notFoundText": "It was removed or is no longer on sale.",
+    "back": "Back to products",
+    "backToList": "All products",
+    "prev": "Previous product",
+    "next": "Next product"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "step1": "How to receive",
+    "pickup": "Warehouse pickup",
+    "pickupText": "Collect it yourself at {warehouse}",
+    "delivery": "Cold-chain delivery",
+    "deliveryText": "Delivered in a 0–4 °C truck",
+    "address": "Delivery address",
+    "addressPlaceholder": "Street address",
+    "step2": "Preferred date",
+    "step3": "Your details",
+    "company": "Company",
+    "contact": "Contact person",
+    "email": "Email",
+    "phone": "Phone",
+    "summary": "Order summary",
+    "quantity": "Quantity",
+    "pricePerTon": "Price per ton",
+    "receive": "Receive by",
+    "fee": "Delivery fee",
+    "feeFree": "Free",
+    "feeLater": "Quoted separately",
+    "total": "Total",
+    "vat": "VAT not included",
+    "pay": "Pay {amount}",
+    "paying": "Opening payment…",
+    "secure": "Secure payment by Toss Payments (test mode)",
+    "back": "Back to the product",
+    "invalid": "This order link is not valid",
+    "invalidText": "Please choose the quantity and warehouse again on the product page.",
+    "toProducts": "View products",
+    "needAddress": "Please enter the delivery address.",
+    "noKey": "The payment key is not configured (NEXT_PUBLIC_TOSS_CLIENT_KEY).",
+    "error": "We could not place the order. Check the stock and your details, then try again.",
+    "buyerOnly": "Only buyer accounts can place orders.",
+    "success": {
+      "title": "Payment complete",
+      "checking": "Checking your payment…",
+      "heading": "Your order is complete",
+      "text": "The payment was approved. We will let you know when it is ready.",
+      "amount": "Amount paid",
+      "method": "Payment method",
+      "orderNo": "Order no.",
+      "more": "More products",
+      "home": "Home",
+      "failed": "We could not confirm the payment",
+      "failedText": "The payment was not approved. Please try again.",
+      "orders": "My orders"
+    },
+    "fail": {
+      "title": "Payment failed",
+      "heading": "The payment was not completed",
+      "text": "The order was cancelled and the stock was returned.",
+      "reason": "Reason",
+      "retry": "Back to products"
+    }
+  },
+  "Contracts": {
+    "title": "Supply contracts",
+    "description": "Draft and manage monthly supply contracts with the AI contract assistant.",
+    "ai": {
+      "title": "AI contract assistant",
+      "lead": "Describe what you need in your own words. Prices are calculated by the server from real catalog prices, not by the AI.",
+      "placeholder": "e.g. 20 tons of A2 raw milk every month, pickup at Icheon, 6 months from next month, with quality tests",
+      "submit": "Draft the contract",
+      "pending": "The AI is drafting…",
+      "understood": "What I understood",
+      "prefill": "{product}, {ton} t every month, 6 months from the 1st of next month, warehouse pickup",
+      "examples": {
+        "ex1": "20 t raw milk monthly, 6 months, Icheon pickup",
+        "ex2": "2 t unsalted butter delivered monthly for a year",
+        "ex3": "3 t fresh cream monthly with a price lock"
+      },
+      "issues": {
+        "BELOW_MIN_ORDER": "The monthly amount is below the minimum order",
+        "TOO_MANY_MONTHS": "A contract can run for at most 24 months",
+        "START_NOT_IN_FUTURE": "The first delivery must be after today",
+        "UNKNOWN_REFERENCE": "Some products or warehouses were not found"
+      }
+    },
+    "paper": {
+      "kicker": "Supply contract (draft)",
+      "untitled": "New contract",
+      "draft": "Draft",
+      "perMonth": "{ton} t / month",
+      "product": "Product",
+      "warehouse": "Warehouse",
+      "start": "First delivery",
+      "months": "Term",
+      "monthsValue": "{count} deliveries · until {end}",
+      "ton": "Monthly amount",
+      "delivery": "Receive by",
+      "deliveryType": {
+        "PICKUP": "Warehouse pickup",
+        "DELIVERY": "Cold-chain delivery"
+      },
+      "address": "Delivery address",
+      "choose": "Choose…",
+      "services": "Add-on services (monthly)",
+      "noServices": "No services chosen",
+      "monthly": "Per month",
+      "total": "Total ({count} deliveries)",
+      "estimate": "Estimate from catalog prices · fixed by the server on saving",
+      "edit": "Edit",
+      "done": "Done",
+      "submit": "Submit for review →",
+      "saving": "Saving…",
+      "saveDraft": "Only save as a draft",
+      "problem": {
+        "product": "Choose a product",
+        "warehouse": "Choose a warehouse",
+        "start": "Check the date",
+        "months": "Enter the term",
+        "ton": "Check the amount",
+        "address": "Enter the address"
+      }
+    },
+    "list": {
+      "title": "My contracts",
+      "empty": "No contracts yet. Draft your first one with the AI above.",
+      "error": "Could not load your contracts.",
+      "month": "month",
+      "monthlyTotal": "Monthly",
+      "progress": "{done} / {total} delivered · next {next}",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "cancelConfirm": "Cancel this contract?",
+      "status": {
+        "DRAFT": "Draft",
+        "REVIEW": "In review",
+        "ACTIVE": "Active",
+        "ENDED": "Ended",
+        "CANCELLED": "Cancelled"
+      },
+      "hint": {
+        "DRAFT": "Not submitted · edit it, then submit for review",
+        "REVIEW": "Waiting for Milcow approval",
+        "ACTIVE": "All deliveries are done",
+        "ENDED": "This contract has ended",
+        "CANCELLED": "This contract was cancelled"
+      }
+    },
+    "saved": {
+      "submitted": "The contract was saved and sent for review. Once approved, an order is created automatically every month.",
+      "draft": "Saved as a draft. You can submit it for review from the list below."
+    },
+    "errors": {
+      "rateLimit": "Too many requests. Please try again in a minute.",
+      "buyerOnly": "Only buyer accounts can make contracts.",
+      "invalid": "Please check the details (minimum order, dates, warehouse).",
+      "busy": "This cannot be processed right now. Please try again in a moment."
+    }
+  },
+  "MapPage": {
+    "title": "Farms & Warehouses",
+    "description": "See where Milcow partner farms and cold-chain warehouses are.",
+    "panel": "Farms and warehouses",
+    "tabs": {
+      "all": "All",
+      "farm": "Farms",
+      "warehouse": "Warehouses"
+    },
+    "search": "Search by name or area",
+    "empty": "Nothing found.",
+    "loading": "Loading the map…",
+    "error": "Could not load the locations.",
+    "cows": "{count} cows",
+    "capacity": "{ton} t storage",
+    "daily": "Daily",
+    "products": "Products",
+    "directions": "Directions",
+    "cert": {
+      "HACCP": "HACCP",
+      "ORGANIC": "Organic",
+      "ANIMAL_WELFARE": "Animal welfare"
+    }
+  },
+  "Orders": {
+    "title": "My orders",
+    "description": "Track your dairy orders, payments and pickups.",
+    "all": "All",
+    "empty": "No orders here yet",
+    "emptyCta": "Browse products",
+    "error": "Could not load your orders. Please try again.",
+    "andMore": "{name} and {count} more",
+    "fromContract": "Contract",
+    "ordered": "Ordered",
+    "receive": "Receive by",
+    "pickup": "Warehouse pickup",
+    "delivery": "Cold-chain delivery",
+    "scheduled": "Preferred date",
+    "warehouse": "Warehouse",
+    "address": "Address",
+    "product": "Product",
+    "quantity": "Quantity",
+    "pricePerTon": "Price / t",
+    "amount": "Amount",
+    "serviceFee": "Contract services",
+    "total": "Total",
+    "pickupCode": "Pickup code",
+    "pickupSlot": "Time slot",
+    "pickupNotBooked": "No pickup time booked yet. We will contact you to arrange it.",
+    "pay": "Pay {amount}",
+    "paying": "Opening payment…",
+    "cancel": "Cancel order",
+    "cancelConfirm": "Cancel this order? The reserved stock will be released.",
+    "payError": "The payment could not be started. Please try again.",
+    "cancelError": "The order could not be cancelled.",
+    "status": {
+      "PENDING": "Awaiting payment",
+      "PAID": "Paid",
+      "PREPARING": "Preparing",
+      "SHIPPING": "On the way",
+      "READY_FOR_PICKUP": "Ready for pickup",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "pickupStatus": {
+      "SCHEDULED": "Scheduled",
+      "LOADING": "Loading",
+      "READY": "Ready",
+      "PICKED_UP": "Picked up"
+    }
+  },
+  "Profile": {
+    "title": "My profile",
+    "description": "Your Milcow company account.",
+    "company": "Company",
+    "bizNo": "Business reg. no.",
+    "contact": "Contact person",
+    "email": "Email",
+    "phone": "Phone",
+    "type": "Account type",
+    "joined": "Member since",
+    "types": {
+      "BUYER": "Buyer (company)",
+      "STAFF": "Warehouse staff",
+      "ADMIN": "Administrator"
+    },
+    "changeHint": "Need to change your company details?",
+    "contactUs": "Contact us",
+    "stats": {
+      "orders": "All orders",
+      "waiting": "Awaiting payment",
+      "contracts": "Active contracts"
+    }
+  },
+  "Contact": {
+    "title": "Contact",
+    "description": "Questions about bulk orders, contracts or pickup — our team will answer.",
+    "formTitle": "Send us a message",
+    "formText": "Tell us what you need — products, quantity, schedule. We usually reply within one business day.",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "company": "Company",
+      "message": "Message",
+      "messagePlaceholder": "e.g. We need 5 t of raw milk every month from January. Can we discuss the price?",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Thank you! Your message was sent.",
+      "sentText": "Our team will reply to your email soon.",
+      "again": "Send another message",
+      "error": "The message could not be sent. Please try again.",
+      "invalid": "Please check the fields and try again.",
+      "rateLimit": "Too many messages. Please wait a minute and try again."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "text": "Quick answers before you write to us",
+      "minOrder": {
+        "q": "Is there a minimum order quantity?",
+        "a": "Yes. Every product has its own minimum order in tons, shown on the product page. Orders below it are not accepted."
+      },
+      "pickup": {
+        "q": "How does warehouse pickup work?",
+        "a": "Choose pickup at checkout and book a time slot at the warehouse. You get a gate code starting with MC- — show it at the gate. You can follow the status (scheduled → loading → ready → picked up) on the My orders page."
+      },
+      "delivery": {
+        "q": "Do you deliver?",
+        "a": "Yes, in refrigerated 0–4 °C trucks to the address you enter. Pickup is free; the delivery fee is quoted separately depending on the distance and quantity."
+      },
+      "contract": {
+        "q": "How do monthly supply contracts work?",
+        "a": "Choose a product, monthly tons and a term of 1–24 months — or let the AI assistant draft it for you. The price per ton is fixed for the whole term. After Milcow approves it, an order is created automatically every month and each one is paid separately."
+      },
+      "payment": {
+        "q": "How do I pay?",
+        "a": "By card through Toss Payments. The server checks the amount against the order total before approving. An unpaid order can be paid later from the My orders page."
+      },
+      "ai": {
+        "q": "What can the AI assistant do?",
+        "a": "The chat answers questions using Milcow's own guides (prices, rules, delivery). The contract assistant turns a sentence like \"5 t of raw milk every month for 6 months\" into a contract draft. Anything it cannot answer, our staff will answer here."
+      }
+    }
+  }
+}

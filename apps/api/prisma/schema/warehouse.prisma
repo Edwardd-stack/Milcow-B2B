@@ -1,0 +1,23 @@
+// 우유 창고 — stock is kept here, buyers pick up orders here.
+model Warehouse {
+  id                   String   @id @default(uuid(7)) @db.Uuid
+  warehouseName        Json     @map("warehouse_name") // { ko, en, uz }
+  warehouseAddress     String   @map("warehouse_address")
+  warehouseLat         Float    @map("warehouse_lat")
+  warehouseLng         Float    @map("warehouse_lng")
+  warehouseCapacityTon Decimal  @map("warehouse_capacity_ton") @db.Decimal(10, 2)
+  warehouseTempC       Decimal? @map("warehouse_temp_c") @db.Decimal(4, 1)
+  warehouseOpenTime    String?  @map("warehouse_open_time") // "HH:mm"
+  warehouseCloseTime   String?  @map("warehouse_close_time") // "HH:mm"
+
+  staff       Member[]
+  inventories Inventory[]
+  orders      Order[]
+  contracts   Contract[]
+  pickupSlots PickupSlot[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("warehouses")
+}

@@ -1,0 +1,22 @@
+enum InquiryStatus {
+  NEW
+  ANSWERED
+
+  @@map("inquiry_status")
+}
+
+// Contact form on the website (no account needed)
+model Inquiry {
+  id             String        @id @default(uuid(7)) @db.Uuid
+  inquiryName    String        @map("inquiry_name")
+  inquiryEmail   String        @map("inquiry_email")
+  inquiryCompany String?       @map("inquiry_company")
+  inquiryMessage String        @map("inquiry_message")
+  inquiryStatus  InquiryStatus @default(NEW) @map("inquiry_status")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([inquiryStatus])
+  @@map("inquiries")
+}

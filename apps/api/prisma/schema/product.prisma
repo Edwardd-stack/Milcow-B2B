@@ -1,0 +1,54 @@
+enum ProductType {
+  RAW_MILK
+  CREAM
+  BUTTER
+  CHEESE
+  YOGURT
+  MILK_POWDER
+
+  @@map("product_type")
+}
+
+enum ProductGrade {
+  PREMIUM
+  GRADE_1 // 1등급
+  GRADE_2 // 2등급
+
+  @@map("product_grade")
+}
+
+enum ProductStatus {
+  ACTIVE
+  PAUSED
+
+  @@map("product_status")
+}
+
+model Product {
+  id                 String        @id @default(uuid(7)) @db.Uuid
+  productType        ProductType   @map("product_type")
+  productName        Json          @map("product_name") // { ko, en, uz }
+  productDesc        Json?         @map("product_desc") // { ko, en, uz }
+  productGrade       ProductGrade  @map("product_grade")
+  productFatPct      Decimal?      @map("product_fat_pct") @db.Decimal(4, 2)
+  productProteinPct  Decimal?      @map("product_protein_pct") @db.Decimal(4, 2)
+  productPricePerTon Int           @map("product_price_per_ton") // KRW
+  productMinOrderTon Decimal       @map("product_min_order_ton") @db.Decimal(10, 2)
+  productStatus      ProductStatus @default(ACTIVE) @map("product_status")
+  productImages      String[]      @default([]) @map("product_images")
+
+  // Origin farm (optional)
+  farmId String? @map("farm_id") @db.Uuid
+  farm   Farm?   @relation(fields: [farmId], references: [id], onDelete: SetNull)
+
+  inventories Inventory[]
+  orderItems  OrderItem[]
+  contracts   Contract[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([productType, productStatus])
+  @@index([farmId])
+  @@map("products")
+}

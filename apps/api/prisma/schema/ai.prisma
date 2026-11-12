@@ -1,0 +1,46 @@
+enum AiLogType {
+  CHAT // RAG chatbot
+  CONTRACT // AI contract assistant
+
+  @@map("ai_log_type")
+}
+
+// RAG knowledge base: platform documents split into small chunks + their embeddings.
+// Embedding model: gemini-embedding-2, 768 dimensions.
+model KnowledgeChunk {
+  id          String @id @default(uuid(7)) @db.Uuid
+  chunkSource String @map("chunk_source") // document name, e.g. "pricing"
+  chunkLang   Lang   @map("chunk_lang")
+  chunkIndex  Int    @map("chunk_index") // position inside the source document
+  chunkText   String @map("chunk_text")
+
+  // Prisma has no `vector` type → Unsupported. Written and searched with raw SQL ($executeRaw / $queryRaw).
+  chunkEmbedding Unsupported("vector(768)")? @map("chunk_embedding")
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@unique([chunkSource, chunkLang, chunkIndex]) // re-ingesting a document replaces, never duplicates
+  @@index([chunkLang])
+  @@map("knowledge_chunks")
+}
+
+// Every AI request: what was asked, what came back, how long it took
+model AiLog {
+  id           String    @id @default(uuid(7)) @db.Uuid
+  logType      AiLogType @map("log_type")
+  logModel     String?   @map("log_model") // e.g. "gemini-3-flash"
+  logInput     String    @map("log_input")
+  logOutput    String?   @map("log_output")
+  logError     String?   @map("log_error")
+  logLatencyMs Int?      @map("log_latency_ms")
+
+  // Anonymous visitors can use the chatbot → optional
+  memberId String? @map("member_id") @db.Uuid
+  member   Member? @relation(fields: [memberId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([logType, createdAt])
+  @@index([memberId])
+  @@map("ai_logs")
+}

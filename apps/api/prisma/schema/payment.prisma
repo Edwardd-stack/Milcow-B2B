@@ -1,0 +1,30 @@
+// Mirrors the Toss Payments statuses Milcow uses
+enum PaymentStatus {
+  READY
+  DONE
+  CANCELED
+  FAILED
+
+  @@map("payment_status")
+}
+
+model Payment {
+  id                 String        @id @default(uuid(7)) @db.Uuid
+  paymentTossOrderId String        @unique @map("payment_toss_order_id") // orderId we send to Toss
+  paymentKey         String?       @unique @map("payment_key") // returned by Toss after approval
+  paymentStatus      PaymentStatus @default(READY) @map("payment_status")
+  paymentMethod      String?       @map("payment_method") // 카드, 계좌이체, ...
+  paymentAmount      Decimal       @map("payment_amount") @db.Decimal(15, 0) // KRW
+  paymentApprovedAt  DateTime?     @map("payment_approved_at") @db.Timestamptz(3)
+  paymentFailReason  String?       @map("payment_fail_reason")
+
+  // One order can have several attempts (failed, then successful)
+  orderId String @map("order_id") @db.Uuid
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([orderId])
+  @@map("payments")
+}

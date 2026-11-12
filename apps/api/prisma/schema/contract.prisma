@@ -1,0 +1,92 @@
+enum ContractStatus {
+  DRAFT // AI draft, editable by the buyer
+  REVIEW // submitted, waiting for admin
+  ACTIVE // monthly orders are generated
+  ENDED
+  CANCELLED
+
+  @@map("contract_status")
+}
+
+enum ServiceType {
+  COLD_CHAIN
+  QUALITY_TEST
+  PRICE_LOCK
+  PRIORITY_SUPPLY
+  FREE_PICKUP
+
+  @@map("service_type")
+}
+
+enum ServiceStatus {
+  ACTIVE
+  PAUSED
+
+  @@map("service_status")
+}
+
+// Long-term supply contract: e.g. 20 tons of raw milk every month for 6 months
+model Contract {
+  id                   String         @id @default(uuid(7)) @db.Uuid
+  contractStatus       ContractStatus @default(DRAFT) @map("contract_status")
+  contractStart        DateTime       @map("contract_start") @db.Date
+  contractEnd          DateTime       @map("contract_end") @db.Date
+  contractMonthlyTon   Decimal        @map("contract_monthly_ton") @db.Decimal(10, 2)
+  contractPricePerTon  Int            @map("contract_price_per_ton") // KRW, fixed for the contract
+  contractDeliveryType DeliveryType   @map("contract_delivery_type")
+  contractAddress      String?        @map("contract_address") // DELIVERY only
+  contractTerms        Json?          @map("contract_terms") // AI-generated draft (structured output)
+  contractPdfUrl       String?        @map("contract_pdf_url")
+
+  memberId  String  @map("member_id") @db.Uuid
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Restrict)
+  productId   String    @map("product_id") @db.Uuid
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Restrict)
+  // Monthly orders ship from / are picked up at this warehouse
+  warehouseId String    @map("warehouse_id") @db.Uuid
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Restrict)
+
+  orders   Order[]
+  services ContractService[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([memberId, contractStatus])
+  @@index([productId])
+  @@index([warehouseId])
+  @@map("contracts")
+}
+
+// Add-on services a buyer can choose when signing a contract
+model ServicePlan {
+  id            String        @id @default(uuid(7)) @db.Uuid
+  serviceType   ServiceType   @unique @map("service_type")
+  serviceName   Json          @map("service_name") // { ko, en, uz }
+  serviceDesc   Json?         @map("service_desc") // { ko, en, uz }
+  servicePrice  Int           @map("service_price") // KRW per month
+  serviceStatus ServiceStatus @default(ACTIVE) @map("service_status")
+
+  contracts ContractService[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("service_plans")
+}
+
+// Join table (M:N) — which services are included in which contract
+model ContractService {
+  servicePrice Int @map("service_price") // price at signing time (snapshot)
+
+  contractId    String      @map("contract_id") @db.Uuid
+  contract      Contract    @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  servicePlanId String      @map("service_plan_id") @db.Uuid
+  servicePlan   ServicePlan @relation(fields: [servicePlanId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@id([contractId, servicePlanId])
+  @@index([servicePlanId])
+  @@map("contract_services")
+}

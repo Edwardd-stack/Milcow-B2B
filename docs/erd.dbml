@@ -120,8 +120,8 @@ Table Farm {
   farmName jsonb [not null, note: '{ ko, en, uz }']
   farmDesc jsonb [note: '{ ko, en, uz }']
   farmAddress varchar [not null]
-  farmLat decimal(9,6) [not null]
-  farmLng decimal(9,6) [not null]
+  farmLat double [not null]
+  farmLng double [not null]
   farmCowCount int
   farmDailyCapacityTon decimal(10,2)
   farmCertifications FarmCertification[]
@@ -134,8 +134,8 @@ Table Warehouse {
   id uuid [pk]
   warehouseName jsonb [not null, note: '{ ko, en, uz }']
   warehouseAddress varchar [not null]
-  warehouseLat decimal(9,6) [not null]
-  warehouseLng decimal(9,6) [not null]
+  warehouseLat double [not null]
+  warehouseLng double [not null]
   warehouseCapacityTon decimal(10,2) [not null]
   warehouseTempC decimal(4,1)
   warehouseOpenTime varchar [note: 'HH:mm']
@@ -204,6 +204,7 @@ Table Contract {
   id uuid [pk]
   memberId uuid [not null, ref: > Member.id]
   productId uuid [not null, ref: > Product.id]
+  warehouseId uuid [not null, ref: > Warehouse.id]
   contractStatus ContractStatus [not null, default: 'DRAFT']
   contractStart date [not null]
   contractEnd date [not null]
@@ -291,8 +292,9 @@ Table KnowledgeChunk {
   id uuid [pk]
   chunkSource varchar [not null]
   chunkLang Lang [not null]
+  chunkIndex int [not null]
   chunkText text [not null]
-  chunkEmbedding vector [note: 'pgvector']
+  chunkEmbedding vector [note: 'pgvector, vector(768) — gemini-embedding-2']
   createdAt timestamp [not null, default: `now()`]
 }
 
@@ -300,8 +302,10 @@ Table AiLog {
   id uuid [pk]
   memberId uuid [ref: > Member.id]
   logType AiLogType [not null]
+  logModel varchar
   logInput text [not null]
   logOutput text
+  logError text
   logLatencyMs int
   createdAt timestamp [not null, default: `now()`]
 }

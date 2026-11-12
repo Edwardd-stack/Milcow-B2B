@@ -1,0 +1,52 @@
+enum MemberType {
+  BUYER // company that buys dairy products
+  STAFF // warehouse staff — updates pickup status
+  ADMIN // back office
+
+  @@map("member_type")
+}
+
+enum MemberStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+
+  @@map("member_status")
+}
+
+enum Lang {
+  KO
+  EN
+  UZ
+
+  @@map("lang")
+}
+
+model Member {
+  id                String       @id @default(uuid(7)) @db.Uuid
+  memberType        MemberType   @default(BUYER) @map("member_type")
+  memberStatus      MemberStatus @default(ACTIVE) @map("member_status")
+  memberEmail       String       @unique @map("member_email")
+  memberPassword    String?      @map("member_password") // null for social-only accounts (Kakao / Google)
+  memberKakaoId     String?      @unique @map("member_kakao_id")
+  memberGoogleId    String?      @unique @map("member_google_id")
+  memberNick        String       @map("member_nick")
+  memberPhone       String?      @map("member_phone")
+  memberCompanyName String?      @map("member_company_name")
+  memberBizNo       String?      @map("member_biz_no") // 사업자등록번호
+  memberLang        Lang         @default(KO) @map("member_lang")
+
+  // STAFF only: the warehouse this member works at
+  warehouseId String?    @map("warehouse_id") @db.Uuid
+  warehouse   Warehouse? @relation(fields: [warehouseId], references: [id], onDelete: SetNull)
+
+  orders    Order[]
+  contracts Contract[]
+  aiLogs    AiLog[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([warehouseId])
+  @@map("members")
+}
