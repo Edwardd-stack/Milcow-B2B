@@ -3,7 +3,9 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": ["API_ORIGIN"],
+      "passThroughEnv": ["DATABASE_URL"]
     },
     "dev": {
       "dependsOn": ["^build"],
