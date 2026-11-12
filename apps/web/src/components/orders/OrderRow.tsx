@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Locale, OrderInfo } from '@milcow/shared';
 import { useNow } from '@/hooks/useNow';
+import { QrCode } from '@/components/ui/QrCode';
 import { useCancelOrder, usePayOrder } from '@/hooks/useOrders';
 import { Link } from '@/i18n/navigation';
 import { truckForOrder } from '@/lib/fleet/fleet-sim';
@@ -192,12 +193,19 @@ export function OrderRow({
                       <span className="text-xs text-muted">{t('pickupCode')}</span>
                       <PickupStatusBadge status={order.pickup.pickupStatus} />
                     </div>
-                    <p className="mt-1 font-mono text-2xl font-extrabold tracking-[0.2em] text-heading">
-                      {order.pickup.pickupCode}
-                    </p>
-                    <p className="mt-1 text-xs text-muted">
-                      {t('pickupSlot')}: {date(order.pickup.slotStart, true)}
-                    </p>
+                    <div className="mt-2 flex items-center gap-4">
+                      {/* Shown at the warehouse gate — staff scan it with a phone */}
+                      <QrCode value={order.pickup.pickupCode} size={84} className="shrink-0" />
+                      <div className="min-w-0">
+                        <p className="font-mono text-2xl font-extrabold tracking-[0.15em] text-heading">
+                          {order.pickup.pickupCode}
+                        </p>
+                        <p className="mt-1 text-xs text-muted">
+                          {t('pickupSlot')}: {date(order.pickup.slotStart, true)}
+                        </p>
+                        <p className="mt-1 text-[11px] text-soft">{t('qrHint')}</p>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <p className="rounded-2xl bg-[#fff4e0] px-4 py-3 text-xs text-[#8a5300]">
@@ -213,6 +221,12 @@ export function OrderRow({
               className="mt-4 rounded-xl bg-[#fdecea] px-4 py-3 text-sm text-[#b42318]"
             >
               {error}
+            </p>
+          )}
+
+          {order.orderCancelReason && (
+            <p className="mt-4 rounded-xl bg-[#fdecea] px-4 py-3 text-sm text-[#b42318]">
+              {t('cancelReason', { reason: order.orderCancelReason })}
             </p>
           )}
 
