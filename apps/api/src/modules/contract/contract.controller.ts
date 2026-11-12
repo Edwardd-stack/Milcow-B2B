@@ -95,7 +95,7 @@ export class ContractController {
   @Post('monthly-orders/run')
   @Roles('ADMIN')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Run the daily contract-order job now (normally runs at 01:00 KST)' })
+  @ApiOperation({ summary: 'Run the daily contract-order job now (normally runs at 06:10 KST)' })
   runMonthlyOrders(@Body() input: RunMonthlyOrdersDto) {
     return this.contractService.runMonthlyOrders(input.date);
   }

@@ -11,6 +11,7 @@
     "type-check": "tsc --noEmit -p tsconfig.json && tsc -p prisma/tsconfig.json",
     "db:generate": "prisma generate --no-hints",
     "db:migrate": "prisma migrate dev && prisma generate --no-hints",
+    "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "prisma db seed"
   },

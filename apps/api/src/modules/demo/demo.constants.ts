@@ -2,7 +2,7 @@
 export const DEMO_BUYER_EMAIL = 'buyer@milcow.test';
 
 /** Every night the demo buyer's orders and contracts are rebuilt (visitors may cancel things) */
-export const DEMO_RESET_CRON = '0 4 * * *'; // 04:00 Korea time
+export const DEMO_RESET_CRON = '15 6 * * *'; // 06:15 Korea time (the free server sleeps at night)
 
 /** Demo login is public → limit per IP */
 export const DEMO_LOGIN_RATE_LIMIT = { limit: 10, ttl: 60_000 };

@@ -15,4 +15,15 @@ export class HealthController {
   check() {
     return this.healthService.check();
   }
+
+  /**
+   * Liveness only — never touches the database. The uptime pinger calls this every few minutes
+   * to keep the free server awake; /health (with SELECT 1) would keep the free database awake too.
+   */
+  @Public()
+  @Get('live')
+  @ApiOperation({ summary: 'Liveness ping (no database) — for the uptime pinger' })
+  live() {
+    return { status: 'ok' };
+  }
 }
