@@ -18,7 +18,7 @@ export type DemoRole = 'BUYER' | 'ADMIN' | 'STAFF';
 /** GET /auth/socket-token — short-lived token for the realtime socket */
 export interface SocketTokenResponse {
   token: string; // JWT, valid ~60 s (only for the handshake)
-  url: string | null; // API origin to connect to directly (null → same origin as the REST API)
+  url: string; // API origin the browser connects to directly
 }
 
 // ─────────────────────────── Dashboard ───────────────────────────

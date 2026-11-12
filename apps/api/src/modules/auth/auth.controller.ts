@@ -70,8 +70,11 @@ export class AuthController {
   async socketToken(@CurrentMember() member: AuthMember): Promise<SocketTokenResponse> {
     return {
       token: await this.authService.socketToken(member),
-      // Render sets RENDER_EXTERNAL_URL; locally the web app talks to the same origin
-      url: this.config.get<string>('RENDER_EXTERNAL_URL') ?? null,
+      // The browser connects straight to the API (WebSockets don't go through the Next proxy).
+      // Render sets RENDER_EXTERNAL_URL; locally it's this server's own port.
+      url:
+        this.config.get<string>('RENDER_EXTERNAL_URL') ??
+        `http://localhost:${this.config.get<number>('PORT') ?? 3000}`,
     };
   }
 

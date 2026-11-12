@@ -321,7 +321,7 @@ export class OrderService {
         await recordOrderEvent(tx, {
           orderId: id,
           eventType: 'REFUNDED',
-          note: `${payment.paymentAmount.toString()} KRW${refund === 'demo' ? ' (demo)' : ''}`,
+          note: `₩${payment.paymentAmount.toNumber().toLocaleString('en-US')}${refund === 'demo' ? ' (demo)' : ''}`,
           memberId: member.id,
         });
       }
