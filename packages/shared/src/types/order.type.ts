@@ -1,4 +1,5 @@
 import type { DeliveryType, OrderStatus, PickupStatus } from '../enums';
+import type { OrderCustomer, OrderEventInfo, OrderPaymentSummary } from './admin.type';
 import type { LocalizedText } from './common.type';
 
 export interface OrderItemInfo {
@@ -31,5 +32,10 @@ export interface OrderInfo {
     slotStart: string;
   } | null; // PICKUP orders, after a time slot is booked
   orderHoldUntil: string | null; // surplus reservation: pay before this
+  orderCancelReason: string | null; // why it was cancelled (shown to the buyer)
   createdAt: string;
+  // GET /orders/:id for ADMIN / STAFF only
+  customer?: OrderCustomer;
+  payment?: OrderPaymentSummary | null;
+  events?: OrderEventInfo[];
 }

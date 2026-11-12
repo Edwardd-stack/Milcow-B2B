@@ -1,3 +1,4 @@
+export * from './admin.type';
 export * from './ai.type';
 export * from './common.type';
 export * from './contract.type';

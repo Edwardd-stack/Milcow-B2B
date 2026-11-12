@@ -274,7 +274,13 @@ async function createOrder(tx: Tx, memberId: string, spec: OrderSpec) {
       eventFrom: i === 0 ? null : path[i - 1],
       eventTo: to,
       eventNote: to === 'CANCELLED' ? '고객 요청으로 취소' : null,
-      createdAt: new Date(createdAt.getTime() + i * 3 * 60 * 60_000 + (i > 0 ? 3 * 60_000 : 0)),
+      // paid 3 min after ordering (same as the payment below), then a step every 3 hours
+      createdAt: new Date(
+        Math.min(
+          Date.now(),
+          createdAt.getTime() + (i === 0 ? 0 : 3 * 60_000 + (i - 1) * 3 * 3_600_000),
+        ),
+      ),
     })),
   });
 

@@ -8,6 +8,7 @@ import {
   type SurplusLot,
 } from '@milcow/shared';
 import { PrismaService } from '../../libs/prisma/prisma.service';
+import { RealtimeService } from '../realtime/realtime.service';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { orderInclude, toOrderInfo } from '../order/order.mapper';
 import type { ReserveSurplusDto } from './dto/reserve-surplus.dto';
@@ -20,7 +21,10 @@ const FEATURED_COUNT = 6;
 export class LotService {
   private readonly logger = new Logger(LotService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly realtime: RealtimeService,
+  ) {}
 
   /** 원유 품질 여권 — public; the code is case-insensitive */
   async passport(code: string): Promise<LotPassport> {
@@ -129,6 +133,15 @@ export class LotService {
       });
       return created;
     });
+    this.realtime.orderCreated(
+      {
+        orderId: order.id,
+        orderTotal: order.orderTotal.toNumber(),
+        companyName: null,
+        createdAt: order.createdAt.toISOString(),
+      },
+      order.warehouseId,
+    );
     return toOrderInfo(order);
   }
 

@@ -1,6 +1,8 @@
-import type { Prisma } from '../../../src/generated/prisma/client';
+import type { Prisma, PrismaClient } from '../../generated/prisma/client';
+import { DEMO_EMAIL_SUFFIX } from '@milcow/shared';
 
-// Contact-form messages for the admin app (.test emails can never belong to a real person)
+// Contact-form messages for the admin console (.test e-mails can never belong to a real person).
+// Used by the seed and restored by the nightly demo reset.
 export const INQUIRIES: Prisma.InquiryCreateManyInput[] = [
   {
     inquiryName: '박서연',
@@ -23,3 +25,20 @@ export const INQUIRIES: Prisma.InquiryCreateManyInput[] = [
     inquiryMessage: 'Gimhae omboridan shanba kuni ham olib ketish mumkinmi?',
   },
 ];
+
+/** Puts the demo messages back as they were (real visitors' messages are not touched) */
+export async function resetDemoInquiries(prisma: PrismaClient | Prisma.TransactionClient) {
+  await prisma.inquiry.deleteMany({ where: { inquiryEmail: { endsWith: DEMO_EMAIL_SUFFIX } } });
+  const now = Date.now();
+  await prisma.inquiry.createMany({
+    // Spread over the last days so the inbox looks lived-in
+    data: INQUIRIES.map((inquiry, i) => ({
+      ...inquiry,
+      createdAt: new Date(now - (i + 1) * 7 * 3_600_000),
+      ...(inquiry.inquiryStatus === 'ANSWERED' && {
+        inquiryAnsweredAt: new Date(now - (i + 1) * 5 * 3_600_000),
+      }),
+    })),
+  });
+  return INQUIRIES.length;
+}

@@ -1,6 +1,12 @@
 import { Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { GoogleGenAI, ThinkingLevel, type Schema } from '@google/genai';
+import {
+  FunctionCallingConfigMode,
+  GoogleGenAI,
+  ThinkingLevel,
+  type FunctionDeclaration,
+  type Schema,
+} from '@google/genai';
 import {
   EMBEDDING_CONCURRENCY,
   EMBEDDING_DIMENSIONS,
@@ -82,6 +88,33 @@ export class GeminiService {
     } catch {
       throw new ServiceUnavailableException('AI returned an invalid answer, please try again');
     }
+  }
+
+  /**
+   * Function calling: the model either picks ONE of the given tools (name + arguments)
+   * or answers in text. The caller must validate the arguments before running anything.
+   */
+  async chooseTool(
+    prompt: string,
+    tools: FunctionDeclaration[],
+    options: GenerateOptions = {},
+  ): Promise<{ name: string; args: Record<string, unknown> } | { text: string }> {
+    const response = await this.call('chooseTool', () =>
+      this.ai.models.generateContent({
+        model: this.chatModel,
+        contents: prompt,
+        config: {
+          systemInstruction: options.systemInstruction,
+          temperature: options.temperature ?? 0,
+          thinkingConfig: { thinkingLevel: options.thinkingLevel ?? ThinkingLevel.LOW },
+          tools: [{ functionDeclarations: tools }],
+          toolConfig: { functionCallingConfig: { mode: FunctionCallingConfigMode.AUTO } },
+        },
+      }),
+    );
+    const call = response.functionCalls?.[0];
+    if (call?.name) return { name: call.name, args: call.args ?? {} };
+    return { text: response.text?.trim() ?? '' };
   }
 
   /** Embedding for a user question (RAG "retrieval" step) */

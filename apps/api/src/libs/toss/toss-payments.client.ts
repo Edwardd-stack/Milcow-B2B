@@ -51,4 +51,26 @@ export class TossPaymentsClient {
     }
     return body;
   }
+
+  /**
+   * Full refund. The Idempotency-Key makes a retry safe: if our first request reached Toss
+   * but the response was lost, sending it again returns the same result instead of a 2nd refund.
+   */
+  async cancel(paymentKey: string, cancelReason: string, idempotencyKey: string): Promise<void> {
+    const response = await fetch(`${TOSS_API}/payments/${encodeURIComponent(paymentKey)}/cancel`, {
+      method: 'POST',
+      headers: {
+        Authorization: this.authHeader,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': idempotencyKey,
+      },
+      body: JSON.stringify({ cancelReason: cancelReason.slice(0, 200) }),
+      signal: AbortSignal.timeout(30_000),
+    });
+    if (response.ok) return;
+    const error = (await response.json().catch(() => ({}))) as { code?: string; message?: string };
+    // Already cancelled (e.g. our earlier attempt went through) → treat as done
+    if (error.code === 'ALREADY_CANCELED_PAYMENT') return;
+    throw new TossPaymentsError(error.code ?? 'UNKNOWN', error.message ?? 'Toss refund failed');
+  }
 }

@@ -15,11 +15,13 @@ import { ApiBearerAuth, ApiOperation, ApiProduces, ApiTags } from '@nestjs/swagg
 import { CurrentMember } from '../../common/decorators/current-member.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
+import { assertDemoCanModify } from '../../common/policies/demo.policy';
 import { ContractService } from './contract.service';
 import { ContractPdfService } from './pdf/contract-pdf.service';
 import { ContractListQueryDto } from './dto/contract-list-query.dto';
 import { ContractPdfQueryDto } from './dto/contract-pdf-query.dto';
 import { CreateContractDto } from './dto/create-contract.dto';
+import { RejectContractDto } from './dto/reject-contract.dto';
 import { RunMonthlyOrdersDto } from './dto/run-monthly-orders.dto';
 import { UpdateContractStatusDto } from './dto/update-contract-status.dto';
 
@@ -92,11 +94,30 @@ export class ContractController {
     return this.contractService.updateStatus(member, id, input.contractStatus);
   }
 
+  @Patch(':id/approve')
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Approve a contract in review (REVIEW → ACTIVE)' })
+  approve(@CurrentMember() member: AuthMember, @Param('id', ParseUUIDPipe) id: string) {
+    return this.contractService.updateStatus(member, id, 'ACTIVE');
+  }
+
+  @Patch(':id/reject')
+  @Roles('ADMIN')
+  @ApiOperation({ summary: 'Reject a contract in review with a reason (shown to the buyer)' })
+  reject(
+    @CurrentMember() member: AuthMember,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() input: RejectContractDto,
+  ) {
+    return this.contractService.reject(member, id, input.reason);
+  }
+
   @Post('monthly-orders/run')
   @Roles('ADMIN')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Run the daily contract-order job now (normally runs at 06:10 KST)' })
-  runMonthlyOrders(@Body() input: RunMonthlyOrdersDto) {
+  runMonthlyOrders(@CurrentMember() member: AuthMember, @Body() input: RunMonthlyOrdersDto) {
+    assertDemoCanModify(member, false); // touches real customers' contracts
     return this.contractService.runMonthlyOrders(input.date);
   }
 }

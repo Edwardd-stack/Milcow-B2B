@@ -16,7 +16,7 @@ import { ensurePickupSlots } from '../../src/modules/pickup/pickup-slots';
 import { SKU_PREFIX, formatSku } from '../../src/modules/product/product-sku';
 import { koreaToday } from '../../src/libs/utils/date.util';
 import { FARMS } from './data/farms';
-import { INQUIRIES } from './data/inquiries';
+import { resetDemoInquiries } from '../../src/modules/demo/demo-inquiries';
 import { MEMBERS } from './data/members';
 import { PRODUCTS } from './data/products';
 import { SERVICE_PLANS } from './data/service-plans';
@@ -211,8 +211,7 @@ async function seedDemoHistory(prisma: PrismaClient) {
 }
 
 async function seedInquiries(prisma: PrismaClient) {
-  await prisma.inquiry.createMany({ data: INQUIRIES });
-  console.log(`✉️  Inquiries: ${INQUIRIES.length}`);
+  console.log(`✉️  Inquiries: ${await resetDemoInquiries(prisma)}`);
 }
 
 // ── helpers ──

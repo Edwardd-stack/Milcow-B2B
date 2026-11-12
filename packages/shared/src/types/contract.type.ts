@@ -36,6 +36,8 @@ export interface ContractInfo {
   contractDeliveryDates: string[]; // every monthly delivery date
   contractMonthlyTotal: number; // milk + services, KRW
   contractTotal: number; // monthly total × number of deliveries
+  contractRejectReason: string | null; // set when an admin rejects it in review
+  customer?: { companyName: string | null; nick: string; email: string; phone: string | null }; // admin only
   createdAt: string;
 }
 

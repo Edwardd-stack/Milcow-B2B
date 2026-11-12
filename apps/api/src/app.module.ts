@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { validateEnv } from './libs/config/env.validation';
 import { PrismaModule } from './libs/prisma/prisma.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { AiModule } from './modules/ai/ai.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContractModule } from './modules/contract/contract.module';
@@ -42,6 +43,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     RealtimeModule,
 
     // ── Feature modules ──
+    AdminModule,
     AiModule,
     AuthModule,
     ContractModule,
