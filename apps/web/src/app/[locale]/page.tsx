@@ -1,5 +1,4 @@
 import { AboutSection } from '@/components/home/AboutSection';
-import { AiSection } from '@/components/home/AiSection';
 import { CtaSection } from '@/components/home/CtaSection';
 import { CustomersSection } from '@/components/home/CustomersSection';
 import { FeaturedProducts } from '@/components/home/FeaturedProducts';
@@ -22,7 +21,6 @@ export default function HomePage() {
       </div>
       <FeaturedProducts />
       <HowItWorks />
-      <AiSection />
       <MapSection />
       <CustomersSection />
       <CtaSection />

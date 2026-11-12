@@ -35,15 +35,9 @@
     "myContracts": "My contracts"
   },
   "Footer": {
-    "tagline": "Fresh raw milk and dairy from partner farms in Korea, by the ton. Bulk orders, supply contracts and warehouse pickup in one place.",
+    "tagline": "Raw milk and dairy from Korean partner farms — by the ton.",
     "b2bOnly": "For businesses only",
     "menu": "Menu",
-    "services": "B2B services",
-    "bulkOrder": "Bulk orders by the ton",
-    "supplyContract": "Monthly supply contracts",
-    "pickup": "Warehouse pickup",
-    "aiAssistant": "AI chat & contract assistant",
-    "contact": "Contact",
     "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Weekdays 09:00–18:00",
     "rights": "All rights reserved.",
@@ -51,9 +45,6 @@
     "emailUs": "Email address",
     "office": "Office location",
     "workHours": "Work hours",
-    "ctaTitle": "Bulk order consultation",
-    "ctaText": "Tell us the products and quantities you need — our team will send a quote and a delivery schedule.",
-    "ctaButton": "Request a consultation",
     "portfolio": "Milcow B2B — portfolio project"
   },
   "Hero": {
@@ -134,17 +125,6 @@
     "button": "Start a supply contract",
     "photoAlt": "Girl holding a glass of milk on a dairy farm"
   },
-  "AiSection": {
-    "eyebrow": "AI assistant",
-    "title": "Ask our AI anything",
-    "text": "Milcow AI answers from our real prices, stock and rules. If it doesn't know, it says so and points you to our team — it never makes things up.",
-    "feature1Title": "Answers grounded in live data (RAG)",
-    "feature1Text": "It searches products, warehouses and contract rules, then answers only from them.",
-    "feature2Title": "AI contract assistant",
-    "feature2Text": "Write \"20 tons a month, pickup in Icheon\" and get a contract draft with a price.",
-    "feature3Title": "Korean · English · Uzbek",
-    "feature3Text": "It replies in the language you ask in."
-  },
   "Chat": {
     "title": "Milcow AI",
     "status": "Online · usually replies in seconds",
@@ -158,7 +138,9 @@
     "errorBusy": "The AI can't answer right now. Please try again shortly.",
     "errorRateLimit": "Too many questions. Try again in a minute.",
     "open": "Open AI chat",
-    "close": "Close"
+    "close": "Close",
+    "hint": "AI chat",
+    "hintMore": "ask me anything"
   },
   "MapSection": {
     "eyebrow": "Farms and warehouses",
@@ -223,9 +205,6 @@
       "text": "Products, prices and contract terms — check them with the AI assistant, no sign-up needed.",
       "button": "Start AI chat"
     }
-  },
-  "Common": {
-    "backToTop": "Back to top"
   },
   "Auth": {
     "eyebrow": "Milcow Business",

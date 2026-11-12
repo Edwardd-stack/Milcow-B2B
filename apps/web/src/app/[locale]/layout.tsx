@@ -9,7 +9,6 @@ import { ChatWidget } from '@/components/ai/ChatWidget';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { ScrollReset } from '@/components/layout/ScrollReset';
-import { ScrollToTop } from '@/components/layout/ScrollToTop';
 import { QueryProvider } from '@/components/providers/QueryProvider';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
@@ -73,7 +72,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
               </Suspense>
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />
-              <ScrollToTop />
               <ChatWidget />
             </ChatProvider>
           </QueryProvider>

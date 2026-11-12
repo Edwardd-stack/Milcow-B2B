@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { SparkIcon } from '@/components/icons';
+import { RobotIcon } from '@/components/icons';
 import { ApiRequestError } from '@/lib/api-client';
 import { useChatContext } from './ChatProvider';
 
@@ -50,7 +50,7 @@ export function ChatPanel({
       {/* Header */}
       <div className="flex items-center gap-3 bg-brand px-5 py-4 text-white">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand">
-          <SparkIcon className="h-5 w-5" />
+          <RobotIcon className="h-6 w-6" />
         </span>
         <div className="min-w-0">
           <p className="font-semibold">{t('title')}</p>

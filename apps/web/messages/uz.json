@@ -35,15 +35,9 @@
     "myContracts": "Shartnomalarim"
   },
   "Footer": {
-    "tagline": "Koreyadagi hamkor fermalarning yangi suti va sut mahsulotlari — tonnalab. Ulgurji xarid, oylik shartnoma va ombordan olib ketish bir joyda.",
+    "tagline": "Koreya hamkor fermalarining suti va sut mahsulotlari — tonnalab.",
     "b2bOnly": "Faqat biznes mijozlar uchun",
     "menu": "Menyu",
-    "services": "B2B xizmatlar",
-    "bulkOrder": "Tonnalab ulgurji xarid",
-    "supplyContract": "Oylik yetkazib berish shartnomasi",
-    "pickup": "Ombordan olib ketish",
-    "aiAssistant": "AI maslahatchi va shartnoma yordamchisi",
-    "contact": "Aloqa",
     "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Ish kunlari 09:00–18:00",
     "rights": "Barcha huquqlar himoyalangan.",
@@ -51,9 +45,6 @@
     "emailUs": "Elektron pochta",
     "office": "Ofis manzili",
     "workHours": "Ish vaqti",
-    "ctaTitle": "Ulgurji xarid maslahati",
-    "ctaText": "Kerakli mahsulot va miqdorni yozing — xodimimiz narx va yetkazib berish jadvalini yuboradi.",
-    "ctaButton": "Maslahat so'rash",
     "portfolio": "Milcow B2B — portfolio loyihasi"
   },
   "Hero": {
@@ -134,17 +125,6 @@
     "button": "Shartnoma tuzishni boshlash",
     "photoAlt": "Fermada bir stakan sut ushlagan qiz"
   },
-  "AiSection": {
-    "eyebrow": "AI yordamchi",
-    "title": "Savolingizni AI'dan so'rang",
-    "text": "Milcow AI haqiqiy narxlar, zaxira va qoidalarimiz asosida javob beradi. Ma'lumot bo'lmasa, to'qib chiqarmaydi — xodimlarimizga yo'naltiradi.",
-    "feature1Title": "Jonli ma'lumotga asoslangan javob (RAG)",
-    "feature1Text": "Mahsulot, ombor va shartnoma qoidalarini qidirib, faqat shular asosida javob beradi.",
-    "feature2Title": "AI shartnoma yordamchisi",
-    "feature2Text": "\"Har oy 20 tonna, Icheondan olib ketamiz\" deb yozing — narxi bilan shartnoma qoralamasi tayyor.",
-    "feature3Title": "Koreyscha · Inglizcha · O'zbekcha",
-    "feature3Text": "Qaysi tilda so'rasangiz, shu tilda javob beradi."
-  },
   "Chat": {
     "title": "Milcow AI",
     "status": "Onlayn · odatda bir necha soniyada javob beradi",
@@ -158,7 +138,9 @@
     "errorBusy": "Hozir AI javob bera olmaydi. Birozdan keyin qayta urinib ko'ring.",
     "errorRateLimit": "Savollar juda ko'p. Bir daqiqadan keyin qayta urinib ko'ring.",
     "open": "AI suhbatni ochish",
-    "close": "Yopish"
+    "close": "Yopish",
+    "hint": "AI yordamchi",
+    "hintMore": "savol bering"
   },
   "MapSection": {
     "eyebrow": "Fermalar va omborlar",
@@ -223,9 +205,6 @@
       "text": "Mahsulot, narx va shartnoma shartlarini ro'yxatdan o'tmasdan AI yordamchi orqali bilib oling.",
       "button": "AI suhbatni boshlash"
     }
-  },
-  "Common": {
-    "backToTop": "Tepaga qaytish"
   },
   "Auth": {
     "eyebrow": "Milcow Business",

@@ -35,15 +35,9 @@
     "myContracts": "내 계약"
   },
   "Footer": {
-    "tagline": "국내 협력 목장의 신선한 원유와 유제품을 톤 단위로. 대량 구매부터 정기 공급 계약, 창고 픽업까지 한 곳에서.",
+    "tagline": "국내 협력 목장의 원유·유제품을 톤 단위로.",
     "b2bOnly": "기업 고객 전용",
     "menu": "메뉴",
-    "services": "B2B 서비스",
-    "bulkOrder": "톤 단위 대량 구매",
-    "supplyContract": "정기 공급 계약",
-    "pickup": "창고 직접 픽업",
-    "aiAssistant": "AI 상담 · 계약 도우미",
-    "contact": "연락처",
     "address": "경상북도 경산시 압량읍",
     "hours": "평일 09:00–18:00",
     "rights": "All rights reserved.",
@@ -51,9 +45,6 @@
     "emailUs": "이메일",
     "office": "본사 위치",
     "workHours": "운영 시간",
-    "ctaTitle": "대량 구매 상담",
-    "ctaText": "필요한 제품과 수량을 알려 주시면 담당자가 견적과 공급 일정을 안내해 드립니다.",
-    "ctaButton": "상담 신청",
     "portfolio": "Milcow B2B — 포트폴리오 프로젝트"
   },
   "Hero": {
@@ -134,17 +125,6 @@
     "button": "공급 계약 시작하기",
     "photoAlt": "목장에서 우유 한 잔을 든 소녀"
   },
-  "AiSection": {
-    "eyebrow": "AI 어시스턴트",
-    "title": "궁금한 건 AI에게 바로 물어보세요",
-    "text": "Milcow AI는 실제 제품 가격·재고와 이용 규정을 바탕으로 답합니다. 정보가 없는 질문에는 지어내지 않고 담당자 문의를 안내합니다.",
-    "feature1Title": "실시간 데이터 기반 답변 (RAG)",
-    "feature1Text": "제품·창고·계약 규정을 검색한 뒤 그 내용으로만 답합니다.",
-    "feature2Title": "AI 계약 도우미",
-    "feature2Text": "\"매달 20톤, 이천 창고 픽업\"처럼 쓰면 계약서 초안과 견적이 완성됩니다.",
-    "feature3Title": "한국어 · English · O'zbek",
-    "feature3Text": "질문한 언어로 바로 답합니다."
-  },
   "Chat": {
     "title": "Milcow AI",
     "status": "온라인 · 보통 몇 초 안에 답변",
@@ -158,7 +138,9 @@
     "errorBusy": "지금은 AI가 답변할 수 없습니다. 잠시 후 다시 시도해 주세요.",
     "errorRateLimit": "질문이 너무 많습니다. 1분 후에 다시 시도해 주세요.",
     "open": "AI 상담 열기",
-    "close": "닫기"
+    "close": "닫기",
+    "hint": "AI 상담",
+    "hintMore": "무엇이든 물어보세요"
   },
   "MapSection": {
     "eyebrow": "목장 · 창고",
@@ -223,9 +205,6 @@
       "text": "제품, 가격, 계약 조건을 가입 없이 AI 상담으로 바로 확인하세요.",
       "button": "AI 상담 시작"
     }
-  },
-  "Common": {
-    "backToTop": "맨 위로"
   },
   "Auth": {
     "eyebrow": "Milcow Business",
