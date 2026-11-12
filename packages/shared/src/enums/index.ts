@@ -8,3 +8,4 @@ export * from './pickup.enum';
 export * from './payment.enum';
 export * from './inquiry.enum';
 export * from './ai.enum';
+export * from './lot.enum';

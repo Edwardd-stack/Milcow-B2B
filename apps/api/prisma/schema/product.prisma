@@ -36,6 +36,7 @@ model Product {
   productMinOrderTon Decimal       @map("product_min_order_ton") @db.Decimal(10, 2)
   productStatus      ProductStatus @default(ACTIVE) @map("product_status")
   productImages      String[]      @default([]) @map("product_images")
+  productSku         String?       @unique @map("product_sku") // MC-RAW-0001 (set by the server)
 
   // Origin farm (optional)
   farmId String? @map("farm_id") @db.Uuid
@@ -43,6 +44,7 @@ model Product {
 
   inventories Inventory[]
   orderItems  OrderItem[]
+  lots        Lot[]
   contracts   Contract[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)

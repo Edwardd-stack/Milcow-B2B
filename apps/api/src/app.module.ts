@@ -11,6 +11,7 @@ import { DemoModule } from './modules/demo/demo.module';
 import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { InquiryModule } from './modules/inquiry/inquiry.module';
+import { LotModule } from './modules/lot/lot.module';
 import { MemberModule } from './modules/member/member.module';
 import { OrderModule } from './modules/order/order.module';
 import { PaymentModule } from './modules/payment/payment.module';
@@ -48,6 +49,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     FarmModule,
     HealthModule,
     InquiryModule,
+    LotModule,
     MemberModule,
     OrderModule,
     PaymentModule,

@@ -25,6 +25,7 @@ model Order {
   orderScheduledDate DateTime?    @map("order_scheduled_date") @db.Date
   orderServiceFee    Decimal      @default(0) @map("order_service_fee") @db.Decimal(15, 0) // KRW, contract add-on services
   orderTotal         Decimal      @map("order_total") @db.Decimal(15, 0) // KRW, products + service fee
+  orderHoldUntil     DateTime?    @map("order_hold_until") @db.Timestamptz(3) // surplus reservation: unpaid after this → cancelled
 
   memberId    String    @map("member_id") @db.Uuid
   member      Member    @relation(fields: [memberId], references: [id], onDelete: Restrict)
@@ -37,6 +38,7 @@ model Order {
 
   items    OrderItem[]
   pickup   Pickup?
+  events   OrderEvent[]
   payments Payment[]
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
@@ -58,7 +60,41 @@ model OrderItem {
   productId String  @map("product_id") @db.Uuid
   product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
 
+  // Which milk lot this line comes from (surplus purchases, passport link). Optional.
+  lotId String? @map("lot_id") @db.Uuid
+  lot   Lot?    @relation(fields: [lotId], references: [id], onDelete: SetNull)
+
   @@unique([orderId, productId]) // one line per product in an order
+  @@index([lotId])
   @@index([productId])
   @@map("order_items")
+}
+
+enum OrderEventType {
+  CREATED
+  STATUS_CHANGED
+  CANCELLED
+  REFUNDED
+  PICKUP_STEP
+
+  @@map("order_event_type")
+}
+
+// Order history: who changed what and when (shown as a timeline in the admin console)
+model OrderEvent {
+  id        String         @id @default(uuid(7)) @db.Uuid
+  eventType OrderEventType @map("event_type")
+  eventFrom String?        @map("event_from") // previous status
+  eventTo   String?        @map("event_to") // new status
+  eventNote String?        @map("event_note") // e.g. cancel reason
+
+  orderId  String  @map("order_id") @db.Uuid
+  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  memberId String? @map("member_id") @db.Uuid // null = system (cron, payment webhook)
+  member   Member? @relation(fields: [memberId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([orderId, createdAt])
+  @@map("order_events")
 }

@@ -230,6 +230,18 @@ async function createOrder(tx: Tx, memberId: string, spec: OrderSpec) {
     lines.reduce((sum, l) => sum + Math.round(l.ton * l.product.productPricePerTon), 0) + fee;
   const createdAt = at(spec.created, 10);
 
+  // Fresh products: link each line to a milk lot milked before the order (원유 품질 여권)
+  const lotIds = await Promise.all(
+    lines.map(async (l) => {
+      const lot = await tx.lot.findFirst({
+        where: { productId: l.product.id, lotMilkedAt: { lte: createdAt } },
+        orderBy: { lotMilkedAt: 'desc' },
+        select: { id: true },
+      });
+      return lot?.id ?? null;
+    }),
+  );
+
   const order = await tx.order.create({
     data: {
       memberId,
@@ -243,13 +255,27 @@ async function createOrder(tx: Tx, memberId: string, spec: OrderSpec) {
       orderTotal: total,
       createdAt,
       items: {
-        create: lines.map((l) => ({
+        create: lines.map((l, i) => ({
           productId: l.product.id,
           itemTon: l.ton,
           itemPricePerTon: l.product.productPricePerTon,
+          lotId: lotIds[i],
         })),
       },
     },
+  });
+
+  // Order history: created → … → current status, a few hours apart
+  const path = statusPath(spec.status, spec.type);
+  await tx.orderEvent.createMany({
+    data: path.map((to, i) => ({
+      orderId: order.id,
+      eventType: i === 0 ? 'CREATED' : to === 'CANCELLED' ? 'CANCELLED' : 'STATUS_CHANGED',
+      eventFrom: i === 0 ? null : path[i - 1],
+      eventTo: to,
+      eventNote: to === 'CANCELLED' ? '고객 요청으로 취소' : null,
+      createdAt: new Date(createdAt.getTime() + i * 3 * 60 * 60_000 + (i > 0 ? 3 * 60_000 : 0)),
+    })),
   });
 
   if (spec.status !== 'PENDING' && !spec.unpaid) {
@@ -290,6 +316,19 @@ async function createOrder(tx: Tx, memberId: string, spec: OrderSpec) {
       },
     });
   }
+}
+
+/** The statuses an order went through to reach `status` */
+function statusPath(status: OrderStatus, type: DeliveryType): OrderStatus[] {
+  if (status === 'CANCELLED') return ['PENDING', 'CANCELLED'];
+  const full: OrderStatus[] = [
+    'PENDING',
+    'PAID',
+    'PREPARING',
+    type === 'PICKUP' ? 'READY_FOR_PICKUP' : 'SHIPPING',
+    'COMPLETED',
+  ];
+  return full.slice(0, full.indexOf(status) + 1);
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
