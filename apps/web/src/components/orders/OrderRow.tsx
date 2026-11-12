@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Locale, OrderInfo } from '@milcow/shared';
+import { useNow } from '@/hooks/useNow';
 import { useCancelOrder, usePayOrder } from '@/hooks/useOrders';
 import { Link } from '@/i18n/navigation';
 import { truckForOrder } from '@/lib/fleet/fleet-sim';
@@ -132,6 +133,14 @@ export function OrderRow({
                     <tr key={item.id} className="border-t border-line">
                       <td className="py-2.5 font-semibold text-heading">
                         {item.productName[locale]}
+                        {item.lotCode && (
+                          <Link
+                            href={`/passport/${item.lotCode}`}
+                            className="mt-0.5 block font-mono text-[11px] font-medium text-brand hover:underline"
+                          >
+                            🧪 {t('lot', { code: item.lotCode })}
+                          </Link>
+                        )}
                       </td>
                       <td className="py-2.5 text-right">
                         {formatTon(item.itemTon)} {tp('ton')}
@@ -217,6 +226,8 @@ export function OrderRow({
             </Link>
           )}
 
+          {isPending && order.orderHoldUntil && <HoldCountdown until={order.orderHoldUntil} />}
+
           {isPending && (
             <div className="mt-5 flex flex-wrap justify-end gap-2">
               <button
@@ -263,5 +274,21 @@ function Icon({ d }: { d: string }) {
     >
       <path d={d} />
     </svg>
+  );
+}
+
+/** Surplus reservation: "결제 기한 12:34" — the price is only held until then */
+function HoldCountdown({ until }: { until: string }) {
+  const t = useTranslations('Orders');
+  const now = useNow();
+  if (now === null) return null;
+  const left = new Date(until).getTime() - now;
+  if (left <= 0) return null;
+  const s = Math.floor(left / 1000);
+  const time = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  return (
+    <p className="mt-4 rounded-xl bg-[#fff4e0] px-4 py-2.5 text-sm font-semibold text-[#b86e00]">
+      ⏱ {t('holdLeft', { time })}
+    </p>
   );
 }

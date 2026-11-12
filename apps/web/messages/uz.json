@@ -32,7 +32,9 @@
     "account": "Mening hisobim",
     "orders": "Buyurtmalarim",
     "profile": "Profilim",
-    "myContracts": "Shartnomalarim"
+    "myContracts": "Shartnomalarim",
+    "passport": "Sifat pasporti",
+    "surplus": "Ortiqcha sut"
   },
   "Footer": {
     "tagline": "Koreya hamkor fermalarining suti va sut mahsulotlari — tonnalab.",
@@ -615,7 +617,9 @@
       "READY": "Tayyor",
       "PICKED_UP": "Olib ketildi"
     },
-    "track": "Xaritada kuzatish"
+    "track": "Xaritada kuzatish",
+    "lot": "Partiya {code}",
+    "holdLeft": "To'lov muddati {time}"
   },
   "Profile": {
     "title": "Profilim",
@@ -728,5 +732,155 @@
       "text": "Maxfiylik bo'yicha savollar:"
     },
     "updated": "Kuchga kirgan sana: 2026-yil 12-noyabr"
+  },
+  "Scanner": {
+    "hint": "QR kodni kvadrat ichiga to'g'rilang",
+    "close": "Yopish",
+    "unsupported": "Bu brauzer kamera orqali QR skanerlay olmaydi. Partiya raqamini qo'lda kiriting.",
+    "denied": "Kameradan foydalanib bo'lmadi. Ruxsatni tekshiring yoki raqamni kiriting."
+  },
+  "Passport": {
+    "title": "Sut sifat pasporti",
+    "description": "Bitta partiya raqami bilan ferma, laboratoriya natijalari, sovuq zanjir harorati va karbon izini ko'ring.",
+    "eyebrow": "원유 품질 여권",
+    "heading": "Bu sut qayerdan, qachon va qanday kelgan",
+    "lead": "Partiya raqami yoki QR orqali sog'ishdan omborgacha bo'lgan butun yozuvni ko'ring — gigiyena darajalari, harorat, marshrut va karbon izi.",
+    "inputLabel": "Partiya raqami",
+    "search": "Qidirish",
+    "scan": "QR skanerlash",
+    "invalidCode": "Bu partiya raqami emas (masalan: ML-20261113-ICN-01).",
+    "examples": "Yaqinda kelgan partiyalar",
+    "notFound": "Partiya topilmadi",
+    "error": "Pasportni yuklab bo'lmadi",
+    "back": "Qayta qidirish",
+    "collectTruck": "Sut yig'uvchi sisterna",
+    "useByNote": "shu vaqtgacha qayta ishlanishi kerak",
+    "antibioticBadge": "Antibiotik manfiy",
+    "freshLabel": "Ferma → ombor",
+    "hours": "{hours} soat",
+    "weeks": "taxminan {weeks} hafta",
+    "timeline": "Yo'l tarixi",
+    "step": {
+      "milked": "Sog'ildi",
+      "collected": "Yig'ib olindi",
+      "arrived": "Omborga keldi",
+      "useBy": "Qayta ishlash muddati"
+    },
+    "status": {
+      "IN_STOCK": "Mavjud",
+      "SOLD_OUT": "Sotib bo'lingan",
+      "EXPIRED": "Muddati o'tgan"
+    },
+    "compareTitle": "Yangilik solishtirmasi",
+    "compareThis": "Bu partiya (sog'ish → ombor)",
+    "compareImport": "Import sterillangan sut (dengiz yo'li, bojxona, tarqatish)",
+    "compareNote": "Import muddati — odatiy dengiz tashuvi bo'yicha taxmin.",
+    "temp": {
+      "title": "Sovuq zanjir harorati",
+      "lead": "Sog'ilgandagi tana haroratidan (~35 °C) 2 soat ichida 4 °C gacha sovutiladi, keyin 5 °C dan past saqlanadi.",
+      "limit": "5 °C chegara",
+      "empty": "Hozircha harorat yozuvi yo'q.",
+      "aria": "Harorat grafigi, sovutilgandan keyingi eng yuqori {max} °C",
+      "maxAfter": "Sovutilgandan keyin eng yuqori {max} °C ✓",
+      "stage": {
+        "MILKING": "Sog'ish",
+        "FARM_TANK": "Ferma sovutgich baki",
+        "TRANSPORT": "Sisterna",
+        "WAREHOUSE": "Ombor"
+      }
+    },
+    "lab": {
+      "title": "Laboratoriya natijalari",
+      "bacteria": "Bakteriyalar soni",
+      "somatic": "Somatik hujayralar",
+      "fat": "Sut yog'i",
+      "protein": "Sut oqsili",
+      "antibiotic": "Antibiotiklar",
+      "NEGATIVE": "Manfiy",
+      "POSITIVE": "Musbat",
+      "bacteriaNote": "Sog'ish va sovutish gigiyenasi. 1A = 1 mL da 30 000 dan kam",
+      "somaticNote": "Sigirlarning sog'lig'i. 1-daraja = 1 mL da 200 000 dan kam",
+      "fatNote": "Ta'm va qayta ishlash unumiga ta'sir qiladi",
+      "proteinNote": "Pishloq va yogurt unumini belgilaydi",
+      "antibioticNote": "Qoldiq manfiy bo'lsagina jo'natiladi"
+    },
+    "co2": {
+      "title": "Karbon izi (taxminiy)",
+      "perLiter": "1 litrga {g} g CO₂e",
+      "total": "Butun partiya {kg} kg CO₂e",
+      "farm": "Ferma {kg} kg",
+      "transport": "Tashish {kg} kg",
+      "method": "Qanday hisoblangan",
+      "methodText": "Taxminiy koeffitsientlar bilan demo hisob: fermada 1 kg sutga 1.1 kg CO₂e, sovutgichli tashishda tonna·km ga 0.12 kg CO₂e. Sertifikatlangan qiymat emas."
+    },
+    "share": "Pasportni ulashish",
+    "shareText": "QR skanerlansa, shu sahifa ochiladi.",
+    "copy": "Havolani nusxalash",
+    "print": "Chop etish",
+    "demoNote": "Laboratoriya, harorat va karbon qiymatlari portfolio uchun demo ma'lumot. Daraja chegaralari Koreyaning haqiqiy xom sut standartlariga asoslangan.",
+    "grade": {
+      "bacteria": "Bakteriya {grade}",
+      "somatic": "Somatik {grade}-daraja",
+      "b": {
+        "GRADE_1A": "1A",
+        "GRADE_1B": "1B",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4"
+      },
+      "s": {
+        "GRADE_1": "1",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4",
+        "GRADE_5": "5"
+      }
+    }
+  },
+  "Surplus": {
+    "title": "Ortiqcha sut birjasi",
+    "description": "Ortiqcha xom sut — yangiligiga qarab chegirmali narxda. Qayta ishlovchilar uchun jonli bozor.",
+    "eyebrow": "잉여 원유 매칭",
+    "heading": "Ortiqcha sut to'kilmaydi — kerakli joyga boradi",
+    "lead": "Oq sut iste'moli kamayib, ichimlik sut uchun xom sut ortib qolyapti, pishloq va yogurt ishlab chiqaruvchilarga esa yetishmayapti. Bu yerda qayta ishlovchilar narxi vaqt o'tgan sari tushadigan ortiqcha partiyalarni darhol band qiladi.",
+    "rule1": "Sog'ilgandan keyin har {hours} soatda −{pct} foiz punkt",
+    "rule2": "Ko'pi bilan −{max}%",
+    "rule3": "Band qilingach narx 30 daqiqa qotiriladi",
+    "rule4": "Har bir partiyaning sifat pasporti bor",
+    "all": "Hammasi",
+    "sort": {
+      "expiring": "Muddati yaqin",
+      "price": "Eng arzon"
+    },
+    "error": "Ro'yxatni yuklab bo'lmadi.",
+    "empty": "Hozircha ortiqcha sut yo'q",
+    "emptyText": "Yangi partiyalar har kuni ertalab keladi.",
+    "hoursLeft": "Qayta ishlashgacha {hours} soat",
+    "nextDrop": "Keyingi pasayishgacha",
+    "remaining": "{ton} t qoldi",
+    "of": "jami {ton} t",
+    "passport": "Pasport",
+    "reserve": "Band qilish",
+    "demoNote": "Narx va hajmlar demo ma'lumot; to'lov Toss Payments test rejimida.",
+    "dialog": {
+      "title": "Ortiqcha sutni band qilish",
+      "ton": "Miqdor (t, {min}–{max})",
+      "price": "Joriy narx",
+      "total": "Jami",
+      "holdNote": "Bu narx {minutes} daqiqa saqlanadi. To'lanmagan band avtomatik bekor bo'ladi.",
+      "cancel": "Bekor qilish",
+      "confirm": "Band qilish",
+      "loginFirst": "Band qilish uchun kiring",
+      "reserving": "Band qilinmoqda…",
+      "reserved": "Band qilindi",
+      "reservedText": "Buyurtmani tasdiqlash uchun {minutes} daqiqa ichida to'lang. Olib ketish — partiya turgan ombordan.",
+      "toOrders": "Buyurtmalarim",
+      "payNow": "Hozir to'lash",
+      "paying": "To'lov oynasi ochilmoqda…",
+      "conflict": "Yetarli qolmagan yoki partiya yopilgan.",
+      "buyerOnly": "Faqat xaridor (kompaniya) akkauntlari band qila oladi.",
+      "error": "Band qilib bo'lmadi. Qayta urinib ko'ring.",
+      "payError": "To'lovni boshlab bo'lmadi."
+    }
   }
 }

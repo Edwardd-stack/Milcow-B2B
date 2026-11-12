@@ -32,7 +32,9 @@
     "account": "내 계정",
     "orders": "내 주문",
     "profile": "내 정보",
-    "myContracts": "내 계약"
+    "myContracts": "내 계약",
+    "passport": "품질 여권",
+    "surplus": "잉여 원유"
   },
   "Footer": {
     "tagline": "국내 협력 목장의 원유·유제품을 톤 단위로.",
@@ -615,7 +617,9 @@
       "READY": "준비 완료",
       "PICKED_UP": "픽업 완료"
     },
-    "track": "실시간 위치 보기"
+    "track": "실시간 위치 보기",
+    "lot": "로트 {code}",
+    "holdLeft": "결제 기한 {time}"
   },
   "Profile": {
     "title": "내 정보",
@@ -728,5 +732,155 @@
       "text": "개인정보 관련 문의:"
     },
     "updated": "시행일: 2026년 11월 12일"
+  },
+  "Scanner": {
+    "hint": "QR 코드를 네모 안에 맞춰 주세요",
+    "close": "닫기",
+    "unsupported": "이 브라우저는 카메라 QR 스캔을 지원하지 않습니다. 로트 번호를 직접 입력해 주세요.",
+    "denied": "카메라를 사용할 수 없습니다. 권한을 확인하거나 번호를 직접 입력해 주세요."
+  },
+  "Passport": {
+    "title": "원유 품질 여권",
+    "description": "로트 번호 하나로 목장, 검사 결과, 콜드체인 온도, 탄소 배출까지 확인하세요.",
+    "eyebrow": "Milk Passport",
+    "heading": "이 원유가 어디서, 언제, 어떻게 왔는지",
+    "lead": "로트 번호나 QR 코드로 착유부터 창고 입고까지의 모든 기록 — 위생 등급, 온도, 이동 경로, 탄소 배출 — 을 투명하게 공개합니다.",
+    "inputLabel": "로트 번호",
+    "search": "조회",
+    "scan": "QR 스캔",
+    "invalidCode": "로트 번호 형식이 올바르지 않습니다 (예: ML-20261113-ICN-01).",
+    "examples": "최근 입고된 로트",
+    "notFound": "해당 로트를 찾을 수 없습니다",
+    "error": "정보를 불러오지 못했습니다",
+    "back": "다시 검색",
+    "collectTruck": "집유 탱크로리",
+    "useByNote": "이 시각 전까지 가공",
+    "antibioticBadge": "항생제 음성",
+    "freshLabel": "목장 → 창고",
+    "hours": "{hours}시간",
+    "weeks": "약 {weeks}주",
+    "timeline": "이동 기록",
+    "step": {
+      "milked": "착유",
+      "collected": "집유",
+      "arrived": "창고 입고",
+      "useBy": "가공 기한"
+    },
+    "status": {
+      "IN_STOCK": "재고 있음",
+      "SOLD_OUT": "판매 완료",
+      "EXPIRED": "기한 만료"
+    },
+    "compareTitle": "신선도 비교",
+    "compareThis": "이 로트 (착유 → 창고)",
+    "compareImport": "수입 멸균우유 (해상 운송·통관·유통)",
+    "compareNote": "수입 우유 기간은 일반적인 해상 운송 기준 추정치입니다.",
+    "temp": {
+      "title": "콜드체인 온도 기록",
+      "lead": "착유 직후 체온(약 35℃)에서 2시간 안에 4℃ 이하로 냉각되어, 이후 5℃ 이하로 관리됩니다.",
+      "limit": "5℃ 기준",
+      "empty": "아직 온도 기록이 없습니다.",
+      "aria": "온도 그래프, 냉각 후 최고 {max}℃",
+      "maxAfter": "냉각 후 최고 {max}℃ ✓",
+      "stage": {
+        "MILKING": "착유",
+        "FARM_TANK": "목장 냉각 탱크",
+        "TRANSPORT": "집유차",
+        "WAREHOUSE": "창고"
+      }
+    },
+    "lab": {
+      "title": "원유 검사 결과",
+      "bacteria": "세균수",
+      "somatic": "체세포수",
+      "fat": "유지방",
+      "protein": "유단백",
+      "antibiotic": "항생물질",
+      "NEGATIVE": "음성",
+      "POSITIVE": "양성",
+      "bacteriaNote": "착유·냉각 위생 상태. 1A = 1mL당 3만 미만",
+      "somaticNote": "젖소의 건강 상태. 1등급 = 1mL당 20만 미만",
+      "fatNote": "맛과 가공 수율을 좌우합니다",
+      "proteinNote": "치즈·요거트 수율과 직결됩니다",
+      "antibioticNote": "잔류 항생물질 — 음성이어야 출하"
+    },
+    "co2": {
+      "title": "탄소 발자국 (추정)",
+      "perLiter": "1L당 {g}g CO₂e",
+      "total": "로트 전체 {kg}kg CO₂e",
+      "farm": "목장 {kg}kg",
+      "transport": "운송 {kg}kg",
+      "method": "산정 방식",
+      "methodText": "목장 단계는 원유 1kg당 1.1kg CO₂e, 운송은 냉장 차량 톤·km당 0.12kg CO₂e의 가정 계수로 계산한 데모용 추정치입니다. 공인 인증 값이 아닙니다."
+    },
+    "share": "여권 공유",
+    "shareText": "QR을 스캔하면 이 페이지가 열립니다.",
+    "copy": "링크 복사",
+    "print": "인쇄",
+    "demoNote": "검사 수치·온도·탄소 값은 포트폴리오용 데모 데이터입니다. 등급 기준은 실제 원유 위생등급을 따릅니다.",
+    "grade": {
+      "bacteria": "세균 {grade}",
+      "somatic": "체세포 {grade}등급",
+      "b": {
+        "GRADE_1A": "1A",
+        "GRADE_1B": "1B",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4"
+      },
+      "s": {
+        "GRADE_1": "1",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4",
+        "GRADE_5": "5"
+      }
+    }
+  },
+  "Surplus": {
+    "title": "잉여 원유 매칭",
+    "description": "남는 원유를 신선도에 따라 할인된 가격으로. 가공 기업을 위한 실시간 잉여 원유 거래.",
+    "eyebrow": "Surplus Exchange",
+    "heading": "남는 원유는 버리지 않고, 필요한 곳으로",
+    "lead": "흰 우유 소비가 줄면서 음용유용 원유는 남고, 치즈·요거트용 원유는 부족합니다. 착유 후 시간이 지날수록 가격이 내려가는 잉여 원유를 가공 기업이 바로 예약할 수 있습니다.",
+    "rule1": "착유 후 {hours}시간마다 {pct}%p 인하",
+    "rule2": "최대 {max}%까지만 인하",
+    "rule3": "예약 후 30분간 가격 고정",
+    "rule4": "모든 로트에 품질 여권 제공",
+    "all": "전체",
+    "sort": {
+      "expiring": "마감 임박순",
+      "price": "낮은 가격순"
+    },
+    "error": "목록을 불러오지 못했습니다.",
+    "empty": "지금은 잉여 원유가 없습니다",
+    "emptyText": "새 로트는 매일 아침 입고됩니다.",
+    "hoursLeft": "가공 기한까지 {hours}시간",
+    "nextDrop": "다음 인하까지",
+    "remaining": "남은 물량 {ton} t",
+    "of": "전체 {ton} t",
+    "passport": "품질 여권",
+    "reserve": "예약하기",
+    "demoNote": "가격·물량은 데모 데이터이며, 결제는 토스페이먼츠 테스트 모드입니다.",
+    "dialog": {
+      "title": "잉여 원유 예약",
+      "ton": "수량 (톤, {min}–{max})",
+      "price": "현재 단가",
+      "total": "합계",
+      "holdNote": "예약 후 {minutes}분 동안 이 가격이 유지됩니다. 기한 내 결제하지 않으면 자동 취소됩니다.",
+      "cancel": "취소",
+      "confirm": "예약하기",
+      "loginFirst": "로그인 후 예약",
+      "reserving": "예약 중…",
+      "reserved": "예약되었습니다",
+      "reservedText": "{minutes}분 안에 결제하면 주문이 확정됩니다. 픽업 창고는 로트가 보관된 창고입니다.",
+      "toOrders": "내 주문 보기",
+      "payNow": "지금 결제",
+      "paying": "결제창 여는 중…",
+      "conflict": "남은 물량이 부족하거나 이미 마감된 로트입니다.",
+      "buyerOnly": "구매 기업 계정만 예약할 수 있습니다.",
+      "error": "예약하지 못했습니다. 다시 시도해 주세요.",
+      "payError": "결제를 시작하지 못했습니다."
+    }
   }
 }

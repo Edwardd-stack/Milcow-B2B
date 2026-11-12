@@ -32,7 +32,9 @@
     "account": "My account",
     "orders": "My orders",
     "profile": "My profile",
-    "myContracts": "My contracts"
+    "myContracts": "My contracts",
+    "passport": "Milk Passport",
+    "surplus": "Surplus Milk"
   },
   "Footer": {
     "tagline": "Raw milk and dairy from Korean partner farms — by the ton.",
@@ -615,7 +617,9 @@
       "READY": "Ready",
       "PICKED_UP": "Picked up"
     },
-    "track": "Track on the map"
+    "track": "Track on the map",
+    "lot": "Lot {code}",
+    "holdLeft": "Pay within {time}"
   },
   "Profile": {
     "title": "My profile",
@@ -728,5 +732,155 @@
       "text": "Privacy questions:"
     },
     "updated": "Effective date: November 12, 2026"
+  },
+  "Scanner": {
+    "hint": "Fit the QR code inside the square",
+    "close": "Close",
+    "unsupported": "This browser cannot scan QR codes with the camera. Please type the lot number.",
+    "denied": "The camera is not available. Check the permission or type the number."
+  },
+  "Passport": {
+    "title": "Milk Passport",
+    "description": "One lot number shows the farm, lab results, cold-chain temperature and carbon footprint.",
+    "eyebrow": "원유 품질 여권",
+    "heading": "Where, when and how this milk came to you",
+    "lead": "Enter a lot number or scan its QR to see the full record from milking to the warehouse — hygiene grades, temperatures, route and carbon footprint.",
+    "inputLabel": "Lot number",
+    "search": "Look up",
+    "scan": "Scan QR",
+    "invalidCode": "That is not a lot number (e.g. ML-20261113-ICN-01).",
+    "examples": "Recently arrived lots",
+    "notFound": "Lot not found",
+    "error": "Could not load the passport",
+    "back": "Search again",
+    "collectTruck": "Collection tanker",
+    "useByNote": "must be processed before this",
+    "antibioticBadge": "Antibiotics negative",
+    "freshLabel": "Farm → warehouse",
+    "hours": "{hours} h",
+    "weeks": "about {weeks} weeks",
+    "timeline": "Journey",
+    "step": {
+      "milked": "Milked",
+      "collected": "Collected",
+      "arrived": "At the warehouse",
+      "useBy": "Process by"
+    },
+    "status": {
+      "IN_STOCK": "In stock",
+      "SOLD_OUT": "Sold out",
+      "EXPIRED": "Expired"
+    },
+    "compareTitle": "Freshness compared",
+    "compareThis": "This lot (milking → warehouse)",
+    "compareImport": "Imported UHT milk (sea freight, customs, distribution)",
+    "compareNote": "The import time is a typical sea-freight estimate.",
+    "temp": {
+      "title": "Cold-chain temperature",
+      "lead": "From body temperature (~35 °C) right after milking, cooled to 4 °C or below within 2 hours, then kept at 5 °C or below.",
+      "limit": "5 °C limit",
+      "empty": "No temperature records yet.",
+      "aria": "Temperature chart, highest after cooling {max} °C",
+      "maxAfter": "Highest after cooling {max} °C ✓",
+      "stage": {
+        "MILKING": "Milking",
+        "FARM_TANK": "Farm cooling tank",
+        "TRANSPORT": "Tanker",
+        "WAREHOUSE": "Warehouse"
+      }
+    },
+    "lab": {
+      "title": "Lab results",
+      "bacteria": "Bacteria count",
+      "somatic": "Somatic cell count",
+      "fat": "Milk fat",
+      "protein": "Milk protein",
+      "antibiotic": "Antibiotics",
+      "NEGATIVE": "Negative",
+      "POSITIVE": "Positive",
+      "bacteriaNote": "Hygiene of milking and cooling. 1A = under 30,000 per mL",
+      "somaticNote": "How healthy the cows are. Grade 1 = under 200,000 per mL",
+      "fatNote": "Drives taste and processing yield",
+      "proteinNote": "Directly sets cheese and yogurt yield",
+      "antibioticNote": "Residues must be negative to ship"
+    },
+    "co2": {
+      "title": "Carbon footprint (estimate)",
+      "perLiter": "{g} g CO₂e per liter",
+      "total": "{kg} kg CO₂e for the whole lot",
+      "farm": "Farm {kg} kg",
+      "transport": "Transport {kg} kg",
+      "method": "How it is calculated",
+      "methodText": "Demo estimate with assumed factors: 1.1 kg CO₂e per kg of milk at the farm and 0.12 kg CO₂e per tonne-km of refrigerated transport. Not a certified value."
+    },
+    "share": "Share this passport",
+    "shareText": "Scanning the QR opens this page.",
+    "copy": "Copy link",
+    "print": "Print",
+    "demoNote": "Lab values, temperatures and carbon numbers are demo data for a portfolio. Grade limits follow the real Korean raw milk standards.",
+    "grade": {
+      "bacteria": "Bacteria {grade}",
+      "somatic": "Somatic grade {grade}",
+      "b": {
+        "GRADE_1A": "1A",
+        "GRADE_1B": "1B",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4"
+      },
+      "s": {
+        "GRADE_1": "1",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4",
+        "GRADE_5": "5"
+      }
+    }
+  },
+  "Surplus": {
+    "title": "Surplus Milk Exchange",
+    "description": "Surplus raw milk at freshness-based discounts — a live surplus market for dairy processors.",
+    "eyebrow": "잉여 원유 매칭",
+    "heading": "Surplus milk goes where it is needed — not down the drain",
+    "lead": "As white-milk demand falls, milk meant for drinking is left over while cheese and yogurt makers are short. Here processors can reserve surplus lots whose price drops the longer they wait.",
+    "rule1": "−{pct} pts every {hours} hours after milking",
+    "rule2": "Never more than −{max}%",
+    "rule3": "Price held for 30 minutes after reserving",
+    "rule4": "Every lot has a Milk Passport",
+    "all": "All",
+    "sort": {
+      "expiring": "Expiring soon",
+      "price": "Lowest price"
+    },
+    "error": "Could not load the list.",
+    "empty": "No surplus milk right now",
+    "emptyText": "New lots arrive every morning.",
+    "hoursLeft": "{hours} h left to process",
+    "nextDrop": "Next drop in",
+    "remaining": "{ton} t left",
+    "of": "of {ton} t",
+    "passport": "Passport",
+    "reserve": "Reserve",
+    "demoNote": "Prices and volumes are demo data; payment runs in Toss Payments test mode.",
+    "dialog": {
+      "title": "Reserve surplus milk",
+      "ton": "Quantity (t, {min}–{max})",
+      "price": "Current price",
+      "total": "Total",
+      "holdNote": "This price is held for {minutes} minutes. Unpaid reservations are cancelled automatically.",
+      "cancel": "Cancel",
+      "confirm": "Reserve",
+      "loginFirst": "Log in to reserve",
+      "reserving": "Reserving…",
+      "reserved": "Reserved",
+      "reservedText": "Pay within {minutes} minutes to confirm the order. Pickup is at the warehouse where the lot is stored.",
+      "toOrders": "My orders",
+      "payNow": "Pay now",
+      "paying": "Opening payment…",
+      "conflict": "Not enough left, or this lot has just closed.",
+      "buyerOnly": "Only buyer (company) accounts can reserve.",
+      "error": "Could not reserve. Please try again.",
+      "payError": "The payment could not be started."
+    }
   }
 }

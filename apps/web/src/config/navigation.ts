@@ -2,13 +2,14 @@
  * Main menu — one list used by the desktop header, the mobile menu and the footer.
  * `key` is the translation key in messages/*.json → "Nav".
  * `membersOnly`: shown only after login (header), never in the footer.
+ * Contracts and My orders live in the account menu (they need a login anyway).
  */
 export const MAIN_NAV = [
   { key: 'home', href: '/' },
   { key: 'products', href: '/products' },
   { key: 'map', href: '/map' },
-  { key: 'contracts', href: '/contracts' },
-  { key: 'orders', href: '/orders', membersOnly: true },
+  { key: 'passport', href: '/passport' },
+  { key: 'surplus', href: '/surplus' },
   { key: 'contact', href: '/contact' },
 ] as const satisfies readonly { key: string; href: string; membersOnly?: boolean }[];
 
