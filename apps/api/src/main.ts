@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
@@ -8,8 +9,13 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { SocketIoAdapter } from './libs/adapters/socket-io.adapter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get(ConfigService);
+
+  // Production: browser → Vercel (Next proxy) → Render → API. Without this, req.ip is the proxy's IP,
+  // so every visitor would share ONE rate limit. Vercel overwrites X-Forwarded-For with the real
+  // client IP, and 'trust proxy' makes Express read req.ip from that header.
+  if (config.get<string>('NODE_ENV') === 'production') app.set('trust proxy', true);
 
   // Every route starts with /api/v1  →  GET /api/v1/health
   app.setGlobalPrefix('api/v1');
