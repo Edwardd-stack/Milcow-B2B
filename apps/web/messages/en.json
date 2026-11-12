@@ -669,6 +669,46 @@
         "q": "What can the AI assistant do?",
         "a": "The chat answers questions using Milcow's own guides (prices, rules, delivery). The contract assistant turns a sentence like \"5 t of raw milk every month for 6 months\" into a contract draft. Anything it cannot answer, our staff will answer here."
       }
-    }
+    },
+    "privacyHint": "How we protect your data"
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "footerLink": "Privacy Policy",
+    "notice": "Milcow is a demo service built as a portfolio project. No real trades or payments take place (Toss Payments runs in test mode). Please do not enter real personal data.",
+    "intro": "Milcow (\"the service\") respects your privacy and collects only the minimum information needed to provide the service.",
+    "collect": {
+      "title": "Information we collect",
+      "text": "At sign-up: email, password (stored hashed), contact name, company name, business registration number, phone number\nWhile using the service: orders, contracts and pickups, payment records (card numbers are never stored), contact-form messages, AI chat questions"
+    },
+    "social": {
+      "title": "Social login (Kakao · Google)",
+      "text": "When you log in with Kakao or Google we receive only your email address, name (nickname) and account ID from that provider. We do not request anything else (contacts, friends, etc.)."
+    },
+    "use": {
+      "title": "How we use it",
+      "text": "Only for login and account management, processing orders, contracts and pickups, confirming payments, answering inquiries, and improving AI answers (question/answer logs). Never for advertising or marketing."
+    },
+    "thirdParty": {
+      "title": "Third-party services",
+      "text": "Payments: Toss Payments (test mode)\nAI chat: Google Gemini API (your question is sent to generate the answer)\nMaps: Kakao Map\nHosting: Vercel (web), Render (API), Neon (database)\nWe do not sell personal data or share it for any other purpose."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "text": "We use a single httpOnly cookie (the login token) to keep you signed in. No analytics or advertising cookies. Your language choice may be stored in the browser."
+    },
+    "retention": {
+      "title": "Retention",
+      "text": "Your data is deleted without delay when you delete your account or ask us to. Demo account data is reset every day."
+    },
+    "rights": {
+      "title": "Your rights",
+      "text": "You can ask to view, correct or delete your data at any time using the contact below."
+    },
+    "contact": {
+      "title": "Contact",
+      "text": "Privacy questions:"
+    },
+    "updated": "Effective date: November 12, 2026"
   }
 }

@@ -11,6 +11,7 @@ import { Logo } from './Logo';
 export function Footer() {
   const t = useTranslations('Footer');
   const nav = useTranslations('Nav');
+  const tp = useTranslations('Privacy');
   const year = 2026; // static: keeps the footer cacheable (Cache Components)
 
   const contacts = [
@@ -103,8 +104,13 @@ export function Footer() {
 
         <div className="flex flex-col gap-2 border-t border-white/20 py-6 text-sm sm:flex-row sm:justify-between">
           <p>{t('portfolio')}</p>
-          <p>
-            © {year} Milcow. {t('rights')}
+          <p className="flex flex-wrap gap-x-4">
+            <Link href="/privacy" className="hover:text-white">
+              {tp('footerLink')}
+            </Link>
+            <span>
+              © {year} Milcow. {t('rights')}
+            </span>
           </p>
         </div>
       </div>
