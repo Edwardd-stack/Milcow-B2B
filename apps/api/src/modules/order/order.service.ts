@@ -183,8 +183,15 @@ export class OrderService {
           });
           await tx.pickup.delete({ where: { id: current.pickup.id } });
         }
-        // Give the reserved stock back to the warehouse
+        // Give the reserved stock back: surplus reservations → to their milk lot, others → warehouse
         for (const item of current.items) {
+          if (current.orderHoldUntil && item.lotId) {
+            await tx.lot.update({
+              where: { id: item.lotId },
+              data: { lotRemainingTon: { increment: item.itemTon }, lotStatus: 'IN_STOCK' },
+            });
+            continue;
+          }
           await tx.inventory.updateMany({
             where: { productId: item.productId, warehouseId: current.warehouseId },
             data: { inventoryTon: { increment: item.itemTon } },

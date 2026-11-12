@@ -18,7 +18,9 @@ const HOUR = 60 * 60 * 1000;
 
 /**
  * Creates the demo milk lots of one Korean day (YYYY-MM-DD): 1–2 lots per farm that produces
- * raw milk or cream, delivered to the nearest warehouse.
+ * raw milk or cream, delivered to the nearest warehouse (sometimes the second nearest).
+ * Only lots that have ARRIVED at the warehouse by `now` are created, so it runs hourly and
+ * each run adds the lots that arrived since the last one.
  * Deterministic (seeded by the date) + lot codes are unique → running it twice adds nothing.
  * Returns how many lots were created.
  */
@@ -42,14 +44,20 @@ export async function generateLotsForDay(db: Db, date: string, now = new Date())
     const own = products.filter((p) => p.farmId === farm.id);
     if (own.length === 0) continue; // this farm makes no fresh products
 
-    const warehouse = nearest(warehouses, farm.farmLat, farm.farmLng);
-    const km =
-      distanceKm(farm.farmLat, farm.farmLng, warehouse.warehouseLat, warehouse.warehouseLng) *
-      ROAD_FACTOR;
+    const byDistance = [...warehouses].sort(
+      (a, b) =>
+        distanceKm(farm.farmLat, farm.farmLng, a.warehouseLat, a.warehouseLng) -
+        distanceKm(farm.farmLat, farm.farmLng, b.warehouseLat, b.warehouseLng),
+    );
     const lotsToday = rnd() < 0.55 ? 2 : 1;
 
     for (let n = 0; n < lotsToday; n++) {
       const product = own[Math.floor(rnd() * own.length)]!;
+      // Mostly the nearest warehouse; about a third goes to the second nearest
+      const warehouse = (rnd() < 0.35 && byDistance[1]) || byDistance[0]!;
+      const km =
+        distanceKm(farm.farmLat, farm.farmLng, warehouse.warehouseLat, warehouse.warehouseLng) *
+        ROAD_FACTOR;
       const code = warehouse.warehouseCode ?? FALLBACK_WAREHOUSE_CODE;
       const seq = (seqByWarehouse.get(code) ?? 0) + 1;
       seqByWarehouse.set(code, seq);
@@ -89,6 +97,10 @@ export async function generateLotsForDay(db: Db, date: string, now = new Date())
       const expired = now >= useBy;
       const isSurplus = product.productType === 'RAW_MILK' && rnd() < SURPLUS_SHARE;
       const co2e = volume * 1000 * CO2E_FARM_KG_PER_KG + volume * km * CO2E_TRANSPORT_KG_PER_TKM;
+
+      // Still on its way → a later (hourly) run adds it. Checked AFTER all random draws,
+      // so the sequence — and every lot code — is the same on every run.
+      if (arrivedAt > now) continue;
 
       rows.push({
         lotCode: `ML-${compact}-${code}-${String(seq).padStart(2, '0')}`,
@@ -158,19 +170,6 @@ function tempLog(
   for (let t = arrived.getTime(); t <= end; t += 4 * HOUR)
     add(t, between(rnd, 2.2, 3.8), 'WAREHOUSE');
   return points;
-}
-
-function nearest<T extends { warehouseLat: number; warehouseLng: number }>(
-  list: T[],
-  lat: number,
-  lng: number,
-): T {
-  return list.reduce((best, w) =>
-    distanceKm(lat, lng, w.warehouseLat, w.warehouseLng) <
-    distanceKm(lat, lng, best.warehouseLat, best.warehouseLng)
-      ? w
-      : best,
-  );
 }
 
 /** Great-circle distance (haversine), km */

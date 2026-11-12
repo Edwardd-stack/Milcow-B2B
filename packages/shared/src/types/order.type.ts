@@ -8,6 +8,7 @@ export interface OrderItemInfo {
   itemTon: number;
   itemPricePerTon: number; // KRW, price at order time
   itemTotal: number; // KRW
+  lotCode: string | null; // milk lot → 원유 품질 여권
 }
 
 /** POST /orders, GET /orders, GET /orders/:id */
@@ -29,5 +30,6 @@ export interface OrderInfo {
     pickupCode: string;
     slotStart: string;
   } | null; // PICKUP orders, after a time slot is booked
+  orderHoldUntil: string | null; // surplus reservation: pay before this
   createdAt: string;
 }

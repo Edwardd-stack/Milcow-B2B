@@ -22,3 +22,12 @@ export const TRUCK_SPEED_KMH = 65;
 
 /** Lot code letters per warehouse when warehouseCode is missing */
 export const FALLBACK_WAREHOUSE_CODE = 'MCW';
+
+/**
+ * For the passport's freshness comparison: imported UHT (멸균) milk from Europe — sea freight,
+ * customs and distribution. A rough, typical estimate (shown as "추정"), not a measured value.
+ */
+export const IMPORT_TRANSIT_DAYS = 42;
+
+/** Surplus reservations: smallest amount and how often unpaid holds are released */
+export const SURPLUS_MIN_TON = 1;
