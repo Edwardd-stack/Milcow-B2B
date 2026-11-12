@@ -114,8 +114,8 @@ export function CheckoutSuccess() {
                 <Link href="/products" className={primary}>
                   {t('success.more')}
                 </Link>
-                <Link href="/" className={ghost}>
-                  {t('success.home')}
+                <Link href="/orders" className={ghost}>
+                  {t('success.orders')}
                 </Link>
               </div>
             </>

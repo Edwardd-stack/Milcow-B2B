@@ -1,4 +1,11 @@
-import type { DeliveryType, OrderInfo, PaymentInfo, PaymentPrepareResponse } from '@milcow/shared';
+import type {
+  DeliveryType,
+  OrderInfo,
+  OrderStatus,
+  Paginated,
+  PaymentInfo,
+  PaymentPrepareResponse,
+} from '@milcow/shared';
 import { apiFetch } from '@/lib/api-client';
 
 export interface CreateOrderInput {
@@ -9,11 +16,27 @@ export interface CreateOrderInput {
   items: { productId: string; itemTon: number }[];
 }
 
+export interface OrderListParams {
+  page?: number;
+  limit?: number;
+  orderStatus?: OrderStatus;
+}
+
 const post = <T>(path: string, body?: unknown) =>
   apiFetch<T>(path, { method: 'POST', body: body ? JSON.stringify(body) : undefined });
 
 /** POST /orders — creates a PENDING order and reserves the stock */
 export const createOrder = (input: CreateOrderInput) => post<OrderInfo>('/orders', input);
+
+/** GET /orders — the buyer's own orders, newest first (empty params are left out of the URL) */
+export const getMyOrders = (params: OrderListParams = {}) => {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== '') query.set(key, String(value));
+  });
+  const qs = query.toString();
+  return apiFetch<Paginated<OrderInfo>>(`/orders${qs ? `?${qs}` : ''}`);
+};
 
 /** PATCH /orders/:id/cancel — gives the reserved stock back */
 export const cancelOrder = (orderId: string) =>
