@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Container } from '@/components/ui/Container';
 import { PageHero } from '@/components/ui/PageHero';
 import { COMPANY_CONTACT } from '@/config/navigation';
+import { Link } from '@/i18n/navigation';
 import { ContactForm } from './ContactForm';
 import { Faq } from './Faq';
 
@@ -13,6 +14,7 @@ const block = 'rounded-3xl bg-white shadow-[0_14px_40px_rgba(17,55,95,0.08)]';
 export function ContactView() {
   const t = useTranslations('Contact');
   const tf = useTranslations('Footer');
+  const tp = useTranslations('Privacy');
 
   const info = [
     {
@@ -90,6 +92,37 @@ export function ContactView() {
                   </div>
                 );
               })}
+
+              {/* How we handle the data sent through this form */}
+              <Link
+                href="/privacy"
+                className={`${block} group flex items-center gap-4 px-5 py-4 transition hover:-translate-y-0.5`}
+              >
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-cream text-brand">
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3ZM9 12l2 2 4-4" />
+                  </svg>
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm text-muted">{t('privacyHint')}</span>
+                  <span className="block truncate font-semibold text-heading">{tp('title')}</span>
+                </span>
+                <span
+                  className="text-brand transition group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </Link>
             </aside>
           </div>
 

@@ -669,6 +669,46 @@
         "q": "AI yordamchi nima qila oladi?",
         "a": "Chat Milcow'ning o'z qo'llanmalari (narxlar, qoidalar, yetkazish) asosida javob beradi. Shartnoma yordamchisi \"6 oy davomida har oy 5 t xom sut\" kabi gapni shartnoma loyihasiga aylantiradi. U javob bera olmagan savollarga shu yerda xodimlarimiz javob beradi."
       }
-    }
+    },
+    "privacyHint": "Ma'lumotlaringiz qanday himoyalanadi"
+  },
+  "Privacy": {
+    "title": "Maxfiylik siyosati",
+    "footerLink": "Maxfiylik siyosati",
+    "notice": "Milcow — portfolio uchun yaratilgan demo xizmat. Haqiqiy savdo va to'lovlar amalga oshirilmaydi (Toss Payments test rejimida). Haqiqiy shaxsiy ma'lumotlarni kiritmaslikni tavsiya qilamiz.",
+    "intro": "Milcow (\"xizmat\") foydalanuvchilarning shaxsiy ma'lumotlarini hurmat qiladi va faqat xizmat uchun zarur bo'lgan minimal ma'lumotni yig'adi.",
+    "collect": {
+      "title": "Qanday ma'lumotlar yig'iladi",
+      "text": "Ro'yxatdan o'tishda: email, parol (shifrlangan holda), mas'ul shaxs ismi, kompaniya nomi, biznes ro'yxat raqami, telefon\nXizmatdan foydalanishda: buyurtmalar, shartnomalar va olib ketish tarixi, to'lov yozuvlari (karta raqami saqlanmaydi), aloqa formasidagi xabarlar, AI chatdagi savollar"
+    },
+    "social": {
+      "title": "Ijtimoiy login (Kakao · Google)",
+      "text": "Kakao yoki Google orqali kirganingizda o'sha xizmatdan faqat email, ism (taxallus) va akkaunt ID'si olinadi. Boshqa ma'lumotlar (kontaktlar, do'stlar ro'yxati va h.k.) so'ralmaydi."
+    },
+    "use": {
+      "title": "Nima uchun ishlatiladi",
+      "text": "Faqat login va akkauntni boshqarish, buyurtma, shartnoma va olib ketishni bajarish, to'lovni tasdiqlash, savollarga javob berish va AI javoblari sifatini oshirish (savol-javob loglari) uchun. Reklama yoki marketing uchun ishlatilmaydi."
+    },
+    "thirdParty": {
+      "title": "Tashqi xizmatlar",
+      "text": "To'lov: Toss Payments (test rejim)\nAI chat: Google Gemini API (javob yaratish uchun savolingiz yuboriladi)\nXarita: Kakao Map\nHosting: Vercel (web), Render (API), Neon (ma'lumotlar bazasi)\nShaxsiy ma'lumotlar sotilmaydi va boshqa maqsadda uchinchi shaxslarga berilmaydi."
+    },
+    "cookies": {
+      "title": "Cookie'lar",
+      "text": "Tizimda qolishingiz uchun faqat bitta httpOnly cookie (login token) ishlatiladi. Analitika yoki reklama cookie'lari yo'q. Til tanlovingiz brauzerda saqlanishi mumkin."
+    },
+    "retention": {
+      "title": "Saqlash muddati",
+      "text": "Akkauntni o'chirganingizda yoki so'raganingizda ma'lumotlar darhol o'chiriladi. Demo akkaunt ma'lumotlari har kuni qayta tiklanadi."
+    },
+    "rights": {
+      "title": "Sizning huquqlaringiz",
+      "text": "Istalgan vaqtda o'z ma'lumotlaringizni ko'rish, tuzatish yoki o'chirishni so'rashingiz mumkin. Quyidagi manzilga yozing."
+    },
+    "contact": {
+      "title": "Aloqa",
+      "text": "Maxfiylik bo'yicha savollar:"
+    },
+    "updated": "Kuchga kirgan sana: 2026-yil 12-noyabr"
   }
 }
