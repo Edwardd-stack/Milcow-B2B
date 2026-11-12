@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   completeSocial,
+  demoLogin,
   getMe,
   getSocialPending,
   login,
@@ -31,6 +32,15 @@ export function useLogin() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: login,
+    onSuccess: ({ member }) => queryClient.setQueryData(authKeys.me, member),
+  });
+}
+
+/** "Try the demo" — same as login, without a form */
+export function useDemoLogin() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: demoLogin,
     onSuccess: ({ member }) => queryClient.setQueryData(authKeys.me, member),
   });
 }

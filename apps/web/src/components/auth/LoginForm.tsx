@@ -2,19 +2,17 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useLogin } from '@/hooks/useAuth';
+import { useDemoLogin, useLogin } from '@/hooks/useAuth';
 import { useRouter } from '@/i18n/navigation';
 import { authErrorKey, nextPath } from './authError';
 import { FormField } from './FormField';
 import { SocialButtons } from './SocialButtons';
 
-// Seed account (apps/api/prisma/seed) — shown so a visitor can try the platform at once
-const DEMO = { memberEmail: 'buyer@milcow.test', memberPassword: 'Milcow1234!' };
-
 export function LoginForm() {
   const t = useTranslations('Auth');
   const router = useRouter();
   const loginMutation = useLogin();
+  const demoMutation = useDemoLogin();
   const [form, setForm] = useState({ memberEmail: '', memberPassword: '' });
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -46,9 +44,9 @@ export function LoginForm() {
         onChange={set('memberPassword')}
       />
 
-      {loginMutation.isError && (
+      {(loginMutation.isError || demoMutation.isError) && (
         <p role="alert" className="rounded-xl bg-[#fdecea] px-4 py-2 text-sm text-[#b42318]">
-          {t(`errors.${authErrorKey(loginMutation.error)}`)}
+          {t(`errors.${authErrorKey(loginMutation.error ?? demoMutation.error)}`)}
         </p>
       )}
 
@@ -62,17 +60,19 @@ export function LoginForm() {
 
       <SocialButtons />
 
-      {/* Demo account: one click fills the form */}
+      {/* Demo: one click logs in as a ready-made buyer (no password on the page) */}
       <button
         type="button"
-        onClick={() => setForm(DEMO)}
-        className="mt-3 rounded-2xl border border-dashed border-brand/35 bg-brand/[0.04] px-4 py-3 text-left text-sm text-brand-dark transition hover:border-brand hover:bg-brand/[0.08]"
+        disabled={demoMutation.isPending}
+        onClick={() =>
+          demoMutation.mutate(undefined, { onSuccess: () => router.replace(nextPath()) })
+        }
+        className="mt-3 rounded-2xl border border-dashed border-brand/35 bg-brand/[0.04] px-4 py-3.5 text-left text-sm transition hover:border-brand hover:bg-brand/[0.08] disabled:opacity-60"
       >
-        <span className="block font-semibold">{t('demo.title')}</span>
-        <span className="text-muted">
-          {DEMO.memberEmail} · {DEMO.memberPassword}
+        <span className="block font-semibold text-brand-dark">
+          {demoMutation.isPending ? t('demo.pending') : t('demo.title')} →
         </span>
-        <span className="mt-1 block text-xs text-brand">{t('demo.fill')}</span>
+        <span className="mt-0.5 block text-muted">{t('demo.text')}</span>
       </button>
     </form>
   );

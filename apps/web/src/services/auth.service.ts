@@ -17,6 +17,11 @@ export function login(input: LoginInput) {
   return apiFetch<AuthResponse>('/auth/login', { method: 'POST', body: JSON.stringify(input) });
 }
 
+/** POST /demo/login — the demo buyer, no password (the API sets the cookie) */
+export function demoLogin() {
+  return apiFetch<AuthResponse>('/demo/login', { method: 'POST' });
+}
+
 /** POST /auth/signup */
 export function signup(input: SignupInput) {
   return apiFetch<AuthResponse>('/auth/signup', { method: 'POST', body: JSON.stringify(input) });

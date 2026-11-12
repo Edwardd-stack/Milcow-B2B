@@ -7,6 +7,7 @@ import { PrismaModule } from './libs/prisma/prisma.module';
 import { AiModule } from './modules/ai/ai.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContractModule } from './modules/contract/contract.module';
+import { DemoModule } from './modules/demo/demo.module';
 import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { InquiryModule } from './modules/inquiry/inquiry.module';
@@ -43,6 +44,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     AiModule,
     AuthModule,
     ContractModule,
+    DemoModule,
     FarmModule,
     HealthModule,
     InquiryModule,

@@ -9,7 +9,11 @@ import 'dotenv/config';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../../src/generated/prisma/client';
 import { hashPassword } from '../../src/libs/utils/password.util';
+import { buildDemoScenario } from '../../src/modules/demo/demo-scenario';
+import { DEMO_BUYER_EMAIL } from '../../src/modules/demo/demo.constants';
+import { ensurePickupSlots } from '../../src/modules/pickup/pickup-slots';
 import { FARMS } from './data/farms';
+import { INQUIRIES } from './data/inquiries';
 import { MEMBERS } from './data/members';
 import { PRODUCTS } from './data/products';
 import { SERVICE_PLANS } from './data/service-plans';
@@ -34,12 +38,9 @@ const TABLES_TO_RESET = [
   'ai_logs',
 ];
 
-// Every test account logs in with this password (development only)
-const SEED_PASSWORD = 'Milcow1234!';
-
-const PICKUP_DAYS_AHEAD = 14;
-const PICKUP_HOURS = [9, 10, 11, 13, 14, 15, 16]; // 12:00–13:00 is lunch
-const PICKUP_TRUCKS_PER_SLOT = 3;
+// Every test account logs in with this password. Set SEED_PASSWORD when seeding a public (deployed)
+// database — otherwise anyone who reads this file could log in as the admin.
+const SEED_PASSWORD = process.env.SEED_PASSWORD || 'Milcow1234!';
 
 async function main() {
   if (process.env.NODE_ENV === 'production') {
@@ -58,7 +59,9 @@ async function main() {
     await seedProducts(prisma, farmIds, warehouseIds);
     await seedServicePlans(prisma);
     await seedMembers(prisma, warehouseIds);
-    await seedPickupSlots(prisma, warehouseIds);
+    console.log(`🚚 Pickup slots: ${await ensurePickupSlots(prisma)}`);
+    await seedDemoHistory(prisma);
+    await seedInquiries(prisma);
 
     console.log('✅ Seed finished');
   } finally {
@@ -178,26 +181,15 @@ async function seedMembers(prisma: PrismaClient, warehouseIds: Map<string, strin
   console.log(`👤 Members: ${MEMBERS.length} (password: ${SEED_PASSWORD})`);
 }
 
-/** Pickup windows for the next 2 weeks, weekdays only, in Korea time (UTC+9). */
-async function seedPickupSlots(prisma: PrismaClient, warehouseIds: Map<string, string>) {
-  const slots: { warehouseId: string; slotStart: Date; slotEnd: Date; slotCapacity: number }[] = [];
+/** Orders in every status, payments, pickups and contracts for the demo buyer */
+async function seedDemoHistory(prisma: PrismaClient) {
+  const buyer = await prisma.member.findUniqueOrThrow({ where: { memberEmail: DEMO_BUYER_EMAIL } });
+  console.log(`📦 Demo orders: ${await buildDemoScenario(prisma, buyer.id)} (${DEMO_BUYER_EMAIL})`);
+}
 
-  for (let day = 1; day <= PICKUP_DAYS_AHEAD; day++) {
-    if (isWeekendInKorea(day)) continue;
-    for (const hour of PICKUP_HOURS) {
-      for (const warehouseId of warehouseIds.values()) {
-        slots.push({
-          warehouseId,
-          slotStart: koreaTime(day, hour),
-          slotEnd: koreaTime(day, hour + 1),
-          slotCapacity: PICKUP_TRUCKS_PER_SLOT,
-        });
-      }
-    }
-  }
-
-  await prisma.pickupSlot.createMany({ data: slots });
-  console.log(`🚚 Pickup slots: ${slots.length}`);
+async function seedInquiries(prisma: PrismaClient) {
+  await prisma.inquiry.createMany({ data: INQUIRIES });
+  console.log(`✉️  Inquiries: ${INQUIRIES.length}`);
 }
 
 // ── helpers ──
@@ -206,24 +198,6 @@ function requireId(ids: Map<string, string>, key: string): string {
   const id = ids.get(key);
   if (!id) throw new Error(`Seed data error: unknown key "${key}"`);
   return id;
-}
-
-/** Today's date in Korea + `dayOffset` days, at `hour`:00 Korea time, as a UTC Date. */
-function koreaTime(dayOffset: number, hour: number): Date {
-  const nowInKorea = new Date(Date.now() + 9 * 60 * 60 * 1000);
-  return new Date(
-    Date.UTC(
-      nowInKorea.getUTCFullYear(),
-      nowInKorea.getUTCMonth(),
-      nowInKorea.getUTCDate() + dayOffset,
-      hour - 9, // Korea is UTC+9
-    ),
-  );
-}
-
-function isWeekendInKorea(dayOffset: number): boolean {
-  const weekday = new Date(koreaTime(dayOffset, 12).getTime() + 9 * 60 * 60 * 1000).getUTCDay();
-  return weekday === 0 || weekday === 6; // Sunday, Saturday
 }
 
 main().catch((error: unknown) => {

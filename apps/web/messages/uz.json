@@ -266,8 +266,9 @@
       "bizNo": "Faqat raqamlarni yozing — chiziqchalar o'zi qo'yiladi"
     },
     "demo": {
-      "title": "Sinov hisobi",
-      "fill": "Bosing — forma avtomatik to'ldiriladi"
+      "title": "Demo bilan kirish",
+      "text": "Bir bosishda — buyurtma va shartnomalari bor namuna xaridor sifatida kiring.",
+      "pending": "Demo ochilmoqda…"
     },
     "errors": {
       "invalid": "Email yoki parol noto'g'ri.",

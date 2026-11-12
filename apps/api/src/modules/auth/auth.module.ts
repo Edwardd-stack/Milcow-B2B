@@ -36,5 +36,6 @@ import { SocialAuthService } from './social/social-auth.service';
     { provide: APP_GUARD, useClass: AuthGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
   ],
+  exports: [AuthService, AuthCookieService], // used by the demo login
 })
 export class AuthModule {}

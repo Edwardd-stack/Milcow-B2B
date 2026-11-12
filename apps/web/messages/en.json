@@ -266,8 +266,9 @@
       "bizNo": "Type the digits — the dashes are added for you"
     },
     "demo": {
-      "title": "Demo account",
-      "fill": "Click to fill in the form"
+      "title": "Try the demo",
+      "text": "One click — log in as a sample buyer with orders and contracts.",
+      "pending": "Opening the demo…"
     },
     "errors": {
       "invalid": "Wrong email or password.",
