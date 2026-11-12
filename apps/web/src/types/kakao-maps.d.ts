@@ -8,6 +8,14 @@ declare global {
 
     class LatLng {
       constructor(lat: number, lng: number);
+      getLat(): number;
+      getLng(): number;
+    }
+    class Point {
+      constructor(x: number, y: number);
+    }
+    class MapProjection {
+      coordsFromContainerPoint(point: Point): LatLng;
     }
     class LatLngBounds {
       extend(latlng: LatLng): void;
@@ -28,6 +36,8 @@ declare global {
         options?: { animate?: boolean | { duration: number }; anchor?: LatLng },
       ): void;
       getLevel(): number;
+      setCenter(latlng: LatLng): void;
+      getProjection(): MapProjection;
       relayout(): void;
       addControl(control: ZoomControl, position: number): void;
     }
@@ -42,13 +52,30 @@ declare global {
       });
       setMap(map: Map | null): void;
       setZIndex(zIndex: number): void;
+      setPosition(position: LatLng): void;
+    }
+    class Polyline {
+      constructor(options: {
+        path: LatLng[];
+        map?: Map | null;
+        strokeWeight?: number;
+        strokeColor?: string;
+        strokeOpacity?: number;
+        strokeStyle?: 'solid' | 'shortdash' | 'dash';
+      });
+      setPath(path: LatLng[]): void;
+      setMap(map: Map | null): void;
     }
     class ZoomControl {}
     namespace event {
-      function addListener(target: Map, type: 'idle' | 'zoom_changed', handler: () => void): void;
+      function addListener(
+        target: Map,
+        type: 'idle' | 'zoom_changed' | 'dragstart',
+        handler: () => void,
+      ): void;
       function removeListener(
         target: Map,
-        type: 'idle' | 'zoom_changed',
+        type: 'idle' | 'zoom_changed' | 'dragstart',
         handler: () => void,
       ): void;
     }

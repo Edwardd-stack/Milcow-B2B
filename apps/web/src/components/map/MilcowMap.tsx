@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { FarmInfo, Locale, WarehouseInfo } from '@milcow/shared';
 import { hasKakaoKey, loadKakaoMaps } from '@/lib/kakao-map';
+import { useFleetLayer, type FleetLayerOptions } from './useFleetLayer';
 
 export type PlaceKind = 'farm' | 'warehouse';
 
@@ -22,6 +23,10 @@ interface MilcowMapProps {
   onSelect?: (id: string) => void;
   /** Show only one kind of marker */
   kindFilter?: PlaceKind | 'all';
+  /** Mouse wheel zooms one level at a time, animated, around the cursor (instead of Kakao's jumps) */
+  smoothWheel?: boolean;
+  /** Simulated trucks (the /map page) */
+  fleet?: FleetLayerOptions;
 }
 
 interface Marker {
@@ -32,6 +37,10 @@ interface Marker {
 }
 
 const FLY_LEVEL = 7; // zoom level when flying to a selected place (smaller = closer)
+const MIN_LEVEL = 1;
+const MAX_LEVEL = 14;
+const WHEEL_STEP = 60; // accumulated wheel delta (px) for one zoom step — trackpads send many small ones
+const ZOOM_MS = 300;
 
 /**
  * Kakao Map with our farms (green) and warehouses (blue).
@@ -48,6 +57,8 @@ export function MilcowMap({
   selectedId = null,
   onSelect,
   kindFilter = 'all',
+  smoothWheel = false,
+  fleet,
 }: MilcowMapProps) {
   const t = useTranslations('Map');
   const locale = useLocale() as Locale;
@@ -109,6 +120,44 @@ export function MilcowMap({
       setReady(false);
     };
   }, [farms, warehouses, locale, labelMode, fitFilter, top, right, bottom, left]);
+
+  // Trucks (only when the page passes a fleet)
+  useFleetLayer(mapRef, ready, fleet);
+
+  // Smooth wheel zoom (mouse / trackpad only — touch keeps Kakao's own pinch zoom)
+  useEffect(() => {
+    const map = mapRef.current;
+    const el = containerRef.current;
+    if (!ready || !map || !el || !smoothWheel) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    map.setZoomable(false);
+    let delta = 0;
+    let busyUntil = 0;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (performance.now() < busyUntil) return; // let the current animation finish → no skipping
+      delta += e.deltaY * (e.deltaMode === 1 ? 33 : 1);
+      if (Math.abs(delta) < WHEEL_STEP) return;
+      const step = delta > 0 ? 1 : -1;
+      delta = 0;
+      const level = Math.min(MAX_LEVEL, Math.max(MIN_LEVEL, map.getLevel() + step));
+      if (level === map.getLevel()) return;
+      const rect = el.getBoundingClientRect();
+      const anchor = map
+        .getProjection()
+        .coordsFromContainerPoint(
+          new kakao.maps.Point(e.clientX - rect.left, e.clientY - rect.top),
+        );
+      map.setLevel(level, { anchor, animate: { duration: ZOOM_MS } });
+      busyUntil = performance.now() + ZOOM_MS + 30;
+    };
+    el.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    return () => {
+      el.removeEventListener('wheel', onWheel, { capture: true });
+      map.setZoomable(true);
+    };
+  }, [ready, smoothWheel]);
 
   // 2) Filter by kind; when the filter changes, zoom to the markers that stay visible
   const fittedFilter = useRef(kindFilter);
