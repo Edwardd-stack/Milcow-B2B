@@ -29,7 +29,10 @@
     "openMenu": "Menyuni ochish",
     "closeMenu": "Menyuni yopish",
     "logout": "Chiqish",
-    "account": "Mening hisobim"
+    "account": "Mening hisobim",
+    "orders": "Buyurtmalarim",
+    "profile": "Profilim",
+    "myContracts": "Shartnomalarim"
   },
   "Footer": {
     "tagline": "Koreyadagi hamkor fermalarning yangi suti va sut mahsulotlari — tonnalab. Ulgurji xarid, oylik shartnoma va ombordan olib ketish bir joyda.",
@@ -78,7 +81,7 @@
     "point1": "Hamkor fermalardan yangi sutni tonnalab to'g'ridan-to'g'ri xarid qiling",
     "point2": "Oylik shartnoma davomida narx o'zgarmaydi",
     "point3": "0–4 °C sovuq zanjirli omborlardan olib ketish yoki yetkazib berish",
-    "button": "Batafsil",
+    "button": "Mahsulotlarni ko'rish",
     "statYears": "Yillik tajriba",
     "statProducts": "Sut mahsulotlari",
     "photo1Alt": "Sut va pechenye ushlagan bola",
@@ -417,7 +420,8 @@
       "more": "Boshqa mahsulotlar",
       "home": "Bosh sahifa",
       "failed": "To'lovni tasdiqlab bo'lmadi",
-      "failedText": "To'lov tasdiqlanmadi. Qayta urinib ko'ring."
+      "failedText": "To'lov tasdiqlanmadi. Qayta urinib ko'ring.",
+      "orders": "Buyurtmalarim"
     },
     "fail": {
       "title": "To'lov amalga oshmadi",
@@ -545,6 +549,125 @@
       "HACCP": "HACCP",
       "ORGANIC": "Organik",
       "ANIMAL_WELFARE": "Hayvonlar farovonligi"
+    }
+  },
+  "Orders": {
+    "title": "Buyurtmalarim",
+    "description": "Sut mahsulotlari buyurtmalari, to'lovlar va olib ketish holatini kuzating.",
+    "all": "Hammasi",
+    "empty": "Hozircha buyurtma yo'q",
+    "emptyCta": "Mahsulotlarni ko'rish",
+    "error": "Buyurtmalarni yuklab bo'lmadi. Qayta urinib ko'ring.",
+    "andMore": "{name} va yana {count} ta",
+    "fromContract": "Shartnoma",
+    "ordered": "Buyurtma vaqti",
+    "receive": "Qabul qilish",
+    "pickup": "Ombordan olib ketish",
+    "delivery": "Sovuq zanjirli yetkazish",
+    "scheduled": "Istalgan sana",
+    "warehouse": "Ombor",
+    "address": "Manzil",
+    "product": "Mahsulot",
+    "quantity": "Miqdor",
+    "pricePerTon": "Narx / t",
+    "amount": "Summa",
+    "serviceFee": "Shartnoma xizmatlari",
+    "total": "Jami",
+    "pickupCode": "Olib ketish kodi",
+    "pickupSlot": "Vaqt oralig'i",
+    "pickupNotBooked": "Olib ketish vaqti hali band qilinmagan. Siz bilan bog'lanamiz.",
+    "pay": "{amount} to'lash",
+    "paying": "To'lov oynasi ochilmoqda…",
+    "cancel": "Buyurtmani bekor qilish",
+    "cancelConfirm": "Buyurtma bekor qilinsinmi? Band qilingan zaxira bo'shatiladi.",
+    "payError": "To'lovni boshlab bo'lmadi. Qayta urinib ko'ring.",
+    "cancelError": "Buyurtmani bekor qilib bo'lmadi.",
+    "status": {
+      "PENDING": "To'lov kutilmoqda",
+      "PAID": "To'langan",
+      "PREPARING": "Tayyorlanmoqda",
+      "SHIPPING": "Yo'lda",
+      "READY_FOR_PICKUP": "Olib ketishga tayyor",
+      "COMPLETED": "Yakunlangan",
+      "CANCELLED": "Bekor qilingan"
+    },
+    "pickupStatus": {
+      "SCHEDULED": "Rejalashtirildi",
+      "LOADING": "Yuklanmoqda",
+      "READY": "Tayyor",
+      "PICKED_UP": "Olib ketildi"
+    }
+  },
+  "Profile": {
+    "title": "Profilim",
+    "description": "Milcow kompaniya akkauntingiz.",
+    "company": "Kompaniya",
+    "bizNo": "Biznes ro'yxat raqami",
+    "contact": "Mas'ul shaxs",
+    "email": "Email",
+    "phone": "Telefon",
+    "type": "Akkaunt turi",
+    "joined": "Ro'yxatdan o'tgan sana",
+    "types": {
+      "BUYER": "Xaridor (kompaniya)",
+      "STAFF": "Ombor xodimi",
+      "ADMIN": "Administrator"
+    },
+    "changeHint": "Kompaniya ma'lumotlarini o'zgartirmoqchimisiz?",
+    "contactUs": "Biz bilan bog'laning",
+    "stats": {
+      "orders": "Barcha buyurtmalar",
+      "waiting": "To'lov kutilmoqda",
+      "contracts": "Faol shartnomalar"
+    }
+  },
+  "Contact": {
+    "title": "Aloqa",
+    "description": "Ulgurji xarid, shartnoma yoki olib ketish bo'yicha savollar — jamoamiz javob beradi.",
+    "formTitle": "Bizga xabar yozing",
+    "formText": "Sizga nima kerakligini yozing: mahsulot, miqdor, muddat. Odatda bir ish kuni ichida javob beramiz.",
+    "form": {
+      "name": "Ismingiz",
+      "email": "Email",
+      "company": "Kompaniya",
+      "message": "Xabar",
+      "messagePlaceholder": "Masalan: yanvardan har oy 5 t xom sut kerak. Narxni kelishsak bo'ladimi?",
+      "send": "Xabarni yuborish",
+      "sending": "Yuborilmoqda…",
+      "sent": "Rahmat! Xabaringiz yuborildi.",
+      "sentText": "Jamoamiz tez orada emailingizga javob beradi.",
+      "again": "Yana xabar yuborish",
+      "error": "Xabarni yuborib bo'lmadi. Qayta urinib ko'ring.",
+      "invalid": "Maydonlarni tekshirib, qayta urinib ko'ring.",
+      "rateLimit": "Juda ko'p so'rov yuborildi. Bir daqiqadan keyin qayta urinib ko'ring."
+    },
+    "faq": {
+      "title": "Ko'p beriladigan savollar",
+      "text": "Yozishdan oldin tezkor javoblar",
+      "minOrder": {
+        "q": "Minimal buyurtma miqdori bormi?",
+        "a": "Ha. Har bir mahsulotning tonnadagi minimal buyurtma miqdori bor va u mahsulot sahifasida ko'rsatilgan. Undan kam miqdorda buyurtma qabul qilinmaydi."
+      },
+      "pickup": {
+        "q": "Ombordan olib ketish qanday ishlaydi?",
+        "a": "Buyurtmada olib ketishni tanlang va omborda vaqt oralig'ini band qiling. Sizga MC- bilan boshlanadigan kirish kodi beriladi — uni ombor darvozasida ko'rsatasiz. Holatini (rejalashtirildi → yuklanmoqda → tayyor → olib ketildi) Buyurtmalarim sahifasida kuzatasiz."
+      },
+      "delivery": {
+        "q": "Yetkazib berasizlarmi?",
+        "a": "Ha, 0–4 °C sovutgichli mashinalarda siz kiritgan manzilgacha. Olib ketish bepul, yetkazish narxi esa masofa va miqdorga qarab alohida aytiladi."
+      },
+      "contract": {
+        "q": "Oylik ta'minot shartnomasi qanday ishlaydi?",
+        "a": "Mahsulot, oylik tonna va 1–24 oylik muddatni tanlang yoki loyihani AI yordamchiga tuzdiring. Tonna narxi butun muddat davomida o'zgarmaydi. Milcow tasdiqlagach, har oy avtomatik buyurtma yaratiladi va har biri alohida to'lanadi."
+      },
+      "payment": {
+        "q": "Qanday to'lanadi?",
+        "a": "Toss Payments orqali karta bilan. Server tasdiqlashdan oldin summani buyurtma summasi bilan qayta tekshiradi. To'lanmagan buyurtmani keyinroq Buyurtmalarim sahifasidan to'lash mumkin."
+      },
+      "ai": {
+        "q": "AI yordamchi nima qila oladi?",
+        "a": "Chat Milcow'ning o'z qo'llanmalari (narxlar, qoidalar, yetkazish) asosida javob beradi. Shartnoma yordamchisi \"6 oy davomida har oy 5 t xom sut\" kabi gapni shartnoma loyihasiga aylantiradi. U javob bera olmagan savollarga shu yerda xodimlarimiz javob beradi."
+      }
     }
   }
 }

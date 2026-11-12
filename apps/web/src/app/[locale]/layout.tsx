@@ -8,6 +8,7 @@ import { ChatProvider } from '@/components/ai/ChatProvider';
 import { ChatWidget } from '@/components/ai/ChatWidget';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
+import { ScrollReset } from '@/components/layout/ScrollReset';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
 import { QueryProvider } from '@/components/providers/QueryProvider';
 import { routing } from '@/i18n/routing';
@@ -67,6 +68,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
                   of the page prerender; the fallback keeps the header's height (no layout shift). */}
               <Suspense fallback={<div className="h-[81px] bg-brand" />}>
                 <Header />
+                {/* Every new page opens at the top (header visible) */}
+                <ScrollReset />
               </Suspense>
               <main className="flex flex-1 flex-col">{children}</main>
               <Footer />

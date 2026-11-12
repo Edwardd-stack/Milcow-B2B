@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { MAIN_NAV } from '@/config/navigation';
+import { visibleNav } from '@/config/navigation';
 import { Container } from '@/components/ui/Container';
+import { useMe } from '@/hooks/useAuth';
 import { Link, usePathname } from '@/i18n/navigation';
 import { AccountButton } from './AccountButton';
 import { LocaleSwitcher } from './LocaleSwitcher';
@@ -20,6 +21,8 @@ export function Header() {
   const navText = locale === 'ko' ? 'text-[15px]' : 'text-[14px]';
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { data: member } = useMe();
+  const nav = visibleNav(!!member); // "My orders" only after login
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
@@ -32,7 +35,7 @@ export function Header() {
         {/* Desktop menu */}
         <nav aria-label={t('menu')} className="hidden xl:block">
           <ul className="flex items-center gap-8 2xl:gap-9">
-            {MAIN_NAV.map((item) => (
+            {nav.map((item) => (
               <li key={item.key}>
                 <Link
                   href={item.href}
@@ -84,7 +87,7 @@ export function Header() {
       <div id="mobile-menu" hidden={!open} className="border-t border-white/15 bg-brand xl:hidden">
         <nav aria-label={t('menu')} className="mx-auto w-full max-w-7xl px-5 py-4 sm:px-8">
           <ul className="flex flex-col">
-            {MAIN_NAV.map((item) => (
+            {nav.map((item) => (
               <li key={item.key}>
                 <Link
                   href={item.href}

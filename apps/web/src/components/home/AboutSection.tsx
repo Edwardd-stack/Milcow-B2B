@@ -40,7 +40,7 @@ export function AboutSection() {
           </ul>
 
           <Link
-            href="/about"
+            href="/products"
             className="mt-8 inline-block rounded-full bg-brand-dark px-9 py-3.5 font-medium text-white shadow-lg transition hover:bg-navy"
           >
             {t('button')}

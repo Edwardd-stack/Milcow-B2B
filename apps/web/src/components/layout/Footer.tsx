@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { ArrowRightIcon, ClockIcon, MailIcon, PhoneIcon, PinIcon } from '@/components/icons';
-import { COMPANY_CONTACT, MAIN_NAV } from '@/config/navigation';
+import { COMPANY_CONTACT, visibleNav } from '@/config/navigation';
 import { Link } from '@/i18n/navigation';
 import { Logo } from './Logo';
 
@@ -72,7 +72,7 @@ export function Footer() {
           </div>
 
           <FooterColumn title={t('menu')}>
-            {MAIN_NAV.map((item) => (
+            {visibleNav(false).map((item) => (
               <li key={item.key}>
                 <Link href={item.href} className="hover:text-white">
                   {nav(item.key)}

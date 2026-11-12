@@ -29,7 +29,10 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "logout": "Log out",
-    "account": "My account"
+    "account": "My account",
+    "orders": "My orders",
+    "profile": "My profile",
+    "myContracts": "My contracts"
   },
   "Footer": {
     "tagline": "Fresh raw milk and dairy from partner farms in Korea, by the ton. Bulk orders, supply contracts and warehouse pickup in one place.",
@@ -78,7 +81,7 @@
     "point1": "Buy fresh milk from partner farms directly, by the ton",
     "point2": "Monthly supply contracts keep your price fixed",
     "point3": "Pick up or get delivery from 0–4 °C cold-chain warehouses",
-    "button": "Read more",
+    "button": "View products",
     "statYears": "Years of experience",
     "statProducts": "Dairy products",
     "photo1Alt": "Boy holding milk and cookies",
@@ -417,7 +420,8 @@
       "more": "More products",
       "home": "Home",
       "failed": "We could not confirm the payment",
-      "failedText": "The payment was not approved. Please try again."
+      "failedText": "The payment was not approved. Please try again.",
+      "orders": "My orders"
     },
     "fail": {
       "title": "Payment failed",
@@ -545,6 +549,125 @@
       "HACCP": "HACCP",
       "ORGANIC": "Organic",
       "ANIMAL_WELFARE": "Animal welfare"
+    }
+  },
+  "Orders": {
+    "title": "My orders",
+    "description": "Track your dairy orders, payments and pickups.",
+    "all": "All",
+    "empty": "No orders here yet",
+    "emptyCta": "Browse products",
+    "error": "Could not load your orders. Please try again.",
+    "andMore": "{name} and {count} more",
+    "fromContract": "Contract",
+    "ordered": "Ordered",
+    "receive": "Receive by",
+    "pickup": "Warehouse pickup",
+    "delivery": "Cold-chain delivery",
+    "scheduled": "Preferred date",
+    "warehouse": "Warehouse",
+    "address": "Address",
+    "product": "Product",
+    "quantity": "Quantity",
+    "pricePerTon": "Price / t",
+    "amount": "Amount",
+    "serviceFee": "Contract services",
+    "total": "Total",
+    "pickupCode": "Pickup code",
+    "pickupSlot": "Time slot",
+    "pickupNotBooked": "No pickup time booked yet. We will contact you to arrange it.",
+    "pay": "Pay {amount}",
+    "paying": "Opening payment…",
+    "cancel": "Cancel order",
+    "cancelConfirm": "Cancel this order? The reserved stock will be released.",
+    "payError": "The payment could not be started. Please try again.",
+    "cancelError": "The order could not be cancelled.",
+    "status": {
+      "PENDING": "Awaiting payment",
+      "PAID": "Paid",
+      "PREPARING": "Preparing",
+      "SHIPPING": "On the way",
+      "READY_FOR_PICKUP": "Ready for pickup",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "pickupStatus": {
+      "SCHEDULED": "Scheduled",
+      "LOADING": "Loading",
+      "READY": "Ready",
+      "PICKED_UP": "Picked up"
+    }
+  },
+  "Profile": {
+    "title": "My profile",
+    "description": "Your Milcow company account.",
+    "company": "Company",
+    "bizNo": "Business reg. no.",
+    "contact": "Contact person",
+    "email": "Email",
+    "phone": "Phone",
+    "type": "Account type",
+    "joined": "Member since",
+    "types": {
+      "BUYER": "Buyer (company)",
+      "STAFF": "Warehouse staff",
+      "ADMIN": "Administrator"
+    },
+    "changeHint": "Need to change your company details?",
+    "contactUs": "Contact us",
+    "stats": {
+      "orders": "All orders",
+      "waiting": "Awaiting payment",
+      "contracts": "Active contracts"
+    }
+  },
+  "Contact": {
+    "title": "Contact",
+    "description": "Questions about bulk orders, contracts or pickup — our team will answer.",
+    "formTitle": "Send us a message",
+    "formText": "Tell us what you need — products, quantity, schedule. We usually reply within one business day.",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "company": "Company",
+      "message": "Message",
+      "messagePlaceholder": "e.g. We need 5 t of raw milk every month from January. Can we discuss the price?",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Thank you! Your message was sent.",
+      "sentText": "Our team will reply to your email soon.",
+      "again": "Send another message",
+      "error": "The message could not be sent. Please try again.",
+      "invalid": "Please check the fields and try again.",
+      "rateLimit": "Too many messages. Please wait a minute and try again."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "text": "Quick answers before you write to us",
+      "minOrder": {
+        "q": "Is there a minimum order quantity?",
+        "a": "Yes. Every product has its own minimum order in tons, shown on the product page. Orders below it are not accepted."
+      },
+      "pickup": {
+        "q": "How does warehouse pickup work?",
+        "a": "Choose pickup at checkout and book a time slot at the warehouse. You get a gate code starting with MC- — show it at the gate. You can follow the status (scheduled → loading → ready → picked up) on the My orders page."
+      },
+      "delivery": {
+        "q": "Do you deliver?",
+        "a": "Yes, in refrigerated 0–4 °C trucks to the address you enter. Pickup is free; the delivery fee is quoted separately depending on the distance and quantity."
+      },
+      "contract": {
+        "q": "How do monthly supply contracts work?",
+        "a": "Choose a product, monthly tons and a term of 1–24 months — or let the AI assistant draft it for you. The price per ton is fixed for the whole term. After Milcow approves it, an order is created automatically every month and each one is paid separately."
+      },
+      "payment": {
+        "q": "How do I pay?",
+        "a": "By card through Toss Payments. The server checks the amount against the order total before approving. An unpaid order can be paid later from the My orders page."
+      },
+      "ai": {
+        "q": "What can the AI assistant do?",
+        "a": "The chat answers questions using Milcow's own guides (prices, rules, delivery). The contract assistant turns a sentence like \"5 t of raw milk every month for 6 months\" into a contract draft. Anything it cannot answer, our staff will answer here."
+      }
     }
   }
 }

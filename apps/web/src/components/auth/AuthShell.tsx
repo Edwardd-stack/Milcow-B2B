@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Wave } from '@/components/ui/Wave';
 import { Link } from '@/i18n/navigation';
 
 /**
- * Frame for /login and /signup: a blue band with soft light, dots and floating cartons,
+ * Frame for /login and /signup: a blue band with soft light and dots,
  * the hero wave below it, and the white form card in the middle.
  */
 export function AuthShell({
@@ -37,27 +36,11 @@ export function AuthShell({
           <div className="absolute -bottom-40 -left-32 h-[440px] w-[440px] rounded-full border border-white/10" />
         </div>
 
-        {/* Floating cartons on wide screens */}
-        <Image
-          src="/images/hero/carton-semi-skimmed.webp"
-          alt=""
-          width={420}
-          height={916}
-          className="absolute top-28 left-[max(2rem,calc(50%-560px))] hidden h-52 w-auto -rotate-12 animate-float drop-shadow-2xl xl:block"
-        />
-        <Image
-          src="/images/hero/carton-full-fat.webp"
-          alt=""
-          width={420}
-          height={926}
-          className="absolute top-36 right-[max(2rem,calc(50%-560px))] hidden h-60 w-auto rotate-[10deg] animate-float drop-shadow-2xl [animation-delay:-3s] xl:block"
-        />
-
         <Wave fill="fill-cream" />
       </div>
 
       {/* ── Title ── */}
-      <div className="px-5 pt-10 pb-9 text-center text-white sm:pt-12">
+      <div className="px-5 pt-6 pb-7 text-center text-white sm:pt-7">
         <p className="mb-3 text-sm font-semibold tracking-[0.2em] text-[#ffd28a] uppercase">
           {t('eyebrow')}
         </p>
