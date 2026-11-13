@@ -43,7 +43,6 @@
   "Footer": {
     "tagline": "Koreya hamkor fermalarining suti va sut mahsulotlari — tonnalab.",
     "b2bOnly": "Faqat biznes mijozlar uchun",
-    "menu": "Menyu",
     "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Ish kunlari 09:00–18:00",
     "rights": "Barcha huquqlar himoyalangan.",
@@ -51,7 +50,12 @@
     "emailUs": "Elektron pochta",
     "office": "Ofis manzili",
     "workHours": "Ish vaqti",
-    "portfolio": "Milcow B2B — portfolio loyihasi"
+    "portfolio": "Milcow B2B — portfolio loyihasi",
+    "services": "Xizmatlar",
+    "company": "Tezkor havolalar",
+    "promiseFarm": "Hamkor fermalardan to'g'ridan-to'g'ri",
+    "promiseCold": "5 ℃ dan past sovuq zanjir",
+    "promiseFleet": "Yetkazishni jonli kuzatish"
   },
   "Hero": {
     "eyebrow": "Fermadan yangi sut",

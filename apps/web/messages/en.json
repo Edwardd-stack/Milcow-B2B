@@ -43,7 +43,6 @@
   "Footer": {
     "tagline": "Raw milk and dairy from Korean partner farms — by the ton.",
     "b2bOnly": "For businesses only",
-    "menu": "Menu",
     "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Weekdays 09:00–18:00",
     "rights": "All rights reserved.",
@@ -51,7 +50,12 @@
     "emailUs": "Email address",
     "office": "Office location",
     "workHours": "Work hours",
-    "portfolio": "Milcow B2B — portfolio project"
+    "portfolio": "Milcow B2B — portfolio project",
+    "services": "Services",
+    "company": "Quick links",
+    "promiseFarm": "Straight from partner farms",
+    "promiseCold": "Cold chain at 5 ℃ or below",
+    "promiseFleet": "Live delivery tracking"
   },
   "Hero": {
     "eyebrow": "Farm-fresh milk",
