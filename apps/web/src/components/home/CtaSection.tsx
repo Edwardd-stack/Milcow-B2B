@@ -21,7 +21,7 @@ export function CtaSection() {
   const tag = 'self-start rounded-full px-3.5 py-1.5 text-[13px] font-semibold';
 
   return (
-    <section className="bg-cream pt-16 pb-20 lg:pt-16 lg:pb-20">
+    <section className="bg-cream pt-12 pb-10 lg:pt-12 lg:pb-10">
       <Container>
         <div className="mb-12 text-center">
           <p className={`mb-4 font-semibold tracking-[0.2em] text-brand uppercase ${eyebrowText}`}>

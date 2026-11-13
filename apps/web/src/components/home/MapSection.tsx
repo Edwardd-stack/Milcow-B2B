@@ -17,7 +17,7 @@ export function MapSection() {
   const warehouses = useWarehouses();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-cream py-20 lg:py-20">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white to-cream pt-20 pb-12 lg:pt-20 lg:pb-12">
       {/* Decorations (template style): big light circle, dotted square, soft blob */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute -top-32 -left-40 h-[520px] w-[520px] rounded-full bg-[#e3ecf8]/70" />

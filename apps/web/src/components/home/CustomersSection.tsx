@@ -19,7 +19,7 @@ export function CustomersSection() {
   const eyebrowText = locale === 'ko' ? 'text-[17px]' : 'text-base';
 
   return (
-    <section className="py-16 lg:py-18">
+    <section className="py-12 lg:py-12">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <p className={`mb-4 font-semibold tracking-[0.2em] text-brand uppercase ${eyebrowText}`}>
