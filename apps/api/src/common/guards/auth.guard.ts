@@ -50,6 +50,13 @@ export class AuthGuard implements CanActivate {
 
   private async verify(token: string): Promise<AuthMember> {
     const payload = await this.jwt.verifyAsync<JwtPayload>(token);
-    return { id: payload.sub, memberType: payload.memberType, warehouseId: payload.warehouseId };
+    // A socket-only token must not work as a normal API token
+    if (payload.scope === 'socket') throw new UnauthorizedException('Socket token');
+    return {
+      id: payload.sub,
+      memberType: payload.memberType,
+      warehouseId: payload.warehouseId,
+      isDemo: payload.demo === true,
+    };
   }
 }

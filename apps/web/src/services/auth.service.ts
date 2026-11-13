@@ -1,5 +1,6 @@
 import type {
   AuthResponse,
+  DemoRole,
   LoginInput,
   MemberInfo,
   SignupInput,
@@ -17,9 +18,9 @@ export function login(input: LoginInput) {
   return apiFetch<AuthResponse>('/auth/login', { method: 'POST', body: JSON.stringify(input) });
 }
 
-/** POST /demo/login — the demo buyer, no password (the API sets the cookie) */
-export function demoLogin() {
-  return apiFetch<AuthResponse>('/demo/login', { method: 'POST' });
+/** POST /demo/login — a demo buyer / admin / staff account, no password (the API sets the cookie) */
+export function demoLogin(role: DemoRole = 'BUYER') {
+  return apiFetch<AuthResponse>('/demo/login', { method: 'POST', body: JSON.stringify({ role }) });
 }
 
 /** POST /auth/signup */

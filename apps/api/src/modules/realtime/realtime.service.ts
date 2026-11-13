@@ -1,5 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { RealtimeEvent, type OrderUpdatedPayload, type PickupUpdatedPayload } from '@milcow/shared';
+import {
+  RealtimeEvent,
+  type ContractSubmittedPayload,
+  type InquiryCreatedPayload,
+  type OrderCreatedPayload,
+  type OrderUpdatedPayload,
+  type PickupUpdatedPayload,
+} from '@milcow/shared';
 import { RealtimeGateway } from './realtime.gateway';
 import { ADMIN_ROOM, memberRoom, warehouseRoom } from './realtime.rooms';
 
@@ -19,5 +26,20 @@ export class RealtimeService {
     this.gateway.server
       .to([memberRoom(memberId), warehouseRoom(warehouseId), ADMIN_ROOM])
       .emit(RealtimeEvent.ORDER_UPDATED, payload);
+  }
+
+  /** New order → admins (dashboard toast) and the warehouse that will ship it */
+  orderCreated(payload: OrderCreatedPayload, warehouseId: string) {
+    this.gateway.server
+      .to([warehouseRoom(warehouseId), ADMIN_ROOM])
+      .emit(RealtimeEvent.ORDER_CREATED, payload);
+  }
+
+  inquiryCreated(payload: InquiryCreatedPayload) {
+    this.gateway.server.to(ADMIN_ROOM).emit(RealtimeEvent.INQUIRY_CREATED, payload);
+  }
+
+  contractSubmitted(payload: ContractSubmittedPayload) {
+    this.gateway.server.to(ADMIN_ROOM).emit(RealtimeEvent.CONTRACT_SUBMITTED, payload);
   }
 }

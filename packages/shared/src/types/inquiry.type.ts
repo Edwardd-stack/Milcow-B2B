@@ -8,7 +8,7 @@ export interface CreateInquiryInput {
   inquiryMessage: string;
 }
 
-/** POST /inquiries response (later: the admin list) */
+/** POST /inquiries response, GET /inquiries (admin) */
 export interface InquiryInfo {
   id: string;
   inquiryName: string;
@@ -16,5 +16,7 @@ export interface InquiryInfo {
   inquiryCompany: string | null;
   inquiryMessage: string;
   inquiryStatus: InquiryStatus;
+  inquiryAnsweredAt: string | null;
+  inquiryAnsweredBy: string | null; // staff nick
   createdAt: string; // ISO date
 }

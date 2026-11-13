@@ -32,18 +32,18 @@
     "account": "My account",
     "orders": "My orders",
     "profile": "My profile",
-    "myContracts": "My contracts"
+    "myContracts": "My contracts",
+    "passport": "Milk Passport",
+    "surplus": "Surplus Milk",
+    "console": "Admin console",
+    "pickupGate": "Pickup gate",
+    "roleAdmin": "Admin",
+    "roleStaff": "Staff"
   },
   "Footer": {
-    "tagline": "Fresh raw milk and dairy from partner farms in Korea, by the ton. Bulk orders, supply contracts and warehouse pickup in one place.",
+    "tagline": "Raw milk and dairy from Korean partner farms — by the ton.",
     "b2bOnly": "For businesses only",
     "menu": "Menu",
-    "services": "B2B services",
-    "bulkOrder": "Bulk orders by the ton",
-    "supplyContract": "Monthly supply contracts",
-    "pickup": "Warehouse pickup",
-    "aiAssistant": "AI chat & contract assistant",
-    "contact": "Contact",
     "address": "Amnyang-eup, Gyeongsan, Gyeongsangbuk-do",
     "hours": "Weekdays 09:00–18:00",
     "rights": "All rights reserved.",
@@ -51,9 +51,6 @@
     "emailUs": "Email address",
     "office": "Office location",
     "workHours": "Work hours",
-    "ctaTitle": "Bulk order consultation",
-    "ctaText": "Tell us the products and quantities you need — our team will send a quote and a delivery schedule.",
-    "ctaButton": "Request a consultation",
     "portfolio": "Milcow B2B — portfolio project"
   },
   "Hero": {
@@ -134,17 +131,6 @@
     "button": "Start a supply contract",
     "photoAlt": "Girl holding a glass of milk on a dairy farm"
   },
-  "AiSection": {
-    "eyebrow": "AI assistant",
-    "title": "Ask our AI anything",
-    "text": "Milcow AI answers from our real prices, stock and rules. If it doesn't know, it says so and points you to our team — it never makes things up.",
-    "feature1Title": "Answers grounded in live data (RAG)",
-    "feature1Text": "It searches products, warehouses and contract rules, then answers only from them.",
-    "feature2Title": "AI contract assistant",
-    "feature2Text": "Write \"20 tons a month, pickup in Icheon\" and get a contract draft with a price.",
-    "feature3Title": "Korean · English · Uzbek",
-    "feature3Text": "It replies in the language you ask in."
-  },
   "Chat": {
     "title": "Milcow AI",
     "status": "Online · usually replies in seconds",
@@ -158,7 +144,9 @@
     "errorBusy": "The AI can't answer right now. Please try again shortly.",
     "errorRateLimit": "Too many questions. Try again in a minute.",
     "open": "Open AI chat",
-    "close": "Close"
+    "close": "Close",
+    "hint": "AI chat",
+    "hintMore": "ask me anything"
   },
   "MapSection": {
     "eyebrow": "Farms and warehouses",
@@ -224,9 +212,6 @@
       "button": "Start AI chat"
     }
   },
-  "Common": {
-    "backToTop": "Back to top"
-  },
   "Auth": {
     "eyebrow": "Milcow Business",
     "tabs": "Log in or sign up",
@@ -267,8 +252,13 @@
     },
     "demo": {
       "title": "Try the demo",
-      "text": "One click — log in as a sample buyer with orders and contracts.",
-      "pending": "Opening the demo…"
+      "text": "Enter a ready-made account for each role — no password.",
+      "pending": "Opening the demo…",
+      "role": {
+        "BUYER": "Buyer",
+        "ADMIN": "Admin",
+        "STAFF": "Warehouse"
+      }
     },
     "errors": {
       "invalid": "Wrong email or password.",
@@ -515,7 +505,8 @@
         "ACTIVE": "All deliveries are done",
         "ENDED": "This contract has ended",
         "CANCELLED": "This contract was cancelled"
-      }
+      },
+      "rejected": "Rejected: {reason}"
     },
     "saved": {
       "submitted": "The contract was saved and sent for review. Once approved, an order is created automatically every month.",
@@ -550,6 +541,44 @@
       "HACCP": "HACCP",
       "ORGANIC": "Organic",
       "ANIMAL_WELFARE": "Animal welfare"
+    },
+    "fleet": {
+      "legend": "Trucks",
+      "demoBadge": "Fleet simulation (demo)",
+      "title": "Live logistics",
+      "subtitle": "Where our raw-milk tankers (farm → warehouse) and delivery trucks (warehouse → customer) are right now.",
+      "live": "Live",
+      "timelapse": "Time-lapse",
+      "timelapseHint": "Play today's trips in 60 seconds",
+      "summary": {
+        "onRoad": "On the road",
+        "tons": "Tons in transit",
+        "avgTemp": "Avg. cargo temp.",
+        "trips": "Trips done today"
+      },
+      "phase": {
+        "OFF": "Off duty",
+        "LOADING": "Loading",
+        "DRIVING": "On the way",
+        "UNLOADING": "Unloading",
+        "RETURNING": "Returning",
+        "IDLE": "Waiting"
+      },
+      "kind": {
+        "TANKER": "Milk tanker",
+        "REEFER": "Refrigerated truck",
+        "SMALL_REEFER": "Small refrigerated truck"
+      },
+      "depart": "Departed",
+      "eta": "ETA",
+      "remaining": "Remaining",
+      "cargo": "Cargo",
+      "empty": "Empty (returning)",
+      "free": "Free",
+      "offHours": "Off duty · leaves tomorrow 08:00",
+      "nextDepart": "Next departure {time}",
+      "trips": "Trips today {done}/{total}",
+      "demoOrder": "Carrying the demo order"
     }
   },
   "Orders": {
@@ -597,7 +626,12 @@
       "LOADING": "Loading",
       "READY": "Ready",
       "PICKED_UP": "Picked up"
-    }
+    },
+    "track": "Track on the map",
+    "lot": "Lot {code}",
+    "holdLeft": "Pay within {time}",
+    "qrHint": "Show this QR at the warehouse gate",
+    "cancelReason": "Cancelled: {reason}"
   },
   "Profile": {
     "title": "My profile",
@@ -710,5 +744,356 @@
       "text": "Privacy questions:"
     },
     "updated": "Effective date: November 12, 2026"
+  },
+  "Scanner": {
+    "hint": "Fit the QR code inside the square",
+    "close": "Close",
+    "unsupported": "This browser cannot scan QR codes with the camera. Please type the lot number.",
+    "denied": "The camera is not available. Check the permission or type the number."
+  },
+  "Passport": {
+    "title": "Milk Passport",
+    "description": "One lot number shows the farm, lab results, cold-chain temperature and carbon footprint.",
+    "eyebrow": "원유 품질 여권",
+    "heading": "Where, when and how this milk came to you",
+    "lead": "Enter a lot number or scan its QR to see the full record from milking to the warehouse — hygiene grades, temperatures, route and carbon footprint.",
+    "inputLabel": "Lot number",
+    "search": "Look up",
+    "scan": "Scan QR",
+    "invalidCode": "That is not a lot number (e.g. ML-20261113-ICN-01).",
+    "examples": "Recently arrived lots",
+    "notFound": "Lot not found",
+    "error": "Could not load the passport",
+    "back": "Search again",
+    "collectTruck": "Collection tanker",
+    "useByNote": "must be processed before this",
+    "antibioticBadge": "Antibiotics negative",
+    "freshLabel": "Farm → warehouse",
+    "hours": "{hours} h",
+    "weeks": "about {weeks} weeks",
+    "timeline": "Journey",
+    "step": {
+      "milked": "Milked",
+      "collected": "Collected",
+      "arrived": "At the warehouse",
+      "useBy": "Process by"
+    },
+    "status": {
+      "IN_STOCK": "In stock",
+      "SOLD_OUT": "Sold out",
+      "EXPIRED": "Expired"
+    },
+    "compareTitle": "Freshness compared",
+    "compareThis": "This lot (milking → warehouse)",
+    "compareImport": "Imported UHT milk (sea freight, customs, distribution)",
+    "compareNote": "The import time is a typical sea-freight estimate.",
+    "temp": {
+      "title": "Cold-chain temperature",
+      "lead": "From body temperature (~35 °C) right after milking, cooled to 4 °C or below within 2 hours, then kept at 5 °C or below.",
+      "limit": "5 °C limit",
+      "empty": "No temperature records yet.",
+      "aria": "Temperature chart, highest after cooling {max} °C",
+      "maxAfter": "Highest after cooling {max} °C ✓",
+      "stage": {
+        "MILKING": "Milking",
+        "FARM_TANK": "Farm cooling tank",
+        "TRANSPORT": "Tanker",
+        "WAREHOUSE": "Warehouse"
+      }
+    },
+    "lab": {
+      "title": "Lab results",
+      "bacteria": "Bacteria count",
+      "somatic": "Somatic cell count",
+      "fat": "Milk fat",
+      "protein": "Milk protein",
+      "antibiotic": "Antibiotics",
+      "NEGATIVE": "Negative",
+      "POSITIVE": "Positive",
+      "bacteriaNote": "Hygiene of milking and cooling. 1A = under 30,000 per mL",
+      "somaticNote": "How healthy the cows are. Grade 1 = under 200,000 per mL",
+      "fatNote": "Drives taste and processing yield",
+      "proteinNote": "Directly sets cheese and yogurt yield",
+      "antibioticNote": "Residues must be negative to ship"
+    },
+    "co2": {
+      "title": "Carbon footprint (estimate)",
+      "perLiter": "{g} g CO₂e per liter",
+      "total": "{kg} kg CO₂e for the whole lot",
+      "farm": "Farm {kg} kg",
+      "transport": "Transport {kg} kg",
+      "method": "How it is calculated",
+      "methodText": "Demo estimate with assumed factors: 1.1 kg CO₂e per kg of milk at the farm and 0.12 kg CO₂e per tonne-km of refrigerated transport. Not a certified value."
+    },
+    "share": "Share this passport",
+    "shareText": "Scanning the QR opens this page.",
+    "copy": "Copy link",
+    "print": "Print",
+    "demoNote": "Lab values, temperatures and carbon numbers are demo data for a portfolio. Grade limits follow the real Korean raw milk standards.",
+    "grade": {
+      "bacteria": "Bacteria {grade}",
+      "somatic": "Somatic grade {grade}",
+      "b": {
+        "GRADE_1A": "1A",
+        "GRADE_1B": "1B",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4"
+      },
+      "s": {
+        "GRADE_1": "1",
+        "GRADE_2": "2",
+        "GRADE_3": "3",
+        "GRADE_4": "4",
+        "GRADE_5": "5"
+      }
+    }
+  },
+  "Surplus": {
+    "title": "Surplus Milk Exchange",
+    "description": "Surplus raw milk at freshness-based discounts — a live surplus market for dairy processors.",
+    "eyebrow": "잉여 원유 매칭",
+    "heading": "Surplus milk goes where it is needed — not down the drain",
+    "lead": "As white-milk demand falls, milk meant for drinking is left over while cheese and yogurt makers are short. Here processors can reserve surplus lots whose price drops the longer they wait.",
+    "rule1": "−{pct} pts every {hours} hours after milking",
+    "rule2": "Never more than −{max}%",
+    "rule3": "Price held for 30 minutes after reserving",
+    "rule4": "Every lot has a Milk Passport",
+    "all": "All",
+    "sort": {
+      "expiring": "Expiring soon",
+      "price": "Lowest price"
+    },
+    "error": "Could not load the list.",
+    "empty": "No surplus milk right now",
+    "emptyText": "New lots arrive every morning.",
+    "hoursLeft": "{hours} h left to process",
+    "nextDrop": "Next drop in",
+    "remaining": "{ton} t left",
+    "of": "of {ton} t",
+    "passport": "Passport",
+    "reserve": "Reserve",
+    "demoNote": "Prices and volumes are demo data; payment runs in Toss Payments test mode.",
+    "dialog": {
+      "title": "Reserve surplus milk",
+      "ton": "Quantity (t, {min}–{max})",
+      "price": "Current price",
+      "total": "Total",
+      "holdNote": "This price is held for {minutes} minutes. Unpaid reservations are cancelled automatically.",
+      "cancel": "Cancel",
+      "confirm": "Reserve",
+      "loginFirst": "Log in to reserve",
+      "reserving": "Reserving…",
+      "reserved": "Reserved",
+      "reservedText": "Pay within {minutes} minutes to confirm the order. Pickup is at the warehouse where the lot is stored.",
+      "toOrders": "My orders",
+      "payNow": "Pay now",
+      "paying": "Opening payment…",
+      "conflict": "Not enough left, or this lot has just closed.",
+      "buyerOnly": "Only buyer (company) accounts can reserve.",
+      "error": "Could not reserve. Please try again.",
+      "payError": "The payment could not be started."
+    }
+  },
+  "Admin": {
+    "title": "Admin console",
+    "staffTitle": "Warehouse console",
+    "close": "Close",
+    "back": "Back",
+    "save": "Save",
+    "saving": "Saving…",
+    "errors": {
+      "demo": "Demo accounts can only change demo data. (Real customers and the catalog are protected.)",
+      "generic": "Something went wrong. Please try again."
+    },
+    "demoBanner": {
+      "title": "Demo mode",
+      "text": "Real customers' e-mails and phone numbers are masked, and changes apply only to demo data. Everything resets every morning."
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "contracts": "Contract review",
+      "pickup": "Pickup gate",
+      "products": "Products",
+      "inquiries": "Inbox",
+      "copilot": "Ask your data"
+    },
+    "kpi": {
+      "today": "Orders today",
+      "month": "Revenue this month",
+      "monthSub": "{count} payments · refunds excluded",
+      "review": "Contracts in review",
+      "reviewSub": "Approve or reject",
+      "inquiries": "New inquiries",
+      "inquiriesSub": "Waiting for a reply"
+    },
+    "dashboard": {
+      "subtitle": "Today's operations at a glance.",
+      "chart": "Revenue, last 14 days",
+      "lowStock": "Low stock (under 10 t)",
+      "noLowStock": "No low stock.",
+      "recent": "Latest orders",
+      "all": "See all"
+    },
+    "orders": {
+      "subtitle": "Filters are kept in the URL, so you can share a view.",
+      "search": "Company, contact, end of order no.",
+      "status": "Status",
+      "type": "Receive",
+      "warehouse": "Warehouse",
+      "from": "From",
+      "to": "To",
+      "allStatus": "All statuses",
+      "allTypes": "All types",
+      "allWarehouses": "All warehouses",
+      "reset": "Reset",
+      "empty": "No orders match these filters.",
+      "total": "{count} orders",
+      "no": "Order no.",
+      "customer": "Customer",
+      "items": "Items",
+      "created": "Ordered",
+      "detail": "Order details",
+      "payment": "Payment",
+      "noPayment": "No payment yet",
+      "demoPayment": "demo payment",
+      "paymentStatus": {
+        "READY": "Waiting",
+        "DONE": "Paid",
+        "CANCELED": "Refunded",
+        "FAILED": "Failed"
+      },
+      "history": "History",
+      "system": "System",
+      "event": {
+        "CREATED": "Order placed",
+        "STATUS_CHANGED": "Status changed",
+        "CANCELLED": "Cancelled",
+        "REFUNDED": "Refunded",
+        "PICKUP_STEP": "Pickup step"
+      },
+      "cancel": "Cancel order",
+      "cancelRefund": "Cancel & refund",
+      "cancelNote": "The order is cancelled and its stock is returned.",
+      "refundNote": "{amount} will be refunded to the customer (Toss).",
+      "reasonPlaceholder": "Reason (shown to the customer)",
+      "confirmCancel": "Cancel order",
+      "confirmRefund": "Cancel and refund"
+    },
+    "contracts": {
+      "subtitle": "Approve contracts in review, or reject them with a reason.",
+      "queue": "In review",
+      "all": "All",
+      "queueEmpty": "Nothing to review. 👍",
+      "empty": "No contracts.",
+      "period": "Period",
+      "monthly": "Monthly volume · price",
+      "deliveries": "Deliveries",
+      "deliveryCount": "{count}",
+      "warehouse": "Warehouse",
+      "services": "Services",
+      "total": "Contract total",
+      "approve": "Approve",
+      "reject": "Reject",
+      "reasonPlaceholder": "Reason (the customer will see it)",
+      "confirmReject": "Reject"
+    },
+    "pickup": {
+      "subtitle": "Scan the driver's QR or type the pickup code.",
+      "find": "Find",
+      "scan": "Scan QR",
+      "notFound": "No pickup with this code.",
+      "step": {
+        "SCHEDULED": "Booked",
+        "LOADING": "Loading",
+        "READY": "Ready",
+        "PICKED_UP": "Picked up"
+      },
+      "action": {
+        "LOADING": "Start loading",
+        "READY": "Mark ready",
+        "PICKED_UP": "Hand over"
+      },
+      "done": "Pickup completed.",
+      "today": "Today's pickups ({date})",
+      "noneToday": "No pickups booked for today."
+    },
+    "products": {
+      "subtitle": "Paused products are listed too. SKUs are assigned automatically.",
+      "new": "New product",
+      "name": "Name",
+      "desc": "Description (optional)",
+      "type": "Type",
+      "grade": "Grade",
+      "price": "Price per ton",
+      "stock": "Stock per warehouse (t)",
+      "selling": "On sale",
+      "active": "On sale",
+      "paused": "Paused",
+      "reindex": "Update AI knowledge",
+      "reindexHint": "Teach the AI chatbot the latest catalog",
+      "reindexing": "Updating…",
+      "reindexed": "Updated ({count} new embeddings)",
+      "skuAuto": "SKU is assigned on save (e.g. MC-RAW-0004)",
+      "basic": "Basics",
+      "texts": "Name · description (3 languages)",
+      "priceAndSpec": "Price · composition",
+      "fat": "Fat",
+      "protein": "Protein",
+      "stockTitle": "Stock per warehouse",
+      "demoNote": "Demo accounts can try every screen, but the shared catalog is not saved."
+    },
+    "inquiries": {
+      "subtitle": "Messages from the contact form. Replies are sent by e-mail.",
+      "NEW": "New",
+      "ANSWERED": "Answered",
+      "empty": "No messages.",
+      "reply": "Reply by e-mail",
+      "replySubject": "Thank you for your inquiry",
+      "markAnswered": "Mark as answered"
+    },
+    "copilot": {
+      "subtitle": "Ask about operations in plain words. The AI can only use four read-only lookup tools.",
+      "cardTitle": "Ask your data",
+      "cardText": "Sales, top customers, low stock and contracts — just ask.",
+      "emptyTitle": "Ask anything",
+      "emptyText": "Tap an example or type a question. No SQL is ever run — only fixed lookups.",
+      "examples": [
+        "This month's sales by product",
+        "Top 5 customers in the last 30 days",
+        "Products with stock under 10 t",
+        "Contract pipeline"
+      ],
+      "placeholder": "e.g. Sales by warehouse last week?",
+      "ask": "Ask",
+      "thinking": "Looking it up…",
+      "usedTool": "Tool used",
+      "tooMany": "Too many questions — try again in a minute.",
+      "col": {
+        "product": "Product",
+        "customer": "Customer",
+        "warehouse": "Warehouse",
+        "day": "Date",
+        "orders": "Orders",
+        "ton": "Volume",
+        "revenue": "Revenue",
+        "email": "E-mail",
+        "status": "Status",
+        "count": "Count"
+      },
+      "status": {
+        "DRAFT": "Draft",
+        "REVIEW": "In review",
+        "ACTIVE": "Active",
+        "ENDED": "Ended",
+        "CANCELLED": "Cancelled"
+      }
+    }
+  },
+  "Realtime": {
+    "orderCreated": "🛒 New order · {total}",
+    "inquiryCreated": "✉️ New inquiry from {name}",
+    "contractSubmitted": "📄 A new contract is waiting for review"
   }
 }

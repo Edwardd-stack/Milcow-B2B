@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { Locale, OrderInfo } from '@milcow/shared';
+import { useNow } from '@/hooks/useNow';
+import { QrCode } from '@/components/ui/QrCode';
 import { useCancelOrder, usePayOrder } from '@/hooks/useOrders';
+import { Link } from '@/i18n/navigation';
+import { truckForOrder } from '@/lib/fleet/fleet-sim';
 import { formatKrw, formatTon } from '@/lib/format';
 import { TOSS_CLIENT_KEY } from '@/lib/toss';
 import { OrderStatusBadge, PickupStatusBadge } from './StatusBadge';
@@ -12,7 +16,15 @@ import { OrderStatusBadge, PickupStatusBadge } from './StatusBadge';
 const orderNo = (id: string) => id.slice(-8).toUpperCase();
 
 /** One order: a compact summary row that opens into the details + actions */
-export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: string }) {
+export function OrderRow({
+  order,
+  memberId,
+  isDemo = false,
+}: {
+  order: OrderInfo;
+  memberId: string;
+  isDemo?: boolean;
+}) {
   const t = useTranslations('Orders');
   const tp = useTranslations('Product');
   const locale = useLocale() as Locale;
@@ -122,6 +134,14 @@ export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: stri
                     <tr key={item.id} className="border-t border-line">
                       <td className="py-2.5 font-semibold text-heading">
                         {item.productName[locale]}
+                        {item.lotCode && (
+                          <Link
+                            href={`/passport/${item.lotCode}`}
+                            className="mt-0.5 block font-mono text-[11px] font-medium text-brand hover:underline"
+                          >
+                            🧪 {t('lot', { code: item.lotCode })}
+                          </Link>
+                        )}
                       </td>
                       <td className="py-2.5 text-right">
                         {formatTon(item.itemTon)} {tp('ton')}
@@ -173,12 +193,19 @@ export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: stri
                       <span className="text-xs text-muted">{t('pickupCode')}</span>
                       <PickupStatusBadge status={order.pickup.pickupStatus} />
                     </div>
-                    <p className="mt-1 font-mono text-2xl font-extrabold tracking-[0.2em] text-heading">
-                      {order.pickup.pickupCode}
-                    </p>
-                    <p className="mt-1 text-xs text-muted">
-                      {t('pickupSlot')}: {date(order.pickup.slotStart, true)}
-                    </p>
+                    <div className="mt-2 flex items-center gap-4">
+                      {/* Shown at the warehouse gate — staff scan it with a phone */}
+                      <QrCode value={order.pickup.pickupCode} size={84} className="shrink-0" />
+                      <div className="min-w-0">
+                        <p className="font-mono text-2xl font-extrabold tracking-[0.15em] text-heading">
+                          {order.pickup.pickupCode}
+                        </p>
+                        <p className="mt-1 text-xs text-muted">
+                          {t('pickupSlot')}: {date(order.pickup.slotStart, true)}
+                        </p>
+                        <p className="mt-1 text-[11px] text-soft">{t('qrHint')}</p>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <p className="rounded-2xl bg-[#fff4e0] px-4 py-3 text-xs text-[#8a5300]">
@@ -196,6 +223,24 @@ export function OrderRow({ order, memberId }: { order: OrderInfo; memberId: stri
               {error}
             </p>
           )}
+
+          {order.orderCancelReason && (
+            <p className="mt-4 rounded-xl bg-[#fdecea] px-4 py-3 text-sm text-[#b42318]">
+              {t('cancelReason', { reason: order.orderCancelReason })}
+            </p>
+          )}
+
+          {order.orderStatus === 'SHIPPING' && (
+            // Delivery in progress → follow the (simulated) truck on the map
+            <Link
+              href={`/map?truck=${truckForOrder(order.id, isDemo)}`}
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold text-brand transition hover:bg-brand hover:text-white"
+            >
+              🚚 {t('track')} →
+            </Link>
+          )}
+
+          {isPending && order.orderHoldUntil && <HoldCountdown until={order.orderHoldUntil} />}
 
           {isPending && (
             <div className="mt-5 flex flex-wrap justify-end gap-2">
@@ -243,5 +288,21 @@ function Icon({ d }: { d: string }) {
     >
       <path d={d} />
     </svg>
+  );
+}
+
+/** Surplus reservation: "결제 기한 12:34" — the price is only held until then */
+function HoldCountdown({ until }: { until: string }) {
+  const t = useTranslations('Orders');
+  const now = useNow();
+  if (now === null) return null;
+  const left = new Date(until).getTime() - now;
+  if (left <= 0) return null;
+  const s = Math.floor(left / 1000);
+  const time = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  return (
+    <p className="mt-4 rounded-xl bg-[#fff4e0] px-4 py-2.5 text-sm font-semibold text-[#b86e00]">
+      ⏱ {t('holdLeft', { time })}
+    </p>
   );
 }

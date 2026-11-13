@@ -50,9 +50,15 @@ export const SparkIcon = ({ className = 'h-6 w-6' }: IconProps) => (
     <path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8Z" />
   </svg>
 );
-export const ArrowUpIcon = ({ className = 'h-5 w-5' }: IconProps) => (
+/** Friendly robot head (AI assistant): antenna, smiling eyes, smile, little ears */
+export const RobotIcon = ({ className = 'h-6 w-6' }: IconProps) => (
   <svg viewBox="0 0 24 24" className={className} {...base}>
-    <path d="M12 19V5M6 11l6-6 6 6" />
+    <path d="M12 5.5V3.6" />
+    <circle cx="12" cy="2.6" r="1" fill="currentColor" stroke="none" />
+    <rect x="4" y="5.5" width="16" height="13" rx="5" />
+    <path d="M8 11.6q1.25-1.6 2.5 0M13.5 11.6q1.25-1.6 2.5 0" />
+    <path d="M9.6 14.6q2.4 1.9 4.8 0" />
+    <path d="M2.4 10.5v3M21.6 10.5v3" />
   </svg>
 );
 export const ArrowRightIcon = ({ className = 'h-4 w-4' }: IconProps) => (

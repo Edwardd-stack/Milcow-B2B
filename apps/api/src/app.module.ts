@@ -4,6 +4,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { validateEnv } from './libs/config/env.validation';
 import { PrismaModule } from './libs/prisma/prisma.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { AiModule } from './modules/ai/ai.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContractModule } from './modules/contract/contract.module';
@@ -11,6 +12,7 @@ import { DemoModule } from './modules/demo/demo.module';
 import { FarmModule } from './modules/farm/farm.module';
 import { HealthModule } from './modules/health/health.module';
 import { InquiryModule } from './modules/inquiry/inquiry.module';
+import { LotModule } from './modules/lot/lot.module';
 import { MemberModule } from './modules/member/member.module';
 import { OrderModule } from './modules/order/order.module';
 import { PaymentModule } from './modules/payment/payment.module';
@@ -41,6 +43,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     RealtimeModule,
 
     // ── Feature modules ──
+    AdminModule,
     AiModule,
     AuthModule,
     ContractModule,
@@ -48,6 +51,7 @@ import { WarehouseModule } from './modules/warehouse/warehouse.module';
     FarmModule,
     HealthModule,
     InquiryModule,
+    LotModule,
     MemberModule,
     OrderModule,
     PaymentModule,

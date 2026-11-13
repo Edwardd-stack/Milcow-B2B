@@ -1,7 +1,9 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
-import type { AuthResponse, MemberInfo } from '@milcow/shared';
+import { ConfigService } from '@nestjs/config';
+import type { AuthResponse, MemberInfo, SocketTokenResponse } from '@milcow/shared';
+import { CurrentMember } from '../../common/decorators/current-member.decorator';
 import { OptionalMember } from '../../common/decorators/optional-member.decorator';
 import { Public } from '../../common/decorators/public.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
@@ -16,6 +18,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly cookies: AuthCookieService,
+    private readonly config: ConfigService,
   ) {}
 
   @Public()
@@ -59,6 +62,20 @@ export class AuthController {
     @OptionalMember() member: AuthMember | undefined,
   ): Promise<{ member: MemberInfo | null }> {
     return { member: member ? await this.authService.me(member.id) : null };
+  }
+
+  @Get('socket-token')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Short-lived token + URL for the realtime socket' })
+  async socketToken(@CurrentMember() member: AuthMember): Promise<SocketTokenResponse> {
+    return {
+      token: await this.authService.socketToken(member),
+      // The browser connects straight to the API (WebSockets don't go through the Next proxy).
+      // Render sets RENDER_EXTERNAL_URL; locally it's this server's own port.
+      url:
+        this.config.get<string>('RENDER_EXTERNAL_URL') ??
+        `http://localhost:${this.config.get<number>('PORT') ?? 3000}`,
+    };
   }
 
   /** passthrough: true → Nest still sends our return value as JSON, we only add the cookie */

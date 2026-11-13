@@ -16,7 +16,11 @@ import { PrismaService } from '../../libs/prisma/prisma.service';
 import type { AuthMember } from '../../libs/types/auth.type';
 import { fromDateString, koreaToday, monthlyDates, toDateString } from '../../libs/utils/date.util';
 import { toPaginated, toSkipTake } from '../../libs/utils/pagination.util';
+import { assertDemoCanModify } from '../../common/policies/demo.policy';
+import { recordOrderEvent } from '../order/order-events';
+import { toCustomer } from '../order/order.mapper';
 import { OrderService } from '../order/order.service';
+import { RealtimeService } from '../realtime/realtime.service';
 import {
   CONTRACT_MAX_MONTHS,
   CONTRACT_MIN_MONTHS,
@@ -33,6 +37,7 @@ export class ContractService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly orderService: OrderService,
+    private readonly realtime: RealtimeService,
   ) {}
 
   /** A buyer creates a DRAFT. Product price and service prices are snapshotted now. */
@@ -106,7 +111,12 @@ export class ContractService {
       }),
       this.prisma.contract.count({ where }),
     ]);
-    return toPaginated(rows.map(toContractInfo), total, query.page, query.limit);
+    return toPaginated(
+      rows.map((row) => this.toInfo(member, row)),
+      total,
+      query.page,
+      query.limit,
+    );
   }
 
   async findOne(member: AuthMember, id: string): Promise<ContractInfo> {
@@ -115,14 +125,16 @@ export class ContractService {
       include: contractInclude,
     });
     if (!contract) throw new NotFoundException('Contract not found');
-    return toContractInfo(contract);
+    return this.toInfo(member, contract);
   }
 
   async updateStatus(member: AuthMember, id: string, next: ContractStatus): Promise<ContractInfo> {
     const current = await this.prisma.contract.findFirst({
       where: { id, ...this.visibilityFilter(member) },
+      include: { member: { select: { memberIsDemo: true } } },
     });
     if (!current) throw new NotFoundException('Contract not found');
+    assertDemoCanModify(member, current.member.memberIsDemo);
 
     if (!CONTRACT_STATUS_FLOW[current.contractStatus].includes(next)) {
       throw new BadRequestException(`Cannot change status ${current.contractStatus} → ${next}`);
@@ -140,7 +152,51 @@ export class ContractService {
       data: { contractStatus: next },
       include: contractInclude,
     });
-    return toContractInfo(contract);
+    if (next === 'REVIEW') {
+      this.realtime.contractSubmitted({
+        contractId: contract.id,
+        createdAt: contract.updatedAt.toISOString(),
+      });
+    }
+    return this.toInfo(member, contract);
+  }
+
+  /** Admin rejects a contract in review: REVIEW → CANCELLED, the reason is shown to the buyer */
+  async reject(member: AuthMember, id: string, reason: string): Promise<ContractInfo> {
+    const current = await this.prisma.contract.findUnique({
+      where: { id },
+      include: { member: { select: { memberIsDemo: true } } },
+    });
+    if (!current) throw new NotFoundException('Contract not found');
+    assertDemoCanModify(member, current.member.memberIsDemo);
+    if (current.contractStatus !== 'REVIEW') {
+      throw new BadRequestException('Only a contract in review can be rejected');
+    }
+    const contract = await this.prisma.contract.update({
+      where: { id },
+      data: { contractStatus: 'CANCELLED', contractRejectReason: reason.trim() },
+      include: contractInclude,
+    });
+    return this.toInfo(member, contract);
+  }
+
+  /** Admins also see who the customer is (masked for a demo session) */
+  private toInfo(
+    member: AuthMember,
+    contract: Prisma.ContractGetPayload<{ include: typeof contractInclude }>,
+  ): ContractInfo {
+    const info = toContractInfo(contract);
+    if (member.memberType !== 'ADMIN') return info;
+    const customer = toCustomer(member, contract.member);
+    return {
+      ...info,
+      customer: {
+        companyName: customer.companyName,
+        nick: customer.nick,
+        email: customer.email,
+        phone: customer.phone,
+      },
+    };
   }
 
   /**
@@ -164,8 +220,8 @@ export class ContractService {
       if (!dueDates.includes(date)) continue; // not this contract's delivery day
 
       try {
-        const order = await this.prisma.$transaction((tx) =>
-          this.orderService.placeOrder(tx, {
+        const order = await this.prisma.$transaction(async (tx) => {
+          const created = await this.orderService.placeOrder(tx, {
             memberId: contract.memberId,
             warehouseId: contract.warehouseId,
             deliveryType: contract.contractDeliveryType,
@@ -180,8 +236,15 @@ export class ContractService {
                 pricePerTon: contract.contractPricePerTon, // the signed price, not today's
               },
             ],
-          }),
-        );
+          });
+          await recordOrderEvent(tx, {
+            orderId: created.id,
+            eventType: 'CREATED',
+            to: 'PENDING',
+            note: '계약 정기 주문',
+          });
+          return created;
+        });
         result.created.push({ contractId: contract.id, orderId: order.id });
       } catch (error) {
         const reason =

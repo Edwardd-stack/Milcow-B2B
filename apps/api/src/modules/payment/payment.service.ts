@@ -15,6 +15,7 @@ import { toLocalizedText, toNumber } from '../../libs/utils/convert.util';
 import { RealtimeService } from '../realtime/realtime.service';
 import type { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 import type { FailPaymentDto } from './dto/fail-payment.dto';
+import { recordOrderEvent } from '../order/order-events';
 import { toPaymentInfo } from './payment.mapper';
 
 @Injectable()
@@ -104,6 +105,14 @@ export class PaymentService {
         },
       }),
       this.prisma.order.update({ where: { id: payment.orderId }, data: { orderStatus: 'PAID' } }),
+      recordOrderEvent(this.prisma, {
+        orderId: payment.orderId,
+        eventType: 'STATUS_CHANGED',
+        from: 'PENDING',
+        to: 'PAID',
+        note: tossPayment.method ? `Toss · ${tossPayment.method}` : 'Toss',
+        memberId: member.id,
+      }),
     ]);
 
     this.realtime.orderUpdated(

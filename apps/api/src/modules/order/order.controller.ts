@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrentMember } from '../../common/decorators/current-member.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import type { AuthMember } from '../../libs/types/auth.type';
+import { CancelOrderDto } from './dto/cancel-order.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderListQueryDto } from './dto/order-list-query.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
@@ -35,9 +36,15 @@ export class OrderController {
 
   @Patch(':id/cancel')
   @Roles('BUYER', 'ADMIN')
-  @ApiOperation({ summary: 'Cancel (PENDING / PAID only) — stock is returned' })
-  cancel(@CurrentMember() member: AuthMember, @Param('id', ParseUUIDPipe) id: string) {
-    return this.orderService.updateStatus(member, id, 'CANCELLED');
+  @ApiOperation({
+    summary: 'Cancel — buyer: unpaid only; admin: unpaid or paid (refunded). Stock is returned',
+  })
+  cancel(
+    @CurrentMember() member: AuthMember,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() input: CancelOrderDto,
+  ) {
+    return this.orderService.cancel(member, id, input.reason);
   }
 
   @Patch(':id/status')

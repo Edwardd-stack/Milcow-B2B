@@ -37,6 +37,7 @@ model Contract {
   contractAddress      String?        @map("contract_address") // DELIVERY only
   contractTerms        Json?          @map("contract_terms") // AI-generated draft (structured output)
   contractPdfUrl       String?        @map("contract_pdf_url")
+  contractRejectReason String?        @map("contract_reject_reason") // shown to the buyer when Milcow rejects it
 
   memberId  String  @map("member_id") @db.Uuid
   member    Member  @relation(fields: [memberId], references: [id], onDelete: Restrict)

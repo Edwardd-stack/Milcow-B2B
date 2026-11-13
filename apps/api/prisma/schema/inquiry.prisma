@@ -14,6 +14,11 @@ model Inquiry {
   inquiryMessage String        @map("inquiry_message")
   inquiryStatus  InquiryStatus @default(NEW) @map("inquiry_status")
 
+  // Set when staff mark it answered (the reply itself goes out by email)
+  inquiryAnsweredAt   DateTime? @map("inquiry_answered_at") @db.Timestamptz(3)
+  inquiryAnsweredById String?   @map("inquiry_answered_by_id") @db.Uuid
+  inquiryAnsweredBy   Member?   @relation("InquiryAnsweredBy", fields: [inquiryAnsweredById], references: [id], onDelete: SetNull)
+
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
 

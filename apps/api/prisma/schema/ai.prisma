@@ -1,6 +1,7 @@
 enum AiLogType {
   CHAT // RAG chatbot
   CONTRACT // AI contract assistant
+  OPS // admin ops copilot (function calling)
 
   @@map("ai_log_type")
 }

@@ -7,6 +7,7 @@ export const contractInclude = {
   product: true,
   warehouse: true,
   services: { include: { servicePlan: true }, orderBy: { createdAt: 'asc' } },
+  member: true,
 } satisfies Prisma.ContractInclude;
 
 type ContractRow = Prisma.ContractGetPayload<{ include: typeof contractInclude }>;
@@ -48,6 +49,7 @@ export function toContractInfo(contract: ContractRow): ContractInfo {
     contractDeliveryDates: deliveryDates,
     contractMonthlyTotal: monthlyTotal,
     contractTotal: monthlyTotal * deliveryDates.length,
+    contractRejectReason: contract.contractRejectReason,
     createdAt: contract.createdAt.toISOString(),
   };
 }

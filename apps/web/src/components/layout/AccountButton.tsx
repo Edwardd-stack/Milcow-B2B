@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ACCOUNT_NAV } from '@/config/navigation';
 import { useLogout, useMe } from '@/hooks/useAuth';
+import { ROLE_HOME } from '@/hooks/useRole';
 import { Link, useRouter } from '@/i18n/navigation';
 
 const ICONS: Record<(typeof ACCOUNT_NAV)[number]['key'], string> = {
@@ -12,6 +13,7 @@ const ICONS: Record<(typeof ACCOUNT_NAV)[number]['key'], string> = {
   myContracts:
     'M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1ZM14 3v5h5M9 13h6M9 17h4',
 };
+const CONSOLE_ICON = 'M4 5h16v10H4zM8 19h8M12 15v4';
 const LOGOUT_ICON = 'M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3';
 
 /**
@@ -65,6 +67,19 @@ export function AccountButton({
   }
 
   const name = member.memberCompanyName ?? member.memberNick;
+  const role = member.memberType;
+  // Admin / staff: console link first; buyer pages (my orders / contracts) don't apply to them
+  const links =
+    role === 'BUYER'
+      ? ACCOUNT_NAV.map((nav) => ({ key: nav.key, href: nav.href, icon: ICONS[nav.key] }))
+      : [
+          {
+            key: role === 'ADMIN' ? 'console' : 'pickupGate',
+            href: ROLE_HOME[role],
+            icon: CONSOLE_ICON,
+          },
+          { key: 'profile', href: '/profile', icon: ICONS.profile },
+        ];
   const close = () => {
     setOpen(false);
     onNavigate?.();
@@ -80,7 +95,7 @@ export function AccountButton({
         aria-haspopup="menu"
         aria-expanded={open}
         title={member.memberEmail}
-        className={`${pill} flex max-w-[220px] items-center gap-2 bg-navy text-white transition hover:bg-brand-dark`}
+        className={`${pill} flex max-w-[260px] items-center gap-2 bg-navy text-white transition hover:bg-brand-dark`}
       >
         <span
           aria-hidden="true"
@@ -92,6 +107,7 @@ export function AccountButton({
             .charAt(0)}
         </span>
         <span className="truncate">{name}</span>
+        {role !== 'BUYER' && <RoleBadge role={role} />}
         <svg
           viewBox="0 0 24 24"
           className={`h-4 w-4 shrink-0 transition ${open ? 'rotate-180' : ''}`}
@@ -112,13 +128,20 @@ export function AccountButton({
           className="absolute right-0 z-50 mt-2 w-60 rounded-2xl bg-white p-2 shadow-[0_18px_44px_rgba(17,55,95,0.2)]"
         >
           <div className="border-b border-line px-3 pt-1.5 pb-3">
-            <p className="truncate font-bold text-heading">{name}</p>
+            <p className="flex items-center gap-2 truncate font-bold text-heading">
+              <span className="truncate">{name}</span>
+              {member.memberIsDemo && (
+                <span className="shrink-0 rounded-full bg-cream px-2 py-0.5 text-[11px] font-semibold text-brand">
+                  DEMO
+                </span>
+              )}
+            </p>
             <p className="truncate text-xs text-muted">{member.memberEmail}</p>
           </div>
           <div className="py-1.5">
-            {ACCOUNT_NAV.map((nav) => (
+            {links.map((nav) => (
               <Link key={nav.key} href={nav.href} role="menuitem" onClick={close} className={item}>
-                <Icon d={ICONS[nav.key]} />
+                <Icon d={nav.icon} />
                 {t(nav.key)}
               </Link>
             ))}
@@ -160,5 +183,15 @@ function Icon({ d }: { d: string }) {
     >
       <path d={d} />
     </svg>
+  );
+}
+
+/** "관리자" / "창고직원" chip next to the name */
+function RoleBadge({ role }: { role: 'ADMIN' | 'STAFF' }) {
+  const t = useTranslations('Nav');
+  return (
+    <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-semibold">
+      {t(role === 'ADMIN' ? 'roleAdmin' : 'roleStaff')}
+    </span>
   );
 }

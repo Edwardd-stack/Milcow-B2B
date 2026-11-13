@@ -1,5 +1,14 @@
+import type { DemoRole } from '@milcow/shared';
+
 /** The account behind the "Try the demo" button (created by the seed) */
 export const DEMO_BUYER_EMAIL = 'buyer@milcow.test';
+
+/** One demo account per role (all have memberIsDemo = true in the seed) */
+export const DEMO_ACCOUNTS: Record<DemoRole, string> = {
+  BUYER: DEMO_BUYER_EMAIL,
+  ADMIN: 'demo.admin@milcow.test',
+  STAFF: 'demo.staff@milcow.test',
+};
 
 /** Every night the demo buyer's orders and contracts are rebuilt (visitors may cancel things) */
 export const DEMO_RESET_CRON = '15 6 * * *'; // 06:15 Korea time (the free server sleeps at night)

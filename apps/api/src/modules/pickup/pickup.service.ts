@@ -15,6 +15,8 @@ import { toPaginated, toSkipTake } from '../../libs/utils/pagination.util';
 import type { CreatePickupDto } from './dto/create-pickup.dto';
 import type { PickupListQueryDto } from './dto/pickup-list-query.dto';
 import type { PickupSlotQueryDto } from './dto/pickup-slot-query.dto';
+import { assertDemoCanModify } from '../../common/policies/demo.policy';
+import { recordOrderEvent } from '../order/order-events';
 import { PICKUP_ORDER_SYNC, PICKUP_STATUS_FLOW } from './pickup.constants';
 import { pickupInclude, toPickupInfo, toPickupSlotInfo } from './pickup.mapper';
 
@@ -118,9 +120,10 @@ export class PickupService {
     const { pickup, order } = await this.prisma.$transaction(async (tx) => {
       const current = await tx.pickup.findFirst({
         where: { id, ...this.visibilityFilter(member) },
-        include: { order: true },
+        include: { order: { include: { member: { select: { memberIsDemo: true } } } } },
       });
       if (!current) throw new NotFoundException('Pickup not found');
+      assertDemoCanModify(member, current.order.member.memberIsDemo);
       if (!PICKUP_STATUS_FLOW[current.pickupStatus].includes(next) || next === 'SCHEDULED') {
         throw new BadRequestException(`Cannot change status ${current.pickupStatus} → ${next}`);
       }
@@ -139,6 +142,14 @@ export class PickupService {
         where: { id },
         data: { pickupStatus: next },
         include: pickupInclude,
+      });
+      await recordOrderEvent(tx, {
+        orderId: current.orderId,
+        eventType: 'PICKUP_STEP',
+        from: current.order.orderStatus,
+        to: sync.next,
+        note: `${current.pickupStatus} → ${next}`,
+        memberId: member.id,
       });
       return { pickup: updatedPickup, order: updatedOrder };
     });

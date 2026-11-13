@@ -8,3 +8,13 @@ export const OrderStatus = {
   CANCELLED: 'CANCELLED',
 } as const;
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+/** Order history entries (admin timeline) */
+export const OrderEventType = {
+  CREATED: 'CREATED',
+  STATUS_CHANGED: 'STATUS_CHANGED',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED',
+  PICKUP_STEP: 'PICKUP_STEP',
+} as const;
+export type OrderEventType = (typeof OrderEventType)[keyof typeof OrderEventType];

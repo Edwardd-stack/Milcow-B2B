@@ -2,6 +2,7 @@ import type { LocalizedText } from '@milcow/shared';
 
 export interface WarehouseSeed {
   key: string; // used by other seed files to reference this warehouse
+  code: string; // short code in lot numbers (ML-20261113-ICN-01)
   name: LocalizedText;
   address: string;
   lat: number;
@@ -16,6 +17,7 @@ export interface WarehouseSeed {
 export const WAREHOUSES: WarehouseSeed[] = [
   {
     key: 'icheon',
+    code: 'ICN',
     name: {
       ko: 'Milcow 이천 콜드체인 센터',
       en: 'Milcow Icheon Cold-Chain Center',
@@ -31,6 +33,7 @@ export const WAREHOUSES: WarehouseSeed[] = [
   },
   {
     key: 'pyeongtaek',
+    code: 'PTK',
     name: {
       ko: 'Milcow 평택 물류센터',
       en: 'Milcow Pyeongtaek Logistics Center',
@@ -46,6 +49,7 @@ export const WAREHOUSES: WarehouseSeed[] = [
   },
   {
     key: 'gimhae',
+    code: 'GMH',
     name: {
       ko: 'Milcow 김해 남부센터',
       en: 'Milcow Gimhae Southern Center',

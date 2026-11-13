@@ -1,10 +1,12 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import type { DemoRole } from '@milcow/shared';
 import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../../libs/prisma/prisma.service';
 import { AuthService, type AuthResult } from '../auth/auth.service';
+import { resetDemoInquiries } from './demo-inquiries';
 import { buildDemoScenario } from './demo-scenario';
-import { DEMO_BUYER_EMAIL, DEMO_RESET_CRON } from './demo.constants';
+import { DEMO_ACCOUNTS, DEMO_BUYER_EMAIL, DEMO_RESET_CRON } from './demo.constants';
 
 /**
  * "Try the demo": log in as the demo buyer without a password,
@@ -23,10 +25,23 @@ export class DemoService {
     this.enabled = config.get<string>('DEMO_ENABLED') !== 'false';
   }
 
-  /** Only the demo BUYER — admin / staff accounts are never reachable this way */
-  async login(): Promise<AuthResult> {
-    const buyer = await this.findDemoBuyer();
-    return this.authService.buildAuthResponse(buyer);
+  /**
+   * Only the seeded demo accounts (memberIsDemo) — a real admin can never be entered this way.
+   * Their JWT carries demo=true: they see masked contact data and may change only demo records.
+   */
+  async login(role: DemoRole): Promise<AuthResult> {
+    const member = this.enabled
+      ? await this.prisma.member.findUnique({ where: { memberEmail: DEMO_ACCOUNTS[role] } })
+      : null;
+    if (
+      !member ||
+      !member.memberIsDemo ||
+      member.memberType !== role ||
+      member.memberStatus !== 'ACTIVE'
+    ) {
+      throw new NotFoundException('Demo is not available');
+    }
+    return this.authService.buildAuthResponse(member);
   }
 
   @Cron(DEMO_RESET_CRON, { name: 'demo-reset', timeZone: 'Asia/Seoul' })
@@ -35,7 +50,8 @@ export class DemoService {
     try {
       const buyer = await this.findDemoBuyer();
       const orders = await buildDemoScenario(this.prisma, buyer.id);
-      this.logger.log(`Demo data rebuilt: ${orders} orders`);
+      const inquiries = await resetDemoInquiries(this.prisma);
+      this.logger.log(`Demo data rebuilt: ${orders} orders, ${inquiries} inquiries`);
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
       this.logger.error(`Demo reset failed: ${reason}`);

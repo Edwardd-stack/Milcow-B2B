@@ -1,11 +1,15 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import type { FarmInfo, Locale, WarehouseInfo } from '@milcow/shared';
 import { FarmIcon, SnowflakeIcon } from '@/components/icons';
 import { useFarms, useWarehouses } from '@/hooks/useLocations';
 import { Link } from '@/i18n/navigation';
+import { buildFleetDay, koreaDate, TRUCKS } from '@/lib/fleet/fleet-sim';
+import { useFleetClock } from '@/lib/fleet/useFleetClock';
+import { FleetPanel } from './FleetPanel';
 import { MilcowMap, type PlaceKind } from './MilcowMap';
 
 type Place =
@@ -25,6 +29,30 @@ export function PlaceExplorer() {
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const itemRefs = useRef(new Map<string, HTMLLIElement>());
+
+  // ── Simulated trucks ──
+  const { mode, setMode, now } = useFleetClock();
+  const params = useSearchParams();
+  const fromUrl = params.get('truck');
+  const [truckId, setTruckId] = useState<string | null>(
+    TRUCKS.some((tr) => tr.id === fromUrl) ? fromUrl : null,
+  );
+  const [follow, setFollow] = useState(!!truckId);
+  // Today's plan (Korea date); re-checked every minute so it rolls over at midnight
+  const [day, setDay] = useState(() => koreaDate(Date.now()));
+  useEffect(() => {
+    const id = setInterval(() => setDay(koreaDate(Date.now())), 60_000);
+    return () => clearInterval(id);
+  }, []);
+  const fleetDays = useMemo(() => buildFleetDay(day), [day]);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  const selectTruck = (id: string) => {
+    setTruckId(id);
+    setFollow(true);
+    setSelectedId(null);
+    frameRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const places = useMemo<Place[]>(
     () => [
@@ -92,113 +120,147 @@ export function PlaceExplorer() {
 
   return (
     // White frame around the map, so the map's blue sea never touches the blue banner directly
-    <div className="relative -mt-16 mb-24 rounded-[30px] bg-white p-2.5 shadow-[0_24px_60px_rgba(17,55,95,0.16)] ring-1 ring-[#11375f]/5 min-[100rem]:-mt-[calc(6.95vw-1rem)] lg:p-3">
-      <div className="relative overflow-hidden rounded-[22px] lg:h-[min(696px,calc(100svh-164px))] lg:min-h-[540px]">
-        {/* Map */}
-        <div className="relative h-[420px] overflow-hidden rounded-[22px] lg:absolute lg:inset-0 lg:h-auto lg:rounded-none">
-          {loading || failed ? (
-            <div className="flex h-full items-center justify-center bg-[#e3ecf8] text-muted">
-              {failed ? t('error') : t('loading')}
-            </div>
-          ) : (
-            <MilcowMap
-              farms={farms.data}
-              warehouses={warehouses.data}
-              labelMode="hover"
-              fitPadding={fitPadding}
-              selectedId={selectedId}
-              onSelect={setSelectedId}
-              kindFilter={tab}
-              className="h-full w-full"
-            />
-          )}
-          {/* Legend */}
-          <div className="pointer-events-none absolute top-4 right-16 z-10 flex gap-2">
-            {(['farm', 'warehouse'] as const).map((kind) => (
-              <span
-                key={kind}
-                className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-heading shadow-md"
-              >
-                <span
-                  className={`h-2.5 w-2.5 rounded-full ${kind === 'farm' ? 'bg-[#4f9a3a]' : 'bg-brand'}`}
-                />
-                {t(`tabs.${kind}`)} {count(kind)}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Floating panel (below the map on phones) */}
-        <section
-          aria-label={t('panel')}
-          className="relative z-10 flex flex-col px-2 pt-5 pb-2 lg:absolute lg:p-5 lg:top-5 lg:bottom-5 lg:left-5 lg:w-[360px] lg:rounded-3xl lg:bg-white/95 lg:shadow-[0_20px_40px_rgba(17,55,95,0.18)] lg:backdrop-blur"
-        >
-          <div role="tablist" aria-label={t('panel')} className="flex rounded-full bg-cream p-1">
-            {tabs.map(({ key, count: n }) => (
-              <button
-                key={key}
-                type="button"
-                role="tab"
-                aria-selected={tab === key}
-                onClick={() => {
-                  setTab(key);
-                  // Drop a selection that the new tab hides
-                  if (key !== 'all' && places.find((p) => p.id === selectedId)?.kind !== key)
-                    setSelectedId(null);
+    <>
+      <div
+        ref={frameRef}
+        className="relative -mt-16 mb-12 scroll-mt-6 rounded-[30px] bg-white p-2.5 shadow-[0_24px_60px_rgba(17,55,95,0.16)] ring-1 ring-[#11375f]/5 min-[100rem]:-mt-[calc(6.95vw-1rem)] lg:p-3"
+      >
+        <div className="relative overflow-hidden rounded-[22px] lg:h-[min(696px,calc(100svh-164px))] lg:min-h-[540px]">
+          {/* Map */}
+          <div className="relative h-[420px] overflow-hidden rounded-[22px] lg:absolute lg:inset-0 lg:h-auto lg:rounded-none">
+            {loading || failed ? (
+              <div className="flex h-full items-center justify-center bg-[#e3ecf8] text-muted">
+                {failed ? t('error') : t('loading')}
+              </div>
+            ) : (
+              <MilcowMap
+                farms={farms.data}
+                warehouses={warehouses.data}
+                labelMode="hover"
+                fitPadding={fitPadding}
+                selectedId={selectedId}
+                onSelect={(id) => {
+                  setSelectedId(id);
+                  setFollow(false);
                 }}
-                className="flex-1 rounded-full py-2 text-[13px] font-semibold text-muted transition aria-selected:bg-white aria-selected:text-brand aria-selected:shadow-[0_3px_10px_rgba(17,55,95,0.08)]"
-              >
-                {t(`tabs.${key}`)} {n}
-              </button>
-            ))}
-          </div>
-
-          <label className="my-3 flex h-11 items-center gap-2 rounded-full border border-line bg-white px-4 focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/12">
-            <svg
-              viewBox="0 0 24 24"
-              className="h-[18px] w-[18px] shrink-0 text-soft"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" />
-            </svg>
-            <span className="sr-only">{t('search')}</span>
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t('search')}
-              className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-soft"
-            />
-          </label>
-
-          <ul className="-mx-1 space-y-1.5 overflow-y-auto px-1 pb-1 lg:flex-1">
-            {visible.map((place) => (
-              <li
-                key={place.id}
-                ref={(el) => {
-                  if (el) itemRefs.current.set(place.id, el);
-                  else itemRefs.current.delete(place.id);
+                kindFilter={tab}
+                smoothWheel
+                fleet={{
+                  days: fleetDays,
+                  now,
+                  selectedId: truckId,
+                  onSelect: selectTruck,
+                  follow,
+                  onFollowStop: () => setFollow(false),
                 }}
-              >
-                <PlaceRow
-                  place={place}
-                  selected={place.id === selectedId}
-                  onClick={() => setSelectedId(place.id === selectedId ? null : place.id)}
-                />
-              </li>
-            ))}
-            {!loading && visible.length === 0 && (
-              <li className="py-10 text-center text-sm text-muted">{t('empty')}</li>
+                className="h-full w-full"
+              />
             )}
-          </ul>
-        </section>
+            {/* Legend */}
+            <div className="pointer-events-none absolute top-4 right-16 z-10 flex gap-2">
+              {(['farm', 'warehouse'] as const).map((kind) => (
+                <span
+                  key={kind}
+                  className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-heading shadow-md"
+                >
+                  <span
+                    className={`h-2.5 w-2.5 rounded-full ${kind === 'farm' ? 'bg-[#4f9a3a]' : 'bg-brand'}`}
+                  />
+                  {t(`tabs.${kind}`)} {count(kind)}
+                </span>
+              ))}
+              <span className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-heading shadow-md">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#2065ae] ring-2 ring-[#2065ae]/25" />
+                {t('fleet.legend')} {TRUCKS.length}
+              </span>
+            </div>
+            {/* Honesty: this is a simulation, not real GPS */}
+            <span className="pointer-events-none absolute bottom-3 left-3 z-10 rounded-full bg-navy/85 px-3 py-1 text-[11px] font-semibold text-white lg:left-auto lg:right-3">
+              {t('fleet.demoBadge')}
+            </span>
+          </div>
+
+          {/* Floating panel (below the map on phones) */}
+          <section
+            aria-label={t('panel')}
+            className="relative z-10 flex flex-col px-2 pt-5 pb-2 lg:absolute lg:p-5 lg:top-5 lg:bottom-5 lg:left-5 lg:w-[360px] lg:rounded-3xl lg:bg-white/95 lg:shadow-[0_20px_40px_rgba(17,55,95,0.18)] lg:backdrop-blur"
+          >
+            <div role="tablist" aria-label={t('panel')} className="flex rounded-full bg-cream p-1">
+              {tabs.map(({ key, count: n }) => (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === key}
+                  onClick={() => {
+                    setTab(key);
+                    // Drop a selection that the new tab hides
+                    if (key !== 'all' && places.find((p) => p.id === selectedId)?.kind !== key)
+                      setSelectedId(null);
+                  }}
+                  className="flex-1 rounded-full py-2 text-[13px] font-semibold text-muted transition aria-selected:bg-white aria-selected:text-brand aria-selected:shadow-[0_3px_10px_rgba(17,55,95,0.08)]"
+                >
+                  {t(`tabs.${key}`)} {n}
+                </button>
+              ))}
+            </div>
+
+            <label className="my-3 flex h-11 items-center gap-2 rounded-full border border-line bg-white px-4 focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/12">
+              <svg
+                viewBox="0 0 24 24"
+                className="h-[18px] w-[18px] shrink-0 text-soft"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+              <span className="sr-only">{t('search')}</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t('search')}
+                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-soft"
+              />
+            </label>
+
+            <ul className="-mx-1 space-y-1.5 overflow-y-auto px-1 pb-1 lg:flex-1">
+              {visible.map((place) => (
+                <li
+                  key={place.id}
+                  ref={(el) => {
+                    if (el) itemRefs.current.set(place.id, el);
+                    else itemRefs.current.delete(place.id);
+                  }}
+                >
+                  <PlaceRow
+                    place={place}
+                    selected={place.id === selectedId}
+                    onClick={() => setSelectedId(place.id === selectedId ? null : place.id)}
+                  />
+                </li>
+              ))}
+              {!loading && visible.length === 0 && (
+                <li className="py-10 text-center text-sm text-muted">{t('empty')}</li>
+              )}
+            </ul>
+          </section>
+        </div>
       </div>
-    </div>
+
+      <FleetPanel
+        days={fleetDays}
+        now={now}
+        mode={mode}
+        onMode={setMode}
+        selectedId={truckId}
+        onSelect={selectTruck}
+      />
+    </>
   );
 }
 

@@ -11,9 +11,12 @@ import { PrismaClient } from '../../src/generated/prisma/client';
 import { hashPassword } from '../../src/libs/utils/password.util';
 import { buildDemoScenario } from '../../src/modules/demo/demo-scenario';
 import { DEMO_BUYER_EMAIL } from '../../src/modules/demo/demo.constants';
+import { generateLotsForDay } from '../../src/modules/lot/lot-generator';
 import { ensurePickupSlots } from '../../src/modules/pickup/pickup-slots';
+import { SKU_PREFIX, formatSku } from '../../src/modules/product/product-sku';
+import { koreaToday } from '../../src/libs/utils/date.util';
 import { FARMS } from './data/farms';
-import { INQUIRIES } from './data/inquiries';
+import { resetDemoInquiries } from '../../src/modules/demo/demo-inquiries';
 import { MEMBERS } from './data/members';
 import { PRODUCTS } from './data/products';
 import { SERVICE_PLANS } from './data/service-plans';
@@ -22,9 +25,11 @@ import { WAREHOUSES } from './data/warehouses';
 // Tables wiped before seeding (knowledge_chunks is NOT here — embeddings cost API calls)
 const TABLES_TO_RESET = [
   'payments',
+  'order_events',
   'pickups',
   'pickup_slots',
   'order_items',
+  'lots',
   'orders',
   'contract_services',
   'contracts',
@@ -60,6 +65,7 @@ async function main() {
     await seedServicePlans(prisma);
     await seedMembers(prisma, warehouseIds);
     console.log(`🚚 Pickup slots: ${await ensurePickupSlots(prisma)}`);
+    await seedLots(prisma);
     await seedDemoHistory(prisma);
     await seedInquiries(prisma);
 
@@ -83,6 +89,7 @@ async function seedWarehouses(prisma: PrismaClient) {
     const row = await prisma.warehouse.create({
       data: {
         warehouseName: w.name,
+        warehouseCode: w.code,
         warehouseAddress: w.address,
         warehouseLat: w.lat,
         warehouseLng: w.lng,
@@ -125,6 +132,7 @@ async function seedProducts(
   warehouseIds: Map<string, string>,
 ) {
   let stockRows = 0;
+  const skuCount = new Map<string, number>();
   for (const p of PRODUCTS) {
     // Nested write: the product and its stock rows are created in one query
     await prisma.product.create({
@@ -137,6 +145,7 @@ async function seedProducts(
         productProteinPct: p.proteinPct,
         productPricePerTon: p.pricePerTon,
         productMinOrderTon: p.minOrderTon,
+        productSku: nextSeedSku(skuCount, p.type),
         farmId: p.farmKey ? requireId(farmIds, p.farmKey) : null,
         inventories: {
           create: Object.entries(p.stock).map(([warehouseKey, ton]) => ({
@@ -176,9 +185,23 @@ async function seedMembers(prisma: PrismaClient, warehouseIds: Map<string, strin
       memberPhone: m.phone,
       memberLang: m.lang,
       warehouseId: m.warehouseKey ? requireId(warehouseIds, m.warehouseKey) : null,
+      memberIsDemo: m.isDemo ?? false,
     })),
   });
   console.log(`👤 Members: ${MEMBERS.length} (password: ${SEED_PASSWORD})`);
+}
+
+/** Milk lots of the last 6 days (원유 품질 여권 + 잉여 원유) */
+async function seedLots(prisma: PrismaClient) {
+  const today = koreaToday();
+  let total = 0;
+  for (let d = 5; d >= 0; d--) {
+    const day = new Date(new Date(`${today}T00:00:00Z`).getTime() - d * 86_400_000)
+      .toISOString()
+      .slice(0, 10);
+    total += await generateLotsForDay(prisma, day);
+  }
+  console.log(`🧪 Milk lots: ${total}`);
 }
 
 /** Orders in every status, payments, pickups and contracts for the demo buyer */
@@ -188,11 +211,17 @@ async function seedDemoHistory(prisma: PrismaClient) {
 }
 
 async function seedInquiries(prisma: PrismaClient) {
-  await prisma.inquiry.createMany({ data: INQUIRIES });
-  console.log(`✉️  Inquiries: ${INQUIRIES.length}`);
+  console.log(`✉️  Inquiries: ${await resetDemoInquiries(prisma)}`);
 }
 
 // ── helpers ──
+
+/** MC-RAW-0001, MC-RAW-0002, … in seed order */
+function nextSeedSku(counter: Map<string, number>, type: keyof typeof SKU_PREFIX): string {
+  const n = (counter.get(type) ?? 0) + 1;
+  counter.set(type, n);
+  return formatSku(type, n);
+}
 
 function requireId(ids: Map<string, string>, key: string): string {
   const id = ids.get(key);

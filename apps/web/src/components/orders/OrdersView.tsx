@@ -109,7 +109,12 @@ export function OrdersView() {
                 className={`space-y-3 transition-opacity ${isPlaceholderData ? 'opacity-60' : ''}`}
               >
                 {orders.map((order) => (
-                  <OrderRow key={order.id} order={order} memberId={member.id} />
+                  <OrderRow
+                    key={order.id}
+                    order={order}
+                    memberId={member.id}
+                    isDemo={member.memberIsDemo}
+                  />
                 ))}
               </ul>
             )}

@@ -97,6 +97,11 @@ function ContractCard({ contract: c }: { contract: ContractInfo }) {
         />
       </div>
       <p className="mt-2 text-xs text-muted">{line}</p>
+      {c.contractStatus === 'CANCELLED' && c.contractRejectReason && (
+        <p className="mt-3 rounded-xl bg-[#fdecea] px-3 py-2 text-xs text-[#b42318]">
+          {t('rejected', { reason: c.contractRejectReason })}
+        </p>
+      )}
 
       <div className="mt-auto flex gap-2 pt-5">
         <a href={contractPdfUrl(c.id, locale)} target="_blank" rel="noreferrer" className={pill}>
