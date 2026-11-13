@@ -111,7 +111,7 @@ export function Footer() {
         </div>
 
         {/* 2. Logo + promises | services | quick links */}
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 pb-9 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-10">
+        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 pb-9 lg:flex lg:items-end lg:justify-around lg:gap-10">
           <div className="col-span-2 lg:col-span-1">
             <Logo className="h-14 w-auto" />
             <ul className="mt-5 space-y-3">
@@ -166,10 +166,10 @@ export function Footer() {
         <div className="flex flex-col gap-3 py-5 text-xs text-white/85 sm:flex-row sm:items-center sm:justify-between">
           <p>{t('portfolio')}</p>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-semibold tracking-wider text-white uppercase ring-1 ring-white/20">
-              <span className="relative flex h-2 w-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-semibold tracking-wider text-white uppercase ring-1 ring-white/20">
+              <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ade80]" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#4ade80]" />
               </span>
               {t('b2bOnly')}
             </span>
