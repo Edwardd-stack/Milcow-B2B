@@ -51,7 +51,17 @@
     "emailUs": "이메일",
     "office": "본사 위치",
     "workHours": "운영 시간",
-    "portfolio": "Milcow B2B — 포트폴리오 프로젝트"
+    "portfolio": "Milcow B2B — 포트폴리오 프로젝트",
+    "ctaTitle": "원유 대량 구매, 지금 견적 받아보세요",
+    "ctaText": "톤 단위 주문부터 정기 공급 계약까지 — 영업일 기준 하루 안에 답변드립니다.",
+    "ctaQuote": "견적 문의",
+    "ctaDemo": "데모로 체험하기",
+    "services": "서비스",
+    "company": "바로가기",
+    "contactTitle": "연락처",
+    "promiseFarm": "국내 협력 목장 직송",
+    "promiseCold": "5℃ 이하 콜드체인 보관",
+    "promiseFleet": "실시간 배송 추적"
   },
   "Hero": {
     "eyebrow": "농장 직송 원유",
