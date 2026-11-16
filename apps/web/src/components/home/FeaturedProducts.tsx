@@ -7,6 +7,7 @@ import { ProductCard, ProductCardSkeleton } from '@/components/products/ProductC
 import { Container } from '@/components/ui/Container';
 import { useProducts } from '@/hooks/useProducts';
 import { Link } from '@/i18n/navigation';
+import { initialOf, SNAPSHOT_LIMIT, type PublicSnapshot } from '@/lib/snapshot-initial';
 
 const FEATURED_COUNT = 6;
 
@@ -36,9 +37,12 @@ function pickFeatured(products: ProductInfo[]): ProductInfo[] {
   return TYPE_ORDER.flatMap((type) => best.get(type) ?? []).slice(0, FEATURED_COUNT);
 }
 
-export function FeaturedProducts() {
+export function FeaturedProducts({ snapshot }: { snapshot?: PublicSnapshot | null }) {
   const t = useTranslations('Featured');
-  const { data, isPending, isError } = useProducts({ limit: 50 });
+  const { data, isPending, isError } = useProducts(
+    { limit: SNAPSHOT_LIMIT },
+    initialOf(snapshot, 'products'),
+  );
 
   return (
     <section className="pt-2 pb-18 lg:pb-20">

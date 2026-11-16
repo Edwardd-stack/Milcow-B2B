@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useProductFacets, useProducts } from '@/hooks/useProducts';
 import { useWarehouses } from '@/hooks/useLocations';
+import { initialOf, snapshotPage, type PublicSnapshot } from '@/lib/snapshot-initial';
 import { ProductCard, ProductCardSkeleton } from '../ProductCard';
 import { FilterSidebar } from './FilterSidebar';
 import { Pagination } from './Pagination';
@@ -19,7 +20,7 @@ export const CATALOG_QS_KEY = 'milcow:catalog-qs';
 const PAGE_SIZE = { card: 6, table: 10 } as const;
 
 /** /products: filters on the left (in the URL), cards or table on the right, pagination below */
-export function ProductCatalog() {
+export function ProductCatalog({ snapshot }: { snapshot?: PublicSnapshot | null }) {
   const t = useTranslations('Catalog');
   const { state, update, activeCount } = useCatalogParams();
   const [filtersOpen, setFiltersOpen] = useState(false); // phones: the sidebar folds away
@@ -34,18 +35,35 @@ export function ProductCatalog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only the typed text should trigger this
   }, [search]);
 
-  const { data, isPending, isError, isPlaceholderData } = useProducts({
-    page: state.page,
-    limit: PAGE_SIZE[state.view],
-    productType: state.type,
-    grades: state.grades,
-    warehouseIds: state.warehouses,
-    minPrice: state.min,
-    maxPrice: state.max,
-    inStock: state.inStock,
-    q: state.q || undefined,
-    sort: state.sort,
-  });
+  // Unfiltered list in the default order → the server snapshot can show it before the API answers
+  const isDefaultList =
+    !state.type &&
+    state.grades.length === 0 &&
+    state.warehouses.length === 0 &&
+    state.min === undefined &&
+    state.max === undefined &&
+    !state.inStock &&
+    !state.q &&
+    state.sort === 'RECOMMENDED';
+  const initialPage = isDefaultList
+    ? snapshotPage(snapshot, state.page, PAGE_SIZE[state.view])
+    : undefined;
+
+  const { data, isPending, isError, isPlaceholderData } = useProducts(
+    {
+      page: state.page,
+      limit: PAGE_SIZE[state.view],
+      productType: state.type,
+      grades: state.grades,
+      warehouseIds: state.warehouses,
+      minPrice: state.min,
+      maxPrice: state.max,
+      inStock: state.inStock,
+      q: state.q || undefined,
+      sort: state.sort,
+    },
+    initialPage,
+  );
   // Remember the current filters / page → the detail page's "back" arrow returns to exactly this list
   useEffect(() => {
     try {
@@ -58,8 +76,8 @@ export function ProductCatalog() {
     }
   });
 
-  const { data: facets } = useProductFacets();
-  const { data: warehouses } = useWarehouses();
+  const { data: facets } = useProductFacets(initialOf(snapshot, 'facets'));
+  const { data: warehouses } = useWarehouses(initialOf(snapshot, 'warehouses'));
 
   const reset = () => {
     setSearch('');

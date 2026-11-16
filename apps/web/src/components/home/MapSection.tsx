@@ -7,14 +7,15 @@ import { MilcowMap } from '@/components/map/MilcowMap';
 import { Container } from '@/components/ui/Container';
 import { useFarms, useWarehouses } from '@/hooks/useLocations';
 import { Link } from '@/i18n/navigation';
+import { initialOf, type PublicSnapshot } from '@/lib/snapshot-initial';
 
 /** Kakao Map preview: map left, warehouse list right */
-export function MapSection() {
+export function MapSection({ snapshot }: { snapshot?: PublicSnapshot | null }) {
   const t = useTranslations('MapSection');
   const locale = useLocale() as Locale;
   const eyebrowText = locale === 'ko' ? 'text-[17px]' : 'text-base';
-  const farms = useFarms();
-  const warehouses = useWarehouses();
+  const farms = useFarms(initialOf(snapshot, 'farms'));
+  const warehouses = useWarehouses(initialOf(snapshot, 'warehouses'));
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white to-cream pt-20 pb-12 lg:pt-20 lg:pb-12">

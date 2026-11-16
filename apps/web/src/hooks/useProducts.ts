@@ -1,4 +1,5 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import type { Paginated, ProductFacets, ProductInfo } from '@milcow/shared';
 import { ApiRequestError } from '@/lib/api-client';
 import {
   getProduct,
@@ -17,20 +18,36 @@ export const productKeys = {
   neighbors: (id: string) => [...productKeys.all, 'neighbors', id] as const,
 };
 
-export function useProducts(params: ProductListParams = {}) {
+/**
+ * Server snapshot for the first render (see lib/public-snapshot.ts).
+ * React Query shows it at once and, because `updatedAt` is in the past, refetches in the background.
+ */
+export interface Initial<T> {
+  data: T;
+  updatedAt: number;
+}
+
+export function useProducts(
+  params: ProductListParams = {},
+  initial?: Initial<Paginated<ProductInfo>>,
+) {
   return useQuery({
     queryKey: productKeys.list(params),
     queryFn: () => getProducts(params),
     // While the next page / filter loads, keep showing the current cards (no empty flash)
     placeholderData: keepPreviousData,
+    initialData: initial?.data,
+    initialDataUpdatedAt: initial?.updatedAt,
   });
 }
 
-export function useProductFacets() {
+export function useProductFacets(initial?: Initial<ProductFacets>) {
   return useQuery({
     queryKey: productKeys.facets(),
     queryFn: getProductFacets,
     staleTime: 10 * 60_000,
+    initialData: initial?.data,
+    initialDataUpdatedAt: initial?.updatedAt,
   });
 }
 
