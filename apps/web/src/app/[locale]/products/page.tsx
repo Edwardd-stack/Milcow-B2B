@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ProductCatalog } from '@/components/products/catalog/ProductCatalog';
 import { Container } from '@/components/ui/Container';
 import { PageHero } from '@/components/ui/PageHero';
+import { getPublicSnapshot } from '@/lib/public-snapshot';
 
 export async function generateMetadata({
   params,
@@ -22,9 +23,15 @@ export default function ProductsPage() {
       <Container>
         {/* The catalog reads its filters from the URL (useSearchParams) → needs a Suspense boundary */}
         <Suspense fallback={<div className="h-[600px]" />}>
-          <ProductCatalog />
+          <CatalogWithSnapshot />
         </Suspense>
       </Container>
     </>
   );
+}
+
+/** Server-cached catalog → the first page of cards is in the HTML, even while the API wakes up */
+async function CatalogWithSnapshot() {
+  const snapshot = await getPublicSnapshot();
+  return <ProductCatalog snapshot={snapshot} />;
 }

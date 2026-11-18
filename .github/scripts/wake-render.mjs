@@ -17,13 +17,19 @@ let awake = false;
 
 while (Date.now() < deadline) {
   try {
-    const res = await page.goto(url, { waitUntil: 'networkidle2', timeout: 60_000 });
+    // Cache-buster: a repeated URL may come back as "304 Not Modified" (that also means awake,
+    // but a fresh URL always gets a real 200 with the body we check)
+    const res = await page.goto(`${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`, {
+      waitUntil: 'networkidle2',
+      timeout: 60_000,
+    });
     const body = await page.evaluate(() => document.body.innerText);
-    if (res?.status() === 200 && body.includes('"status":"ok"')) {
+    const status = res?.status() ?? 0;
+    if (status >= 200 && status < 400 && body.includes('"status":"ok"')) {
       awake = true;
       break;
     }
-    console.log(`Still waking up (HTTP ${res?.status()})…`);
+    console.log(`Still waking up (HTTP ${status})…`);
   } catch (error) {
     console.log(`Retrying: ${error.message}`);
   }
