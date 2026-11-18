@@ -4,6 +4,11 @@
  *   pnpm --filter @milcow/web routes:build              → real roads from Kakao Mobility Directions
  *   pnpm --filter @milcow/web routes:build --fallback   → smooth curves, no network needed
  *
+ * Real roads: priority=TIME, so trucks take the fastest roads — the tolled expressways (고속도로).
+ * If any route cannot be fetched from Kakao, the script STOPS (no silent curves), unless --fallback
+ * or --allow-curves is given. Kakao answers 401/403 when the app has no 카카오내비 (Kakao Mobility)
+ * API enabled: Kakao Developers → 내 애플리케이션 → 제품 설정 → 카카오내비 → 활성화.
+ *
  * The Kakao REST key is read from apps/api/.env (KAKAO_REST_API_KEY) and is never written anywhere.
  * If a request fails, that route falls back to a curve, so the file is always complete.
  */
@@ -14,11 +19,13 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const { points, routes } = JSON.parse(readFileSync(resolve(here, '../src/data/fleet-points.json'), 'utf8'));
 const OUT = resolve(here, '../src/data/truck-routes.json');
-const MAX_POINTS = 150;
+const MAX_POINTS = 600; // enough detail that zoomed-in trucks stay on the road
 const ROAD_FACTOR = 1.3; // straight line → road km (fallback only)
 const SPEED_KMH = 65; // average truck speed (fallback only)
 
 const fallbackOnly = process.argv.includes('--fallback');
+const allowCurves = fallbackOnly || process.argv.includes('--allow-curves');
+const failed = [];
 const key = fallbackOnly ? null : readKakaoKey();
 
 const out = [];
@@ -31,11 +38,21 @@ for (const r of routes) {
       result = await kakaoRoute(key, a, b);
     } catch (error) {
       console.warn(`⚠️  ${r.id}: ${error.message} → curve`);
+      failed.push(`${r.id}: ${error.message}`);
     }
   }
+  if (!allowCurves && !key) failed.push(`${r.id}: no KAKAO_REST_API_KEY`);
   result ??= curveRoute(a, b);
   out.push({ id: r.id, from: r.from, to: r.to, ...result });
   console.log(`${result.source === 'kakao' ? '🛣 ' : '〰️'} ${r.id}: ${result.km} km, ${result.minutes} min, ${result.path.length} pts`);
+}
+
+if (failed.length && !allowCurves) {
+  console.error(`\n❌ ${failed.length} route(s) could not use real roads — nothing was written:`);
+  for (const f of failed) console.error(`   • ${f}`);
+  console.error('   HTTP 401/403 → enable 카카오내비 for this app in Kakao Developers, then run again.');
+  console.error('   (Use --allow-curves to write curved fallbacks anyway.)');
+  process.exit(1);
 }
 
 writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), routes: out }) + '\n');
@@ -60,7 +77,8 @@ async function kakaoRoute(key, a, b) {
   const url = new URL('https://apis-navi.kakaomobility.com/v1/directions');
   url.searchParams.set('origin', `${a.lng},${a.lat}`);
   url.searchParams.set('destination', `${b.lng},${b.lat}`);
-  url.searchParams.set('priority', 'RECOMMEND');
+  url.searchParams.set('priority', 'TIME'); // fastest = expressways (toll roads)
+  url.searchParams.set('car_type', '4'); // 4 = large cargo truck (milk tanker)
   const res = await fetch(url, { headers: { Authorization: `KakaoAK ${key}` } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
